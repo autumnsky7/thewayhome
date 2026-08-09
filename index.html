@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>집으로 가는 길 — 영적 여정을 위한 안내서 · 지금여기교회 나눔판</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf7f1; --paper2:#f2ede3; --ink:#2b2620; --ink-soft:#5a5248; --ink-faint:#8a8175;
+  --accent:#1f4e5f; --accent-soft:#e5edef; --gold:#a07d2a; --gold-soft:#f5eeda;
+  --rose:#8a3b2e; --rose-soft:#f6e9e5; --green:#3f6b4f; --green-soft:#e8f0e9;
+  --line:#ddd5c7; --card:#ffffff; --shadow:0 1px 3px rgba(43,38,32,.07),0 8px 24px rgba(43,38,32,.05);
+  --serif:'Noto Serif KR',"Apple SD Gothic Neo",Georgia,'Times New Roman',Batang,serif;
+  --sans:'Noto Sans KR',"Apple SD Gothic Neo",-apple-system,'Malgun Gothic',sans-serif;
+}
+[data-theme="dark"]{
+  --paper:#191713; --paper2:#211e19; --ink:#e8e2d6; --ink-soft:#b3aa9a; --ink-faint:#7d766a;
+  --accent:#7fb3c4; --accent-soft:#1e2c31; --gold:#c9a45a; --gold-soft:#2a2417;
+  --rose:#d08a7b; --rose-soft:#2e211d; --green:#8fb89d; --green-soft:#1e281f;
+  --line:#3a352c; --card:#211e19; --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-weight:400;line-height:1.85;font-size:17px;transition:background .3s,color .3s}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0;z-index:200;transition:width .1s linear}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+a:hover{border-bottom-color:var(--accent)}
+/* ---------- layout ---------- */
+#nav{position:fixed;top:0;left:0;bottom:0;width:280px;background:var(--paper2);border-right:1px solid var(--line);overflow-y:auto;padding:28px 0 40px;z-index:100;transition:transform .3s ease,background .3s;font-family:var(--sans)}
+#nav .brand{padding:0 24px 18px;border-bottom:1px solid var(--line);margin-bottom:14px}
+#nav .brand .t1{font-family:var(--serif);font-weight:700;font-size:1.12rem;letter-spacing:.01em}
+#nav .brand .t2{font-size:.8rem;color:var(--ink-faint);margin-top:2px}
+#nav ol{list-style:none}
+#nav li a{display:flex;gap:10px;padding:7px 24px;color:var(--ink-soft);font-size:.86rem;line-height:1.45;border-bottom:none;border-left:3px solid transparent}
+#nav li a .n{color:var(--gold);font-variant-numeric:tabular-nums;min-width:1.2em;font-weight:500}
+#nav li a:hover{background:var(--accent-soft);color:var(--ink)}
+#nav li a.active{border-left-color:var(--gold);background:var(--accent-soft);color:var(--ink);font-weight:500}
+#navToggle{position:fixed;top:14px;left:14px;z-index:150;background:var(--card);border:1px solid var(--line);border-radius:8px;width:42px;height:42px;font-size:19px;cursor:pointer;color:var(--ink);box-shadow:var(--shadow);display:none;font-family:var(--sans)}
+#themeToggle{position:fixed;top:14px;right:14px;z-index:150;background:var(--card);border:1px solid var(--line);border-radius:8px;width:42px;height:42px;font-size:17px;cursor:pointer;color:var(--ink);box-shadow:var(--shadow);font-family:var(--sans)}
+main{margin-left:280px;padding:0 clamp(22px,6vw,90px) 110px;max-width:1020px}
+@media(max-width:1000px){
+  #nav{transform:translateX(-100%)}
+  #nav.open{transform:translateX(0);box-shadow:0 0 60px rgba(0,0,0,.25)}
+  #navToggle{display:block}
+  main{margin-left:0;padding-top:8px}
+}
+/* ---------- hero ---------- */
+header.hero{padding:110px 0 46px;border-bottom:1px solid var(--line);margin-bottom:14px}
+header.hero .k{font-family:var(--sans);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+header.hero h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:700;line-height:1.25;letter-spacing:-.01em}
+header.hero h1 .ko{display:block;font-size:.52em;font-weight:400;color:var(--ink-soft);margin-top:10px;letter-spacing:.04em}
+header.hero .sub{margin-top:26px;font-size:1.06rem;color:var(--ink-soft);max-width:46em}
+header.hero .meta{margin-top:26px;font-family:var(--sans);font-size:.78rem;color:var(--ink-faint)}
+/* ---------- sections ---------- */
+section.part{padding:64px 0 8px;border-bottom:1px solid var(--line)}
+section.part:last-of-type{border-bottom:none}
+.sec-label{font-family:var(--sans);font-size:.75rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+section.part h2{font-size:clamp(1.5rem,3.4vw,2.15rem);font-weight:700;line-height:1.3;margin-bottom:6px}
+section.part h2 .ko{font-weight:400;color:var(--ink-faint);font-size:.6em;margin-left:.5em;letter-spacing:.05em}
+section.part h3{font-size:1.22rem;font-weight:600;margin:44px 0 14px;line-height:1.4}
+section.part h3 .ko{font-weight:400;color:var(--ink-faint);font-size:.78em;margin-left:.45em}
+section.part h4{font-size:1.02rem;font-weight:600;margin:30px 0 10px;font-family:var(--sans)}
+p{margin:0 0 20px;max-width:70ch}
+p.lead{font-size:1.13rem;line-height:1.9;color:var(--ink);max-width:66ch}
+strong{font-weight:600}
+em{font-style:italic}
+ul,ol{margin:0 0 20px 1.4em;max-width:66ch}
+li{margin-bottom:9px}
+.small{font-size:.87rem;color:var(--ink-soft)}
+.kterm{color:var(--ink-soft)}
+hr.soft{border:none;border-top:1px solid var(--line);margin:38px 0}
+/* ---------- components ---------- */
+.epigraph{margin:34px 0 38px;padding:6px 0 6px 26px;border-left:3px solid var(--gold);max-width:62ch}
+.epigraph p{font-size:1.07rem;font-style:italic;color:var(--ink);margin-bottom:8px;line-height:1.8}
+.epigraph .who{font-family:var(--sans);font-style:normal;font-size:.8rem;color:var(--ink-faint)}
+.box{border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow);padding:26px 28px;margin:28px 0;max-width:74ch}
+.box h4{margin-top:0}
+.box.practice{border-left:4px solid var(--accent)}
+.box.practice .tag{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.box.caution{border-left:4px solid var(--rose);background:var(--rose-soft)}
+.box.caution .tag{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);margin-bottom:8px}
+.box.note{border-left:4px solid var(--gold);background:var(--gold-soft)}
+.box.note .tag{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.green{border-left:4px solid var(--green);background:var(--green-soft)}
+.box.green .tag{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.box ol,.box ul{margin-bottom:8px}
+.rw{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;margin:6px 0 4px}
+@media(max-width:760px){.rw{grid-template-columns:1fr}}
+.rw .right-use,.rw .wrong-use{padding:14px 16px;border-radius:10px;font-size:.92rem}
+.rw .right-use{background:var(--green-soft)}
+.rw .wrong-use{background:var(--rose-soft)}
+.rw .h{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.rw .right-use .h{color:var(--green)}
+.rw .wrong-use .h{color:var(--rose)}
+/* tiers */
+.tier{display:inline-block;font-family:var(--sans);font-size:.66rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:20px;vertical-align:2px;margin-left:6px}
+.tier.a{background:var(--green-soft);color:var(--green)}
+.tier.b{background:var(--accent-soft);color:var(--accent)}
+.tier.c{background:var(--gold-soft);color:var(--gold)}
+/* tables */
+.tblwrap{overflow-x:auto;margin:26px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+caption{caption-side:top;text-align:left;font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding:16px 20px 4px}
+th{font-family:var(--sans);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:left;padding:14px 18px 8px;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:12px 18px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tr:last-child td{border-bottom:none}
+td .t{font-weight:600}
+td .g{color:var(--ink-soft);font-size:.86em}
+/* details */
+details{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:14px 0;max-width:74ch;box-shadow:var(--shadow)}
+details summary{cursor:pointer;padding:16px 20px;font-weight:600;font-size:.98rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-family:var(--sans);color:var(--gold);font-size:1.2rem;font-weight:400;flex-shrink:0}
+details[open] summary::after{content:"−"}
+details .inner{padding:0 20px 18px;border-top:1px solid var(--line);padding-top:14px}
+/* stage cards */
+.stage{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-bottom:1px dashed var(--line);max-width:78ch}
+.stage:last-of-type{border-bottom:none}
+.stage .num{font-family:var(--serif);font-size:1.7rem;font-weight:300;color:var(--gold);line-height:1.1}
+.stage h4{margin:0 0 6px;font-family:var(--serif);font-size:1.05rem}
+.stage h4 .ko{color:var(--ink-faint);font-weight:400;font-size:.85em;margin-left:.4em}
+.stage p{margin-bottom:8px;font-size:.95rem;max-width:none}
+.stage .par{font-size:.85rem;color:var(--ink-soft)}
+.stage .par b{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700}
+/* wow list */
+.wow{counter-reset:wow;margin:26px 0;max-width:74ch}
+.wow .item{counter-increment:wow;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-bottom:1px dashed var(--line)}
+.wow .item::before{content:counter(wow,decimal-leading-zero);font-family:var(--sans);color:var(--gold);font-size:.85rem;font-weight:700;padding-top:3px}
+.wow .item p{margin:0;font-size:.95rem;max-width:none}
+/* curriculum */
+.bookrow{padding:16px 0;border-bottom:1px dashed var(--line);max-width:76ch}
+.bookrow .bt{font-weight:600}
+.bookrow .bk{color:var(--ink-soft);font-size:.9em}
+.bookrow p{margin:5px 0 0;font-size:.92rem;color:var(--ink-soft);max-width:none}
+/* footer */
+footer{margin-left:280px;padding:40px clamp(22px,6vw,90px) 80px;color:var(--ink-faint);font-size:.82rem;font-family:var(--sans);max-width:1020px}
+@media(max-width:1000px){footer{margin-left:0}}
+/* print */
+@media print{
+  #nav,#navToggle,#themeToggle,#progress{display:none}
+  main,footer{margin-left:0;padding:0 6mm}
+  body{font-size:11pt;background:#fff;color:#000}
+  details{border:none;box-shadow:none}
+  details summary::after{display:none}
+  section.part{page-break-inside:avoid;padding:24px 0}
+  .box,.tblwrap{box-shadow:none}
+  a{color:#000;border-bottom:none}
+}
+::selection{background:var(--gold-soft)}
+body{word-break:keep-all;overflow-wrap:break-word}
+/* Korean edition: labels use Latin tracking in the base sheet; relax it for Hangul */
+.k,.sec-label,caption,th,.box .tag,.rw .h,.stage .par b,#nav .brand .t2,header.hero .k{letter-spacing:.02em;text-transform:none}
+#nav li a{letter-spacing:0}
+section.part h2 .ko, section.part h3 .ko{letter-spacing:.01em}
+.epigraph p{line-height:1.85}
+
+/* footnotes for the sharing edition */
+.fnref{font-size:.7em;vertical-align:super;line-height:0}
+.fnref a{color:var(--gold);border-bottom:none;font-family:var(--sans);font-weight:600;padding:0 1px}
+.footnotes{margin:42px 0 6px;padding-top:14px;border-top:1px solid var(--line);max-width:72ch}
+.footnotes .fh{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.footnotes ol{font-size:.82rem;color:var(--ink-soft);line-height:1.72;margin:0 0 0 1.35em;max-width:none}
+.footnotes li{margin-bottom:6px}
+.footnotes a.fnb{border-bottom:none;font-family:var(--sans)}
+@media print{.footnotes{page-break-inside:avoid}}
+
+/* 2차 개정: 차례·약화·유래 */
+.toc-list{list-style:none;margin:10px 0 0;max-width:70ch}
+.toc-list li{margin:0;padding:9px 2px;border-bottom:1px dashed var(--line);display:flex;align-items:baseline;gap:12px}
+.toc-list .tn{font-family:var(--sans);font-size:.78rem;color:var(--gold);min-width:2.6em;font-weight:700}
+.toc-list a{border-bottom:none;color:var(--ink);font-weight:500}
+.toc-list a:hover{color:var(--accent)}
+.toc-list .te{font-family:var(--sans);font-size:.75rem;color:var(--ink-faint);margin-left:auto;text-align:right}
+.stgimg{float:right;margin:2px 0 8px 14px}
+.stgimg svg{display:block;background:#faf7f1;border:1px solid #ddd5c7;border-radius:10px}
+.artvig{margin:26px 0 6px;text-align:left}
+.artvig svg{display:block;max-width:100%;height:auto;background:#faf7f1;border:1px solid #ddd5c7;border-radius:12px}
+.imgcap{font-family:var(--sans);font-size:.75rem;color:var(--ink-faint);margin:6px 0 0}
+@media print{.stgimg{float:right} .toc-list a{color:#000}}
+/* mobile refinements */
+.fnref a{padding:2px 3px}
+@media(max-width:640px){
+  .toc-list .te{display:none}
+  header.hero{padding-top:84px}
+  header.hero h1{font-size:1.9rem}
+  .stgimg svg{width:78px;height:78px}
+  .box{padding:20px 18px}
+  main{padding-left:18px;padding-right:18px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<button id="navToggle" aria-label="메뉴">☰</button>
+<button id="themeToggle" aria-label="어두운 모드 전환">☾</button>
+
+<nav id="nav">
+  <div class="brand">
+    <div class="t1">집으로 가는 길</div>
+    <div class="t2">영적 여정을 위한 안내서 · 나눔판</div>
+  </div>
+  <ol>
+    <li><a href="#toc"><span class="n">·</span>차례</a></li>
+    <li><a href="#preface"><span class="n">·</span>이 안내서를 대하는 법</a></li>
+    <li><a href="#orientation"><span class="n">1</span>이 여정은 무엇인가</a></li>
+    <li><a href="#map"><span class="n">2</span>길의 지도 — 열 단계</a></li>
+    <li><a href="#rosetta"><span class="n">3</span>용어의 지도</a></li>
+    <li><a href="#attitude"><span class="n">4</span>마음가짐</a></li>
+    <li><a href="#toolbox"><span class="n">5</span>수행의 도구들</a></li>
+    <li><a href="#rhythm"><span class="n">6</span>삶의 리듬</a></li>
+    <li><a href="#fruits"><span class="n">7</span>이 길이 데려가는 곳</a></li>
+    <li><a href="#bigpicture"><span class="n">8</span>큰 그림 — 우주와 존재</a></li>
+    <li><a href="#pitfalls"><span class="n">9</span>함정</a></li>
+    <li><a href="#curriculum"><span class="n">10</span>공부의 길</a></li>
+    <li><a href="#korea"><span class="n">11</span>한국에서 수행하기</a></li>
+    <li><a href="#harddays"><span class="n">12</span>어려운 날들을 위하여</a></li>
+    <li><a href="#sources"><span class="n">·</span>출처와 검증</a></li>
+    <li><a href="#glossary"><span class="n">·</span>인명·용어 풀이</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <div class="k">영적 여정을 위한 안내서</div>
+  <h1>집으로 가는 길<span class="ko">The Way Home</span></h1>
+  <p class="sub">깨어나는 일이 한 사람의 삶에서 가장 중요한 일인지도 모른다고 느끼기 시작한 이에게. 무엇을 하면 되는지, 어떤 마음으로 하면 되는지, 이 길이 어디로 데려가는지, 왜 모든 것을 걸 만한지 — 그 길을 맑은 눈으로 걷고 싶은 이에게 드리는 안내서입니다.</p>
+  <p class="meta">2026년 7월 작성 · 법률과 임상 연구처럼 시점에 민감한 사실은 이 날짜를 기준으로 확인함 · 한국어판 — 외국 인명과 용어는 한글로 적고 괄호 안에 원어를, 필요한 곳에는 한자를 함께 밝혔습니다. 같은 내용의 영어판도 있습니다.</p>
+</header>
+
+<section class="part" id="toc">
+  <div class="sec-label">차례</div>
+  <h2>차례 <span class="ko">Table of Contents</span></h2>
+  <p class="small">처음이라면 서문과 제1·4·5·6부를 먼저 읽고, 나머지는 필요할 때 찾아 읽으면 됩니다. 낯선 이름과 개념은 각 부 끝의 각주에 풀이해 두었고, 부록의 '인명·용어 풀이'에 가나다순으로 모아 두었습니다.</p>
+  <ol class="toc-list">
+    <li><span class="tn">·</span><a href="#preface">서문 — 이 안내서를 대하는 법</a><span class="te">How to Hold This Guide</span></li>
+    <li><span class="tn">1</span><a href="#orientation">제1부 · 이 여정은 무엇인가</a><span class="te">What This Journey Is</span></li>
+    <li><span class="tn">2</span><a href="#map">제2부 · 길의 지도 — 십우도의 열 단계</a><span class="te">The Map</span></li>
+    <li><span class="tn">3</span><a href="#rosetta">제3부 · 용어의 지도</a><span class="te">The Rosetta Stone</span></li>
+    <li><span class="tn">4</span><a href="#attitude">제4부 · 마음가짐</a><span class="te">The Attitude</span></li>
+    <li><span class="tn">5</span><a href="#toolbox">제5부 · 수행의 도구들</a><span class="te">The Toolbox</span></li>
+    <li><span class="tn">6</span><a href="#rhythm">제6부 · 삶의 리듬</a><span class="te">A Living Rhythm</span></li>
+    <li><span class="tn">7</span><a href="#fruits">제7부 · 이 길이 데려가는 곳</a><span class="te">Where It Leads</span></li>
+    <li><span class="tn">8</span><a href="#bigpicture">제8부 · 큰 그림 — 우주와 존재</a><span class="te">The Big Picture</span></li>
+    <li><span class="tn">9</span><a href="#pitfalls">제9부 · 함정</a><span class="te">Pitfalls</span></li>
+    <li><span class="tn">10</span><a href="#curriculum">제10부 · 공부의 길</a><span class="te">The Curriculum</span></li>
+    <li><span class="tn">11</span><a href="#korea">제11부 · 한국에서 수행하기</a><span class="te">Practicing in Korea</span></li>
+    <li><span class="tn">12</span><a href="#harddays">제12부 · 어려운 날들을 위하여</a><span class="te">For the Hard Days</span></li>
+    <li><span class="tn">·</span><a href="#sources">부록 · 출처와 검증</a><span class="te">Sources & Verification</span></li>
+    <li><span class="tn">·</span><a href="#glossary">부록 · 인명·용어 풀이</a><span class="te">Glossary</span></li>
+  </ol>
+</section>
+
+<section class="part" id="preface">
+  <div class="sec-label">서문</div>
+  <h2>이 안내서를 대하는 법 <span class="ko">How to Hold This Guide</span></h2>
+
+  <div class="epigraph">
+    <p>"주님께서 우리를 주님을 향하도록 지으셨으니, 우리 마음은 주님 안에서 쉬기까지 안식하지 못합니다."</p>
+    <div class="who">— 아우구스티누스(Augustine)<sup class="fnref" id="fr-preface-1"><a href="#fn-preface-1">1</a></sup>, 『고백록』(Confessions) I.1, 397년경</div>
+  </div>
+
+  <p class="lead">이 글은 이런 사람을 생각하며 썼습니다. 영성의 길에서 자라는 것이 내 삶의 가장 깊은 일이라고 마음을 정한 사람. 또는 어느 날 문득, 이미 그렇게 되어 있음을 알아차려 버린 사람. 예수를 보고 붓다를 보며 이런 생각이 드는 사람. <em>저들은 무언가를 알았다. 아는 그대로 살았다. 내가 찾는 삶이 저 삶이다.</em> 그런 분이라면 잘 오셨습니다. 여기까지 데려온 그 목마름은 고장이 아닙니다. 집을 찾아가는 본능, 바로 그것입니다.</p>
+
+  <p>이어지는 모든 내용은 세 가지 약속 위에 서 있습니다.</p>
+
+  <p><strong>첫째, 지도는 하나, 말은 여럿.</strong> 오늘의 구도자에게 가르침은 모자라지 않습니다. 정작 길을 막는 것은 말의 혼란, 성경이 말하는 바벨탑<sup class="fnref" id="fr-preface-2"><a href="#fn-preface-2">2</a></sup>의 혼란입니다. 스승마다 쓰는 말이 다르기 때문입니다. 그래서 말만 다른 두 가르침을 정말 다르다고 여기며 몇 해를 잃기 쉽습니다. 정말 다른 두 가르침을 말만 다르다고 여겨 지나치면 더 나쁩니다. 이 안내서는 여정 전체를 하나의 일관된 지도 위에 올려놓고, 걸으면서 내내 통역합니다. 복음(福音, '기쁜 소식'이라는 뜻)과 붓다의 법(Dharma, 가르침) 사이를 오갑니다. 이현주 목사<sup class="fnref" id="fr-preface-3"><a href="#fn-preface-3">3</a></sup>와 에크하르트 톨레(Eckhart Tolle)<sup class="fnref" id="fr-preface-4"><a href="#fn-preface-4">4</a></sup> 사이를 오갑니다. 참나와 <em>참된 자기(true self)</em>와 <em>내 안에 계신 그리스도(Christ in me)</em> 사이를 오갑니다. 제3부는 부 전체가 하나의 대조표입니다. 전통이 참으로 만나는 자리에서는 만난다고 적었습니다. 참으로 갈라지는 자리에서는 갈라진다고 적었습니다. 존중하려면 정직해야 하기 때문입니다. 정상에서 내려온 증언들은 서로 울림(共鳴, resonance)이 닮았습니다. 다만 울림이 닮았다고 같은 노래는 아닙니다.</p>
+
+  <p><strong>둘째, 감동보다 정직.</strong> 여기 실은 인용문은 하나하나 원전과 맞대어 확인했습니다. 사랑받아 온 문장이 알고 보니 엉뚱한 사람의 말이면, 그 사실을 밝혀 둡니다. 슬쩍 덮지 않습니다. 과학의 주장에는 근거가 얼마나 단단한지 등급을 달았습니다. <span class="tier a">확립된 사실</span> <span class="tier b">진지한 소수 견해</span> <span class="tier c">열린 물음</span> 세 가지입니다. 듣기 좋은 짐작 위에 놓은 길은 처음 만나는 시련에서 무너집니다. 이 길은 그래서는 안 됩니다. 참된 것은 부풀릴 필요가 없습니다. 과학이든 전통이든 수행이든, 실상은 있는 그대로도 충분히 놀랍습니다.</p>
+
+  <p><strong>셋째, 읽기보다 수행.</strong> 이 책은 끝까지 읽어 치우는 책이 아니라 들고 다니는 현장 안내서입니다. 수십 년이 걸릴 여정이니, 지도를 온전히 그리자면 길어질 수밖에 없었습니다. 대신 여러 번 되돌아와 펴 보도록 지었습니다. 지금은 제1부, 제4부, 제5부, 제6부만 읽고, 나머지는 삶이 그 대목에 닿을 때 펴 보아도 늦지 않습니다. 무엇보다 앞세우는 규칙이 하나 있습니다. 책을 사랑하는 구도자가 가장 자주 걸려 넘어지는 돌부리라서 일찌감치 적어 둡니다. <em>수행하는 시간이 수행 이야기를 읽는 시간보다 적지 않게 합시다.</em> 옛 선(禪)은 가르침을 달을 가리키는 손가락에 견주었습니다. 손가락이라면 이미 많이 보셨을 것입니다. 남은 평생 매일, 잠깐씩, 서툴러도 좋으니 달을 올려다보게 하는 일. 이 안내서의 성패는 거기 하나에 걸려 있습니다.</p>
+
+  <div class="box note">
+    <div class="tag">교회에서 온 분에게</div>
+    <p>이 안내서는 그리스도인 가정에서 자란 독자를, 보수적인 개신교 집안에서 자란 독자까지도, 문간에서부터 환대할 생각으로 썼습니다. 다른 전통을 존중하는 마음이면 채비는 충분합니다. 그리스도를 내려놓으라고 청하는 대목은 한 줄도 없습니다. 오히려 이 책을 꿰뚫는 가장 깊은 주장은, 교회의 관상가(觀想家)<sup class="fnref" id="fr-preface-5"><a href="#fn-preface-5">5</a></sup>들이 천칠백 년 동안 해 온 바로 그 주장입니다. 복음을 깊이 읽으면 복음이 곧 깨어남의 길입니다. 회개(μετάνοια 메타노이아)<sup class="fnref" id="fr-preface-6"><a href="#fn-preface-6">6</a></sup>는 마음이 통째로 돌아서는 일입니다. 거듭남은 새 자기가 실제로 태어나는 일입니다. 성화(聖化)는 그 태어남이 삶에 천천히 배어드는 일입니다. 이 책이 불교와 도가(道家)와 인도 베단타(Vedanta)의 스승을 모셔 올 때는, 이현주 목사가 노자(老子)를 읽는 그 마음으로 모십니다. 예수를 떠나려는 걸음이 아니라, 예수의 말씀을 더 잘 들으려는 걸음입니다. 식구 가운데 이 책을 걱정할 분이 있다면, 제9부가 그 걱정을 정면으로, 그리고 부드럽게 다룹니다.</p>
+  </div>
+
+  <p class="small">날짜 이야기 한 줄. 법률과 과학의 사실은 바뀝니다. 이 책에서 때를 타는 내용은 모두 2026년 7월에 확인했고, 본문에 그 시점을 적어 두었습니다. 물론 수행은 천 년째 그대로입니다.</p>
+
+    <div class="box note">
+    <div class="tag">이 문서가 만들어진 방식</div>
+    <p>이 안내서는 이강민이 앤스로픽(Anthropic)의 AI 클로드(Claude) 가운데 가장 지능이 높은 모델인 페이블 5(Fable 5)와 함께 만든 것입니다. 처음의 요청은 이랬습니다. "영성의 길을 걷기로 마음을 정한 사람으로서, 무엇을 어떤 마음가짐으로 수행해야 하는지, 이 길이 어디로 데려가는지, 스승마다 다른 용어를 하나의 지도로 정리해 달라. 모든 내용은 깊은 조사에 근거하고, 확인할 수 있는 사실은 출처와 대조해 달라." 클로드는 여러 갈래의 조사를 함께 진행해 초고를 쓰고, 별도의 검증 단계에서 인용과 사실을 원전과 대조했으며, 그 뒤 실제 독자의 피드백을 받아 가며 한국어 문장을 여러 차례 다시 다듬었습니다. 방향과 판단은 사람이 맡고, 조사와 집필은 사람과 AI가 함께한 결과물입니다. 읽고 보니 혼자 간직하기보다 길벗들과 나눌 만한 내용이라 여겨, 각주를 달고 문장을 고른 이 나눔판을 만들었습니다.</p>
+  </div>
+
+
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-preface-1">아우렐리우스 아우구스티누스(354–430). 북아프리카 히포의 주교, 초대 교회 최대의 신학자. 오랜 방황 끝의 회심을 기록한 『고백록』 첫머리에 이 문장이 나온다. <a class="fnb" href="#fr-preface-1">↩</a></li>
+    <li id="fn-preface-2">바벨탑(Tower of Babel). 구약성경 창세기 11장의 이야기. 옛사람들이 하늘에 닿는 탑을 쌓으려 하자 하나였던 인류의 말이 여럿으로 갈라져 서로 알아듣지 못하게 된 사건. 여기서는 같은 것을 두고 말이 갈라져 생기는 혼란을 가리킨다. <a class="fnb" href="#fr-preface-2">↩</a></li>
+    <li id="fn-preface-3">이현주 목사(1944– ). 감리교 목사, 동화작가, 번역가. 호는 관옥(觀玉). 무위당 장일순의 제자로, 노자·장자·불경을 그리스도인의 눈으로 읽어 온 우리 시대의 영성가다. <a class="fnb" href="#fr-preface-3">↩</a></li>
+    <li id="fn-preface-4">에크하르트 톨레(Eckhart Tolle, 1948– ). 독일 태생의 영성 저술가. 『지금 이 순간을 살아라』로 '현존'의 가르침을 널리 알렸다. <a class="fnb" href="#fr-preface-4">↩</a></li>
+    <li id="fn-preface-5">관상(觀想)은 말과 생각을 내려놓고 하나님 또는 실재 앞에 고요히 머무는 기도·명상을 이르는 말이다. 이 흐름을 통틀어 관상 전통(觀想 傳統, contemplative traditions)이라 하며, 그리스도교의 관상 기도, 불교의 참선과 명상이 모두 여기에 든다. 얼굴을 보는 관상(觀相)과는 관계가 없다. <a class="fnb" href="#fr-preface-5">↩</a></li>
+    <li id="fn-preface-6">μετάνοια. '회개'로 번역된 그리스어 원어. 본뜻은 '마음을 바꿈, 생각 너머로 나아감'으로, 잘못을 뉘우치는 일보다 훨씬 근본적인 마음의 방향 전환을 가리킨다. <a class="fnb" href="#fr-preface-6">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="orientation">
+  <div class="sec-label">제1부</div>
+  <h2>이 여정은 무엇인가 <span class="ko">What This Journey Is</span></h2>
+
+  <div class="epigraph">
+    <p>"하나님의 나라는 볼 수 있게 임하는 것이 아니요... 하나님의 나라는 너희 안에 있느니라."</p>
+    <div class="who">— 예수, 누가복음 17:20–21 (ἐντὸς ὑμῶν — "너희 안에" / "너희 가운데"; 두 읽기 모두 오래된 것이고, 둘 다 좋은 소식이다. 그 나라는 이미 여기 있고, 아무도 알아채지 못하고 있다)</div>
+  </div>
+
+  <h3>길을 여는 발견</h3>
+  <p class="lead">참된 영성의 여정은 어김없이 하나의 의심에서 시작합니다. 대개는 조용히 오고, 어떤 날은 삶을 뒤흔들며 옵니다. <em>내 삶은 지금 무언가의 겉면에서 흘러가고 있다. 그 밑에 무엇이 있는지 나는 모른다.</em> 마음은 온종일 떠듭니다. 떠드는 그 소리는 자기가 나라고 우깁니다. 그런데 그 떠듦을 알아차리는 무엇이 있습니다. 그것은 생각이 아닙니다. 말대꾸하지 않습니다. 불안했던 적이 한 번도 없습니다. 태어나서 지금까지 겪은 모든 경험 뒤에 변함없이 있어 왔습니다. 지구 어디서든 주의 깊게 들여다본 전통은 모두 이 같은 구조를 발견했고, 그 두 자리에 저마다 이름을 붙였습니다.</p>
+
+  <p>소음을 부르는 이름들이 있습니다. 에고(ego). 토머스 머튼(Thomas Merton)<sup class="fnref" id="fr-orientation-1"><a href="#fn-orientation-1">1</a></sup>의 거짓 자아(false self). 에크하르트 톨레<sup class="fnref" id="fr-orientation-2"><a href="#fn-orientation-2">2</a></sup>의 "머릿속의 목소리". 다석 유영모<sup class="fnref" id="fr-orientation-3"><a href="#fn-orientation-3">3</a></sup>의 제나, 곧 몸에 매여 태어나고 죽는 나. 신약성경의 여러 편지를 쓴 사도 바울이 에베소서 4:22에서 말한 옛사람(old self). 마이클 싱어(Michael Singer)<sup class="fnref" id="fr-orientation-4"><a href="#fn-orientation-4">4</a></sup>의 "내면의 동거인". 선불교의 망상(妄想), 곧 미혹된 생각. 알아차리는 쪽을 부르는 이름들이 있습니다. 참나. 참된 자기. 알아차림(awareness). 현존(現存, presence). 불성(佛性), 곧 부처의 성품. 다석의 얼나, 곧 얼의 나. 새사람(new self). "내 안에 사시는 그리스도"(갈라디아서 2:20). "각 사람에게 비추는" 빛(요한복음 1:9). 그리고 우리가 지어질 때 새겨졌고 어떤 죄도 끝내 지우지 못한 하나님의 형상.</p>
+
+  <p>이 안내서가 그리는 여정은 삶의 중심이 앞의 자리에서 뒤의 자리로 건너가는 일입니다. 에고를 손질해 더 낫게 만드는 일이 아닙니다. 손질을 마친 에고도 어김없이 에고입니다. 생각의 물줄기를 평생 나로 잘못 알아 온 그 오랜 착각에서 깨어나는 일입니다. 다석 유영모는 우리말이 아니면 지을 수 없는 정확한 문장으로 이 길을 담았습니다. <strong>제나가 죽고 얼나로 솟나는 것</strong>. 몸에 매인 나가 죽고, 얼의 나가 솟아오릅니다. 다석은 이 한 호흡으로 세 가지를 함께 말하고 있었습니다. 선에서 견성(見性), 곧 제 성품을 봄이라 부르는 일. 복음이 제 목숨을 잃어 목숨을 얻는다 말한 일(마태복음 16:25). 그리고 바울의 고백이 가리키는 일. "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요"(갈라디아서 2:20).</p>
+
+  <h3>두 가지 움직임: 깨달음(깨어남, awakening)과 성화(聖化, sanctification) <span class="ko">Two movements: awakening and embodiment</span></h3>
+  <p>이 구분은 처음부터 챙겨 둘 만합니다. 길 위에서 만나는 혼란이 거의 전부 이 둘을 하나로 뭉뚱그리는 데서 오기 때문입니다. 깨달았다는 스승이 잔인하게 구는 추문이 그렇습니다. 진실하게 애쓰는데도 제자리인 구도자의 절망이 그렇습니다.</p>
+
+  <p><strong>깨어남(깨달음 · 회개 · 견성 · 위로부터 거듭남)</strong>은 알아봄입니다. 처음에는 머리로 이해하고, 다음에는 언뜻 보고, 마침내는 그 앎이 떠나지 않습니다. 무엇을 알아보는 걸까요? 나는 생각이 지어낸 자기가 아닙니다. 나는 모든 경험이 그 안에 나타나는 생명입니다. 열려 있고, 깨어 있고, 나뉜 적 없는 생명입니다. 이 생명은 한 번도 없었던 적이 없습니다. 다만 못 보고 지나쳤을 뿐입니다. 깨어남은 새벽처럼 서서히 밝아 오기도 하고, 문이 벌컥 열리듯 단숨에 오기도 합니다. <em>이룸</em>보다 <em>기억함</em>에 가깝습니다. 깨달음이라는 말부터가 깨어남과 한 뿌리입니다. 깨어 있음은 쌓아 올려 얻는 상태가 아닙니다. 자던 잠에서 깨는 일입니다.</p>
+
+  <p><strong>몸에 배어듦(성화 · 점수 · 통합)</strong>은 그 알아봄이 실제 삶을 다시 짓도록 자리를 내어 주는, 길고 겸손한 일입니다. 습관이 바뀌고 말버릇이 바뀝니다. 부부 사이가, 돈 쓰는 손이, 욱하는 성미가 바뀝니다. 고요 속에서 알던 그대로를 몰리는 순간에도 하게 될 때까지입니다. 개혁주의(장로교 계통) 교회에서 자란 분이라면 이 일의 정확한 이름을 이미 배우셨을 것입니다. 그 정의는 지금 읽어도 아름답습니다. 성화는 "하나님의 값없이 주시는 은혜의 역사로서, 이로써 우리가 전인격에 있어서 하나님의 형상을 따라 새롭게 되고, 점점 더 죄에 대하여 죽고 의에 대하여 살 수 있게 되는 것"입니다(웨스트민스터 소요리문답<sup class="fnref" id="fr-orientation-5"><a href="#fn-orientation-5">5</a></sup> 35문). <em>점점 더</em>라는 말에 눈길이 머뭅니다. 서서히 이루어지고, 사람 전체에 미치고, 은혜가 끌고 갑니다. 한국 불교는 근대의 가장 큰 논쟁을 바로 이 지점에서 치렀습니다. 보조지눌(普照知訥)<sup class="fnref" id="fr-orientation-6"><a href="#fn-orientation-6">6</a></sup>은 돈오점수(頓悟漸修)를 가르쳤습니다. 단박에 깨닫되 닦음은 서서히 따른다는 가르침입니다. "해는 한꺼번에 떠오르지만 서리는 천천히 녹는다." 성철 스님<sup class="fnref" id="fr-orientation-7"><a href="#fn-orientation-7">7</a></sup>은 돈오돈수(頓悟頓修)로 맞섰습니다. 닦음이 아직 필요한 깨달음이라면 온전한 깨달음이 아니라는 주장입니다. 이 논쟁에 심판을 자처할 일은 없습니다. 둘 다 난간으로 삼으면 됩니다. 지눌은 절망을 막아 줍니다(<em>언뜻 본 그것은 진짜다. 이제 몸에 배게 할 차례다</em>). 성철은 부풀림을 막아 줍니다(<em>언뜻 본 자리에 완성의 왕관을 씌우기에는 이르다</em>).</p>
+
+  <p>이 안내서가 예수와 붓다를 두 본보기로 세운 데는 까닭이 있습니다. 저마다 한쪽 움직임을 견줄 데 없이 선명하게 보여 주고, 둘 다 그 두 움직임이 하나임을 보여 주기 때문입니다. 붓다의 전통은 마음이 깨어나는 길을 과학자의 정밀함으로 그립니다. 주의란 무엇인지, 갈망이 어떻게 나를 쌓아 올리는지, 무엇이 그 쌓임을 허무는지, 거기에 어떤 단계가 있는지. 예수는 그 정상이 한 사람의 생애가 되면 어떤 모습인지 보여 줍니다. 사랑이 된 깨어 있음입니다. 나병 환자를 만지고, 발을 씻기고, 자기를 못 박는 이들을 용서합니다. 예수에게 "그 나라"는 다녀오는 곳이 아니라 사는 곳이었습니다. 한쪽이 가장 날카로운 지도를 내민다면, 다른 쪽은 목적지의 가장 온전한 초상을 내밉니다. 둘은 맞수가 아닙니다. 이현주 목사<sup class="fnref" id="fr-orientation-8"><a href="#fn-orientation-8">8</a></sup>가 한평생 보여 준 그대로, 노자와 복음을 겹쳐 읽는 사람은 그리스도인 반쪽과 도가 반쪽으로 쪼개지지 않습니다. 마침내 두 목소리를 다 알아듣는 한 사람이 됩니다.</p>
+
+  <h3>정확히 무엇을 구하는가 <span class="ko">What exactly is being sought?</span></h3>
+  <p>여기서는 정확해질 필요가 있습니다. 이 대목이 흐릿하면 그 값을 몇 해로 치르게 됩니다. 먼저, 구하는 바가 <em>아닌</em> 쪽부터. 체험이 아닙니다. 체험은 오고 가는 손님이고, 체험을 좇는 일은 에고가 새 쇼핑몰에서 장을 보는 일일 뿐입니다. 영성 지식이 아닙니다. 지식이야 대개 차고 넘치며, 책꽂이는 길이 아닙니다. 더 나은 자기 이미지도 아닙니다. "영적인 사람"도 결국 하나의 자기 이미지입니다. 부르면 나오는 황홀이 아니고, 평범한 날들에서 달아나는 일도 아닙니다. 그렇다면 무엇일까요? 결국 셋이고, 그 셋은 끝에서 하나로 드러납니다.</p>
+
+  <p><strong>내가 무엇인지 아는 것.</strong> 정보로 아는 앎이 아닙니다. 내가 있다는 사실을 아는 그 방식으로, 곧바로, 흔들리지 않게 아는 앎입니다. "나는 누구인가." 라마나 마하르시(Ramana Maharshi)<sup class="fnref" id="fr-orientation-9"><a href="#fn-orientation-9">9</a></sup>의 가르침은 이 한 물음이 전부입니다. 그리고 이 물음은, 모세가 만난 불붙은 떨기나무에서 하나님이 스스로를 밝히신 이름과 맞닿아 있습니다. <em>나는 스스로 있는 자이니라</em>(출애굽기 3:14). 물음과 이름이 같은 침묵 속에서 만납니다.</p>
+
+  <p><strong>자유로워지는 것.</strong> 해탈(解脫), 곧 벗어남입니다. "하나님의 자녀들의 영광의 자유"이기도 합니다(로마서 8:21). 여기서 자유는 하고 싶은 대로 다 하는 자유가 아닙니다. 그런 자유는 에고의 자유이고, 에고의 자유는 저 자신에게 매인 종살이입니다. 두려움과 갈망에 등 떠밀려 살지 않게 되는 자유, 위협이 닿지 않는 자리에서 살아가는 자유입니다. "진리를 알지니 진리가 너희를 자유롭게 하리라"(요한복음 8:32).</p>
+
+  <p><strong>사랑하는 것.</strong> 앞의 둘은 결국 이 하나를 위해 있습니다. 어느 전통에서든 참된 깨어남을 알아보는 믿을 만한 표지는 환상도, 신통도, 말솜씨도 아닙니다. 사랑이 조용히, 억지 없이 자라나는 일입니다. 더 오래 참게 되고, 더 친절해지고, 자기를 지키려는 긴장이 풀립니다(고린도전서 13장, 갈라디아서 5:22). 헌신의 길이냐 지혜의 길이냐는 물음에 라마나 마하르시는 이렇게 답했습니다. "신애(bhakti 박띠)<sup class="fnref" id="fr-orientation-10"><a href="#fn-orientation-10">10</a></sup>가 지혜(jnana 즈냐나)<sup class="fnref" id="fr-orientation-11"><a href="#fn-orientation-11">11</a></sup>의 어머니다." 사랑이 깨침의 어머니라는 말입니다. 선의 위대한 지도인 십우도(十牛圖)<sup class="fnref" id="fr-orientation-12"><a href="#fn-orientation-12">12</a></sup>는 깨달음을 뜻하는 텅 빈 원에서 끝나지 않습니다. 배가 불룩하고 웃음이 떠나지 않는 사람이 남을 도우러 저잣거리로 되돌아 들어가는 그림에서 끝납니다. 입전수수(入鄽垂手)입니다. 저잣거리로 돌아오지 않는 길은 아직 길의 전부가 아니었습니다.</p>
+
+  <h3>왜 다른 모든 것보다 이것인가</h3>
+  <p>물음은 결국 이랬습니다. <em>왜 이것을 구하는 일이 가장 좋고 가장 옳은가.</em> 정직한 대답이 넷 있습니다.</p>
+
+  <p><strong>지금껏 구해 온 전부가 사실 이것이었기 때문입니다.</strong> 여태 좇아온 무엇이든 하나만 떠올려 보면 좋습니다. 성공, 인정, 휴식, 사랑, 하다못해 딴짓까지. 그리고 그것<em>에서</em> 무엇을 얻고 싶었는지 물어보면 됩니다. 모든 욕망의 바닥에는 같은 소원이 엎드려 있습니다. 모자람의 쓰라림이 멎기를. 다음에 올 무언가에 기대지 않는 평화가 오기를. 그러니 모든 추구는 그 평화로 멀리 돌아가는 에움길입니다. 이 길만이 곧장 갑니다. 평화를 약속하는 무엇을 하나 더 얻는 대신, 평화 자체로 걸어 들어갑니다. 아우구스티누스<sup class="fnref" id="fr-orientation-13"><a href="#fn-orientation-13">13</a></sup>의 문장을 이 책 맨 앞에 세운 까닭이 여기 있습니다. 그 마음이 안식하지 못한 까닭은 처음부터 무엇이 없어서가 아니었습니다.</p>
+
+  <p><strong>빼앗길 수 없는 단 하나의 좋은 것이기 때문입니다.</strong> 손에 넣을 수 있는 다른 좋은 것들은, 건강도 재산도 관계도 명성도, 다 빌린 살림입니다. 빌린 줄 아는 마음이 그 기쁨을 조용히 좀먹습니다. 여기서 구하는 보물만이 예수가 세운 기준에 맞습니다. "좀이나 동록이 해하지 못하며 도둑이 구멍을 뚫지 못하는" 자리의 보물입니다(마태복음 6:20). 다른 모든 살림이 기우는 나이에 이 보물은 오히려 깊어집니다. 병상에서도 온전합니다. 전부 잃은 뒤에도 남습니다. 전부 잃어 본 사람이 이따금 바로 그 자리에서 이것을 찾아내는 까닭입니다.</p>
+
+  <p><strong>먼저 찾은 이들의 삶이 증거이기 때문입니다.</strong> 애초에 마음이 움직인 까닭도 이것이었습니다. 예수와 붓다는 <em>가장 좋은 삶</em>을 산 듯 보입니다. 가장 편한 삶이 아니라 가장 자유롭고, 가장 깊고, 사랑이 가장 짙게 밴 삶입니다. 같은 무늬가 어느 전통에서나, 어느 시대에나, 이름난 이에게서나 숨은 이에게서나 되풀이됩니다. 두려움 없음과 자비와 유머와 쉼이 어우러진 독특한 향기입니다. 제7부가 그 모습을 구체적으로 그립니다. 이 안내서의 주장은 이렇습니다. 그 향기는 성격 유형이 아닙니다. 거짓 자아가 다 타 버린 자리에서 사람이 풍기는 냄새입니다.</p>
+
+  <p><strong>이 길이 아니면, 남는 것은 눈을 뜬 채 잠들어 사는 삶뿐이기 때문입니다.</strong> 생각의 물줄기 안에서만 사는 삶이 있습니다. 반응하고, 방어하고, 쌓아 올리고, 남과 견주다가, 그렇게 죽습니다. 모든 전통이 이 삶을 잠이라 불렀습니다. 영적인 의도라고는 전혀 없는 현대 신경과학도 상당 부분 같은 그림을 그립니다. 뇌가 지어낸 자기 모델 안에서 자동 조종으로 흘러가는 삶이라는 그림입니다(제8부). 여기 걸린 것은 취미로 곁에 두는 "영성"이 아닙니다. 내 삶이 지나가는 동안, 나는 거기에 있었는가. 걸린 물음은 그 하나입니다. 예수는 말했습니다. "내가 온 것은 양으로 생명을 얻게 하고 더 풍성히 얻게 하려는 것이라"(요한복음 10:10). 풍성한 생명. 풍성함은 무언가를 보태어 얻는 것이 아닙니다. 이미 주어진 삶 안에서 깨어나는 일입니다.</p>
+
+  <div class="box note">
+    <div class="tag">정직한 한마디를 더</div>
+    <p>이 길은 값으로 전부를 부릅니다. 정확히는, 에고가 "나와 내 것"이라 부르는 전부를 부릅니다. 쌓아 둔 원한, 스스로 높이 매긴 제 값, 아껴 기르던 두려움, 끝내는 내 삶의 저자라는 자리까지. 어느 전통도 이 값을 숨기지 않았습니다. "누구든지 제 목숨을 구원하고자 하면 잃을 것이요"(마태복음 16:25). 수피<sup class="fnref" id="fr-orientation-14"><a href="#fn-orientation-14">14</a></sup>들은 <em>죽기 전에 죽으라</em>고 말합니다. 선은 대사(大死), 곧 큰 죽음을 말합니다. 다만 복음이 이 값을 부를 때의 목소리를 들어 보면 좋습니다. "천국은 마치 밭에 감추인 보화와 같으니 사람이 이를 발견한 후 숨겨 두고 <em>기뻐하며</em> 돌아가서 자기의 소유를 다 팔아 그 밭을 사느니라"(마태복음 13:44). 기뻐하며. 이 길에서 참된 것은 하나도 잃지 않습니다. 잃는 것은 옷입니다. 옷을 벗는 슬픔은 진짜 슬픔입니다. 다만 견딜 수 있는 슬픔이고, 끝이 오는 유일한 슬픔입니다.</p>
+  </div>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-orientation-1">토머스 머튼(Thomas Merton, 1915–1968). 미국의 트라피스트회 수도자·저술가. '거짓 자아/참 자아'라는 말로 현대 그리스도교 영성의 문법을 만들었고 불교와의 대화에 앞장섰다. <a class="fnb" href="#fr-orientation-1">↩</a></li>
+    <li id="fn-orientation-2">에크하르트 톨레(Eckhart Tolle, 1948– ). 『지금 이 순간을 살아라』의 저술가. <a class="fnb" href="#fr-orientation-2">↩</a></li>
+    <li id="fn-orientation-3">다석 류영모(1890–1981). 성경을 노자·불경과 함께 읽으며 '제나(몸의 나)'와 '얼나(얼의 나)'의 구분을 세운 한국 근대의 스승. 그의 제자 함석헌(1901–1989)은 이 가르침을 이어 '씨알' 사상을 펼친 사상가로, 『뜻으로 본 한국역사』를 썼다. <a class="fnb" href="#fr-orientation-3">↩</a></li>
+    <li id="fn-orientation-4">마이클 싱어(Michael Singer, 1947– ). 미국의 명상가·저술가. 『상처받지 않는 영혼』에서 '머릿속 목소리를 듣는 나는 누구인가'를 물었다. <a class="fnb" href="#fr-orientation-4">↩</a></li>
+    <li id="fn-orientation-5">1647년 작성된 장로교회의 기초 교리 문답. 한국 장로교회가 신앙 교육의 표준으로 삼아 온 문서다. <a class="fnb" href="#fr-orientation-5">↩</a></li>
+    <li id="fn-orientation-6">보조국사 지눌(1158–1210). 고려의 선사. '문득 깨닫되 오래 닦는다'는 돈오점수(頓悟漸修)를 가르쳤다. <a class="fnb" href="#fr-orientation-6">↩</a></li>
+    <li id="fn-orientation-7">성철 스님(1912–1993). 조계종 종정을 지낸 현대 한국 불교의 큰 스님. '단박에 깨쳐 더 닦을 것 없다'는 돈오돈수(頓悟頓修)를 내세웠고, 찾아오는 이에게 삼천배를 시킨 일로 유명하다. <a class="fnb" href="#fr-orientation-7">↩</a></li>
+    <li id="fn-orientation-8">이현주 목사(1944– ). 호는 관옥. 노자·불경을 그리스도인의 눈으로 읽어 온 감리교 목사·번역가. <a class="fnb" href="#fr-orientation-8">↩</a></li>
+    <li id="fn-orientation-9">라마나 마하르시(Ramana Maharshi, 1879–1950). 인도의 성자. 열여섯에 죽음의 공포를 정면으로 통과한 뒤 평생 "나는 누구인가"라는 물음 하나를 가르쳤다. <a class="fnb" href="#fr-orientation-9">↩</a></li>
+    <li id="fn-orientation-10">박띠(bhakti). 산스크리트어로 '신을 향한 사랑과 헌신'. 인도 전통에서 사랑으로 가는 길을 가리킨다. <a class="fnb" href="#fr-orientation-10">↩</a></li>
+    <li id="fn-orientation-11">즈냐나(jñāna). 산스크리트어로 '앎, 지혜'. 참나를 직접 아는 깨달음의 길을 가리킨다. <a class="fnb" href="#fr-orientation-11">↩</a></li>
+    <li id="fn-orientation-12">십우도(十牛圖). 12세기 중국의 선승 곽암(廓庵)이 그림 열 점과 시로 남긴 수행의 지도. 잃어버린 소(참나)를 찾아 길들이고, 마침내 소도 나도 잊고 저잣거리로 돌아오는 여정을 그린다. <a class="fnb" href="#fr-orientation-12">↩</a></li>
+    <li id="fn-orientation-13">아우구스티누스(354–430). 『고백록』을 쓴 초대 교회 최대의 신학자. <a class="fnb" href="#fr-orientation-13">↩</a></li>
+    <li id="fn-orientation-14">수피(Sufi). 이슬람의 신비주의 수행자. 신을 향한 사랑으로 자아가 죽는 길을 걸었고, '죽기 전에 죽으라'는 말은 그 전통의 오랜 가르침이다. <a class="fnb" href="#fr-orientation-14">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="map">
+  <div class="sec-label">제2부</div>
+  <h2>길의 지도 <span class="ko">The Map: Stages of the Way</span></h2>
+
+  <div class="epigraph">
+    <p>"나의 신통(神通)과 묘용(妙用)은 물 긷고 땔나무 나르는 일이다."</p>
+    <div class="who">— 방거사 龐居士<sup class="fnref" id="fr-map-1"><a href="#fn-map-1">1</a></sup> (8세기) — "깨닫기 전에는 나무를 패고 물을 긷는다"는 말의 출처</div>
+  </div>
+
+  <p class="lead">지도를 쥐고 걷는 까닭은 두 가지입니다. 겁먹지 않으려고, 우쭐하지 않으려고. 길이 어두워져도 그 어둠이 이미 지도에 그려져 있음을 알면 겁이 덜 납니다. 무언가 활짝 열려도 그 열림이 종점이 아님을 알면 거기 주저앉지 않습니다. 뼈대로는 십우도(十牛圖)를 골랐습니다. 12세기 선(禪)이 그린 지도입니다. 여럿 가운데 이것을 고른 이유는 단순합니다. 가장 끝까지 그린 지도이기 때문입니다. 깨달음에서 멈추지 않고, 저잣거리로 돌아오는 데까지 그렸습니다. 단계마다 그리스도교 신비가와 테라와다(Theravada, 남방불교) 통찰 지도(insight maps)의 같은 자리를 나란히 붙여 두었습니다. 하나의 여정을 세 개의 렌즈로 겹쳐 볼 수 있습니다. 다만 어느 지도든 가볍게 쥐는 편이 좋습니다. 지도는 지형을 그린 그림이지 열차 시간표가 아닙니다. 실제 삶은 같은 자리를 맴돌고, 몇 칸을 건너뛰고, 지나온 길을 다시 밟습니다.</p>
+  <p class="imgcap">각 단계의 작은 그림은 곽암의 십우도를 이 문서의 먹선으로 간추려 다시 그린 그림, 곧 약화(略畵)입니다. 15세기 슈분(周文)의 모사본(교토 쇼코쿠지 소장) 등 원화 이미지는 공유 저작물로 공개되어 있어, 인쇄본에는 원화를 넣어도 좋습니다.</p>
+
+  <div class="stage"><div class="num">1</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6,74 Q30,62 54,72 T96,68" stroke="#6b6156" stroke-width="3"/><circle cx="16" cy="66" r="3.4" fill="#6b6156"/><path d="M70,26 q6,-6 12,0" stroke="#6b6156" stroke-width="2.4" opacity=".45"/></svg></div>
+    <h4>심우 尋牛 <span class="ko">Searching for the Ox</span></h4>
+    <p>그리움이 깨어납니다. 무언가 빠져 있는데, 어떤 성취로도 그 자리가 메워지지 않습니다. 그래서 찾아 나섭니다. 책으로, 강연으로, 교회로, 스승에게로. 정작 무엇을 찾는지는 모른 채 찾을 때가 많습니다. 가만있지 못하는 이 마음은 문제처럼 느껴지지만, 실은 부르심입니다. 그리스도교의 말로 하면, 먼저 와서 이끄는 은혜, 곧 선행 은총(先行 恩寵, prevenient grace)입니다. 내가 하나님을 찾고 있는 줄 알았는데, 실은 하나님이 나를 찾고 계셨던 것입니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 아빌라의 테레사(Teresa of Ávila)<sup class="fnref" id="fr-map-2"><a href="#fn-map-2">2</a></sup>가 말한 첫째 궁방<sup class="fnref" id="fr-map-3"><a href="#fn-map-3">3</a></sup>입니다. 영혼이 성(城) 안에 들어서기는 했으나, 아직 성벽 언저리에서 산만하게 사는 때입니다. 아우구스티누스<sup class="fnref" id="fr-map-4"><a href="#fn-map-4">4</a></sup>(Augustine)의 안식 없는 마음도 같은 자리입니다. 구도자 대부분이 여기서 여러 해를 보냅니다. 부끄러울 것 없는 자리입니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">2</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8,78 H92" stroke="#6b6156" stroke-width="3"/><circle cx="20" cy="70" r="2.6" fill="#6b6156"/><circle cx="34" cy="62" r="2.6" fill="#6b6156" opacity=".85"/><circle cx="48" cy="55" r="2.6" fill="#6b6156" opacity=".7"/><circle cx="62" cy="47" r="2.6" fill="#6b6156" opacity=".55"/><circle cx="76" cy="40" r="2.6" fill="#6b6156" opacity=".4"/></svg></div>
+    <h4>견적 見跡 <span class="ko">Seeing the Tracks</span></h4>
+    <p>공부가 쌓이면 확신이 옵니다. 소는 정말 있습니다. 가르침이 서로 맞물리기 시작하고, 겉돌던 용어가 제자리를 찾고, 큰 스승들이 결국 하나를 말하고 있다는 감이 옵니다. 다만 이것은 지적 확신입니다. 귀하지만, 아직 물 한 모금 마신 것은 아닙니다. <em>영성 서적을 많이 읽은 사람은 대개 지금 이 자리에 서 있습니다.</em> 이 단계의 위험도 분명합니다. 물맛을 점점 더 정교하게 묘사하는 일을, 물을 마시는 일로 착각하기 쉽습니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 테레사의 둘째 궁방입니다. 하나님이 책으로, 설교로, 우정으로 부르시는 때입니다. 통찰 지도로는 바른 견해, 곧 정견(正見, right view)이 서는 자리입니다. 여기서 빠져나가는 길은 언제나 하나였습니다. 매일의 수행을 시작하고, 끊지 않고 이어 갑니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">3</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="74" cy="46" r="20" stroke="#a07d2a" stroke-width="4"/><path d="M2,84 Q38,40 96,84 Z" fill="#faf7f1" stroke="none"/><path d="M2,82 Q38,42 96,82" stroke="#6b6156" stroke-width="3"/><circle cx="20" cy="72" r="3.2" fill="#6b6156"/></svg></div>
+    <h4>견우 見牛 <span class="ko">Glimpsing the Ox</span></h4>
+    <p>처음으로 직접 맛봅니다. 앉아 있다가, 기도하다가, 또는 자연 속 어느 한순간, 생각이 문득 갈라집니다. 그 사이로 잠깐, 현존만 남습니다. 생생합니다. 고요합니다. 그리고 분명히 '나'보다 먼저 있던 무엇입니다. 몇 초 만에 끝나기도 합니다. 그런데 그 몇 초가 모든 것을 바꿉니다. 이 길이 더는 남의 말이 아니게 되기 때문입니다. 엿봄은 실재합니다. 아디야샨티(Adyashanti)<sup class="fnref" id="fr-map-5"><a href="#fn-map-5">5</a></sup>는 이를 머물지 않는 깨어남(non-abiding awakening)이라 부릅니다. 그리고 엿봄은 사라집니다. 두 사실 다 정상입니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 통찰 지도에서 모든 것이 일어나고 사라짐을 보는 생멸(生滅)의 지혜(arising and passing away, A&amp;P) 단계입니다. 에너지가 돌고, 빛이 보이고, 희열이 일고, 애쓰지 않아도 주의가 모입니다. 테레사의 넷째 궁방도 여기입니다. 고요의 기도, 노력으로는 길어 올릴 수 없고 하나님이 처음으로 부어 주시는 물입니다. <b>모든 지도에 새겨진 경고:</b> 고전 문헌은 바로 이 자리에 '관(觀)의 오염'(corruptions of insight) 열 가지를 적어 두었습니다. 희열도, 광명도, 심지어 평정까지도 그 목록에 있습니다. 수행자들이 어김없이 이 정거장을 종점으로 착각하기 때문입니다. 그래서 붙은 이름이 '사이비 열반'(pseudo-nirvana)입니다. 그러니 '나는 이제 다 됐다'는 결론이 섰다면, 그 결론 자체가 정확한 위치 보고입니다. 지금 3단계입니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">4</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8,80 H92" stroke="#6b6156" stroke-width="3"/><circle cx="70" cy="56" r="17" stroke="#a07d2a" stroke-width="4"/><path d="M20,72 L40,64 L53,60" stroke="#6b6156" stroke-width="2.6"/><circle cx="19" cy="73" r="3.2" fill="#6b6156"/><path d="M84,38 l6,-6 M88,46 l7,-3" stroke="#a07d2a" stroke-width="2" opacity=".6"/></svg></div>
+    <h4>득우 得牛 <span class="ko">Catching the Ox</span></h4>
+    <p>씨름이 본격적으로 시작됩니다. 보기는 보았습니다. 이제 그 본 자리를 붙들려 하는데, 마음이 날뜁니다. 반쯤 야생인 짐승이니 그럴 수밖에 없습니다. 수행이 전투처럼 느껴집니다. 묵은 습관이 사납게 되살아나고, 의욕은 치솟았다가 무너지기를 되풀이합니다. 많은 사람이 여기서 그만두면서, 그때 본 것은 요행이었다고 결론짓습니다. 요행이 아니었습니다. 이 요동이야말로 일이 진짜가 되었다는 증거입니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 이 구간만큼은 통찰 지도가 잔인하리만치 정직합니다. 생멸의 지혜 다음에는 고(苦)의 지혜들(dukkha ñāṇas)이 옵니다. 공포, 비참, 혐오, 해탈욕, 재관찰이라는 이름의 단계들입니다. 서양 스승들은 십자가의 성 요한(St. John of the Cross)<sup class="fnref" id="fr-map-6"><a href="#fn-map-6">6</a></sup>에게서 말을 빌려, 이 구간을 아예 '어두운 밤'이라 부릅니다. 요한 자신의 지도로는 감각의 어두운 밤에 해당합니다. 기도에서 느끼던 달콤함을 하나님이 거두어 가시는 자리입니다. 주시는 분보다 그 느낌을 더 사랑하게 된 마음을 돌려세우시려는 것입니다. 이 메마름이 실패가 아니라 진전이라는 표지를 요한은 셋으로 남겼습니다. 하나, 신적인 것에서도 세상 것에서도 즐거움이 나지 않습니다. 둘, 내가 하나님께 잘못하고 있는 게 아닌가 하는 불안한 염려가 듭니다. 셋, 전처럼 생각을 이어 가는 묵상이 되지 않습니다. 처방도 함께 남겼습니다. 밀어붙이기를 그치고, "하나님을 향한 사랑스럽고 평온한 주의" 안에 그냥 머무는 일입니다. 현대 연구도 같은 자리를 가리킵니다. 윌러비 브리튼(Willoughby Britton)의 연구가 이를 확인했습니다(제9부). 이런 힘든 구간은 오늘의 수행자에게도 찾아옵니다. 그리고 그때 필요한 것은 더 세게 밀어붙이는 일이 아니라, 이 지형을 잘 아는 사람의 도움입니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">5</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8,80 H92" stroke="#6b6156" stroke-width="3"/><circle cx="68" cy="58" r="15" stroke="#a07d2a" stroke-width="3.6"/><path d="M22,70 C36,62 46,64 54,62" stroke="#6b6156" stroke-width="2.4"/><circle cx="21" cy="71" r="3.2" fill="#6b6156"/></svg></div>
+    <h4>목우 牧牛 <span class="ko">Taming the Ox</span></h4>
+    <p>곤두섰던 경계가 익숙함으로 풀립니다. 수행은 이제 전투가 아니라 기르는 일입니다. 날마다, 요란하지 않게, 성실하게. 욱하는 반응은 여전히 올라옵니다. 다만 점점 일찍 알아챕니다. 자극과 반응 사이의 틈이 조금씩 넓어집니다. 대개의 수행자가 여기서 가장 오랜 세월을 보냅니다. 그리고 이 말이 중요한데, 여기서 사는 삶은 이미 <em>좋은</em> 삶입니다. 열매(제7부)는 벌써 이 단계에서 자라고 있습니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 테레사의 셋째 궁방이 보여 주는 규율 잡힌 삶에, 넷째 궁방에서 받은 고요가 스며들어 따뜻해진 상태입니다. 통찰 지도로는 알아차림이 무르익어 하루 내내 이어지는 때입니다. 지눌<sup class="fnref" id="fr-map-7"><a href="#fn-map-7">7</a></sup>(知訥)이 말한 점수(漸修)가 바로 이 일입니다. 해는 이미 떴고, 서리는 천천히 녹습니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">6</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6,80 H94" stroke="#6b6156" stroke-width="3"/><circle cx="52" cy="60" r="15" stroke="#a07d2a" stroke-width="3.6"/><circle cx="52" cy="41" r="3.6" fill="#6b6156"/><path d="M70,72 q10,-4 16,-2" stroke="#6b6156" stroke-width="2.4"/><path d="M82,58 l7,8 M89,58 l-7,8" stroke="#6b6156" stroke-width="2.6"/></svg></div>
+    <h4>기우귀가 騎牛歸家 <span class="ko">Riding the Ox Home</span></h4>
+    <p>애쓸 일이 사라집니다. 수행과 사람이 싸움을 그칩니다. 앉는 일은 숨 쉬는 일처럼 일어나고, 피리는 저 혼자 웁니다. 전에는 규율을 세워야 겨우 되던 일이, 이제는 떠올리기만 하면 됩니다. 그 떠올림마저 점점 더 자주 저절로 옵니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 카르멜(Carmelite)<sup class="fnref" id="fr-map-8"><a href="#fn-map-8">8</a></sup> 전통이 말하는 주부적(注賦的) 관상(infused contemplation)<sup class="fnref" id="fr-map-9"><a href="#fn-map-9">9</a></sup>입니다. 하나님이 내 안에서 기도하시는 기도입니다. 이현주 목사<sup class="fnref" id="fr-map-10"><a href="#fn-map-10">10</a></sup>의 말이 그대로 이 자리입니다. "기도는 내가 하는 것이 아니라 하느님이 나를 기도하게 하시는 것."</p>
+  </div></div>
+
+  <div class="stage"><div class="num">7</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10,78 H90" stroke="#6b6156" stroke-width="3"/><circle cx="46" cy="68" r="3.6" fill="#6b6156"/><path d="M70,24 a12,12 0 1,0 10,18 a9,9 0 1,1 -10,-18" fill="#a07d2a" opacity=".55" stroke="none"/></svg></div>
+    <h4>망우존인 忘牛存人 <span class="ko">Ox Forgotten, Person Remains</span></h4>
+    <p>얻은 것마저 잊습니다. '나의 깨달음', '나의 수행', '나의 진전'을 더는 지고 다니지 않습니다. 에고가 마지막까지 입고 있던 옷, 영적 자기 이미지가 벗겨집니다. 그저 평범한 사람 하나가 남습니다. 이상하리만치 가볍습니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 요한이 말한 영(靈)의 어두운 밤은 이 높은 지대에서 시작됩니다. 하나님이 이번에 정화하시는 대상은 죄가 아니라 <em>거룩함</em>입니다. 덕 안에 숨어 있는, '내 것'이라 움켜쥐는 미묘한 마음 말입니다. 겪는 동안에는 버림받은 듯 느껴질 수 있습니다. 요한은 단호합니다. 이것은 "하나님이 영혼 안으로 흘러드시는 것"이고, 그 빛이 눈으로는 감당 못 할 만큼 밝아서 어둡게 보일 뿐입니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">8</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="52" r="29" stroke="#6b6156" stroke-width="5.5" stroke-dasharray="150 32" transform="rotate(-70 50 52)"/></svg></div>
+    <h4>인우구망 人牛俱忘 <span class="ko">Person and Ox Both Forgotten</span></h4>
+    <p>빈 원. 여덟째 그림은 동그라미 하나가 전부입니다. 찾는 사람도 없고, 찾던 소도 없고, 얻었다 할 이도 없습니다. 공(空)입니다. 모세가 올라가 들어간 무지(無知)의 구름(the cloud of unknowing)입니다. 여기서는 정직하게 할 수 있는 말이 없습니다. 그래서 그림도 아무 말을 하지 않습니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 신을 '~이 아니다'로만 말하는 부정(否定)의 길이 가리키는 하나 됨, 곧 합일(apophatic union)입니다. '신'이라는 이름마저 넘어선 마이스터 에크하르트<sup class="fnref" id="fr-map-11"><a href="#fn-map-11">11</a></sup>(Meister Eckhart)의 신성 자체(Gottheit)입니다. 숙련된 명상가들이 드는 멸진(滅盡, cessation), 곧 경험이 잠시 온전히 그치는 상태도 이 자리이며, 요즘은 과학이 이를 차분히 연구하고 있습니다(제8부). 하나 눈여겨볼 대목이 있습니다. 십우도의 옛 판본은 여기서 <em>끝났습니다</em>. 전통은 일부러 그 지도를 고쳐, 뒤에 두 폭을 더 그려 붙였습니다. 여기서 끝내는 지도는 틀린 지도이기 때문입니다.</p>
+  </div></div>
+
+  <div class="stage"><div class="num">9</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6,40 Q30,34 52,38 T92,30" stroke="#6b6156" stroke-width="2.8"/><path d="M40,37 q6,-10 14,-13 M62,34 q4,-8 11,-9" stroke="#6b6156" stroke-width="2.2"/><circle cx="56" cy="22" r="2.8" fill="#a07d2a"/><circle cx="75" cy="24" r="2.4" fill="#a07d2a"/><circle cx="47" cy="28" r="2.2" fill="#a07d2a"/><path d="M8,72 q10,-5 20,0 t20,0 t20,0 t20,0" stroke="#6b6156" stroke-width="2.4" opacity=".6"/></svg></div>
+    <h4>반본환원 返本還源 <span class="ko">Returning to the Source</span></h4>
+    <p>세계가 돌아옵니다. 조금도 달라지지 않은 채, 이루 말할 수 없이 생생한 제 모습 그대로. "물은 잔잔히 흐르고, 꽃은 붉다." 빠져 있던 것은 처음부터 없었습니다. 그토록 찾아다닌 비범은 알고 보니 평범이었습니다. 자아라는 얇은 막 없이 본 평범. 평상심시도(平常心是道) — "도가 무엇입니까?" 하고 묻는 조주(趙州)<sup class="fnref" id="fr-map-12"><a href="#fn-map-12">12</a></sup>에게 스승은 답했습니다. "평상의 마음이 도다."</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 머튼<sup class="fnref" id="fr-map-13"><a href="#fn-map-13">13</a></sup>(Thomas Merton)이 이 일을 겪은 곳은 상점가 한복판, 4번가와 월넛가 모퉁이였습니다. "저 모든 사람을 사랑한다는 깨달음에 갑자기 압도되었다… 그들이 모두 해처럼 빛나며 걸어다닌다는 것을 사람들에게 알려줄 방법이 없다." 테레사의 일곱째 궁방도 같은 자리입니다. 끊이지 않는 고요한 합일. 그런데 그 표징은 황홀경이 아니라 "마르다와 마리아가 함께 있음"이라고 테레사는 못 박습니다(일하는 마르다와 예수 곁에 앉아 듣는 마리아 — 일과 기도가 하나가 된 모습입니다).</p>
+  </div></div>
+
+  <div class="stage"><div class="num">10</div><div><div class="stgimg"><svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8,80 H92" stroke="#6b6156" stroke-width="3"/><path d="M18,30 h24 M22,30 v-8 M38,30 v-8" stroke="#6b6156" stroke-width="2.2" opacity=".55"/><path d="M62,26 h22 M66,26 v-6 M80,26 v-6" stroke="#6b6156" stroke-width="2.2" opacity=".55"/><circle cx="40" cy="64" r="3.8" fill="#6b6156"/><circle cx="62" cy="62" r="5" stroke="#a07d2a" stroke-width="3"/><path d="M44,62 h11" stroke="#a07d2a" stroke-width="2.6"/></svg></div>
+    <h4>입전수수 入鄽垂手 <span class="ko">Entering the Marketplace with Helping Hands</span></h4>
+    <p>마지막 그림입니다. 맨발에 배가 불룩한 사람이 흙먼지를 뒤집어쓴 채 웃으며, 술장수와 생선장수 사이로 저잣거리에 들어섭니다. 겉으로는 누구와도 구별되지 않습니다. 다만 그와 마주친 사람마다 어쩐 일인지 깨어나기 시작합니다. 여정은 남에게 저를 내어 주는 데서 완성됩니다. 성인됨을 구경거리로 삼는 일이 아니라, 향기처럼 스미는 도움입니다.</p>
+    <p class="par"><b>다른 전통의 같은 자리</b> — 복음 전체가 이와 같은 모양으로 지어져 있습니다. 말씀(성경이 그리스도를 부르는 이름)은 영광에 머무르지 않고 자기를 비워, 수건을 들고, 제자들의 발을 씻습니다(빌립보서 2:5–7; 요한복음 13장). 보살의 서원도 같습니다. 상구보리 하화중생(上求菩提 下化衆生). 위로는 깨달음을 구하고, 아래로는 중생을 변화시킵니다. 자기 혼자 누리는 데서 끝난 것은 무엇이든 정상(頂上)이 아니었습니다. 정상은 걸어 내려옵니다.</p>
+  </div></div>
+
+  <h3>정직한 기대 <span class="ko">Honest expectations</span></h3>
+  <p><strong>진전은 직선이 아닙니다.</strong> 잭 콘필드(Jack Kornfield)<sup class="fnref" id="fr-map-14"><a href="#fn-map-14">14</a></sup>는 여러 전통의 서양 스승 수십 명을 인터뷰해 『깨달음 이후 빨랫감』(<em>After the Ecstasy, the Laundry</em>)을 썼습니다. 거기서 드러난 공통점은 하나였습니다. 아무리 깊은 깨어남의 체험도 그것으로 끝이 아니라, 그 뒤에는 반드시 평범한 일상으로 돌아오는 시간이 온다는 것입니다. 기도 중에, 수행 중에 산꼭대기 같은 은혜의 순간을 만났더라도, 산에서 내려오면 어제와 똑같은 삶이 그대로 기다리고 있습니다. 결혼생활의 오래된 갈등도, 돈 걱정도, 몸에 밴 신경증도, 쌓여 있는 빨랫감도 그대로입니다. 깨어남이 그 숙제들을 대신 해 주지 않습니다. 그러니 마음이 활짝 열리는 때와 다시 오므라드는 때가 번갈아 오는 것은 고장이 아니라 이 길의 정상적인 리듬입니다. 뱃사람이 날씨를 미리 셈에 넣듯, 알고 대비하면 됩니다.</p>
+  <p><strong>깨어남은 머무르기 전에 엿봄으로 옵니다.</strong> 아디야샨티의 구분이 여기서 요긴합니다. 깨어남 대부분은 머물지 않습니다. "얻었다, 잃었다"가 표준 경로입니다. 실패가 아니라 순서가 원래 그렇습니다. 엿봄이 익어 머무름이 되게 하는 재료는 정확히 제5부와 제6부에 있습니다. 매일의 수행, 정직한 공동체, 그리고 시간.</p>
+  <p><strong>어두운 구간도 지도 위에 있습니다.</strong> 메마름, 의심, 두려움, 거꾸로 가는 듯한 느낌. 십자가의 성 요한과 남방불교의 옛 수행 교본 『청정도론』(Visuddhimagga)은 서로의 글을 읽은 적이 없습니다. 그런데도 같은 구간을 같은 순서로 그려 놓았습니다. 그런 구간에 들어서면 힘을 빼고, 자신을 더 부드럽게 대하고, 발을 땅에 붙이고, 공동체 곁에 머무는 편이 낫습니다. 일상이 돌아가지 않을 정도라면, 이런 과정을 잘 아는 전문가의 도움을 받을 때입니다(제9부와 제12부). <em>지도 위에서</em> 길을 잃은 것은 길을 잃은 것이 아닙니다.</p>
+  <p><strong>어느 단계도 윤리와 겸손을 면제해 주지 않습니다.</strong> 깨쳤다고 해서 행실이 저절로 보증되지는 않습니다. 깨달았다는 스승들이 남긴, 기록으로 확인되는 실패(제9부)가 그 증거입니다. 몸으로 살아 내는 일, 책임지는 일, 평범하게 정직한 일은 어느 단계에서나 변함없는 필수 과목입니다. 성철 스님<sup class="fnref" id="fr-map-15"><a href="#fn-map-15">15</a></sup>은 돈오(頓悟)<sup class="fnref" id="fr-map-16"><a href="#fn-map-16">16</a></sup>를 한 치의 타협도 없이 가르친 분입니다. 그런 분이 자기를 보러 오는 사람마다 먼저 삼천배를 하게 했습니다. 대접받자는 뜻이 아니었습니다. 참된 무엇이 오가려면, 찾아온 사람의 자아가 먼저 절부터 해야 했기 때문입니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-map-1">방거사 龐居士(?–808). 당나라의 재가 수행자. 출가하지 않고 저잣거리에서 살며 깨달음을 살아 낸 본보기로 꼽힌다. <a class="fnb" href="#fr-map-1">↩</a></li>
+    <li id="fn-map-2">아빌라의 테레사(Teresa of Ávila, 1515–1582). 스페인 카르멜회의 수녀·신비가. 『내면의 성(城)』에서 영혼의 여정을 일곱 겹의 방(궁방)을 지나 중심의 그리스도께 나아가는 성(城)에 비유했다. <a class="fnb" href="#fr-map-2">↩</a></li>
+    <li id="fn-map-3">궁방(宮房). 테레사가 『내면의 성』에서 쓴 비유로, 영혼이 차례로 지나는 '방'을 가리킨다. <a class="fnb" href="#fr-map-3">↩</a></li>
+    <li id="fn-map-4">아우구스티누스(354–430). 『고백록』을 쓴 초대 교회 최대의 신학자. <a class="fnb" href="#fr-map-4">↩</a></li>
+    <li id="fn-map-5">아디야샨티(Adyashanti, 1962– ). 미국의 선(禪) 전통 출신 영성 교사. 깨어남 '이후'의 여정을 정직하게 기록해 왔다. <a class="fnb" href="#fr-map-5">↩</a></li>
+    <li id="fn-map-6">십자가의 성 요한(St. John of the Cross, 1542–1591). 스페인 카르멜회의 수도자·시인. 하나님이 영혼을 정화하시는 '어두운 밤'의 지도를 남겼다. <a class="fnb" href="#fr-map-6">↩</a></li>
+    <li id="fn-map-7">보조국사 지눌(1158–1210). 돈오점수를 가르친 고려의 선사. <a class="fnb" href="#fr-map-7">↩</a></li>
+    <li id="fn-map-8">가르멜산에서 시작된 가톨릭의 관상 수도회 전통. 테레사와 십자가의 요한이 그 봉우리다. <a class="fnb" href="#fr-map-8">↩</a></li>
+    <li id="fn-map-9">注賦的 觀想(infused contemplation). 내 노력으로 만드는 기도가 아니라 하나님 쪽에서 부어 주시는 기도를 가리키는 전통 용어. <a class="fnb" href="#fr-map-9">↩</a></li>
+    <li id="fn-map-10">이현주 목사(1944– ). 호는 관옥. 노자·불경을 그리스도인의 눈으로 읽어 온 감리교 목사·번역가. <a class="fnb" href="#fr-map-10">↩</a></li>
+    <li id="fn-map-11">마이스터 에크하르트(Meister Eckhart, 1260경–1328). 독일 도미니코회의 신비 신학자. <a class="fnb" href="#fr-map-11">↩</a></li>
+    <li id="fn-map-12">조주 종심(趙州從諗, 778–897). 당나라의 선사. 훗날 화두가 된 문답을 가장 많이 남긴 스승으로 꼽히며, 여기 인용된 물음에 답한 스승은 남전(南泉)이다. <a class="fnb" href="#fr-map-12">↩</a></li>
+    <li id="fn-map-13">토머스 머튼(Thomas Merton, 1915–1968). 미국 트라피스트회 수도자·저술가. '거짓 자아/참 자아' 언어의 원류. <a class="fnb" href="#fr-map-13">↩</a></li>
+    <li id="fn-map-14">잭 콘필드(Jack Kornfield, 1945– ). 미국의 위빠사나 지도자·임상심리학자. 『깨달음 이후 빨랫감』에서 큰 체험 뒤에도 계속되는 평범한 삶을 다뤘다. <a class="fnb" href="#fr-map-14">↩</a></li>
+    <li id="fn-map-15">성철 스님(1912–1993). 돈오돈수와 삼천배로 유명한 조계종 종정. <a class="fnb" href="#fr-map-15">↩</a></li>
+    <li id="fn-map-16">돈오(頓悟). '단박 깨침'. 서서히 쌓아 이르는 것이 아니라 한순간에 문득 깨닫는다는 선불교의 가르침. 더 닦을 것이 남는가를 두고 지눌(돈오점수)과 성철(돈오돈수)의 길이 갈렸다. <a class="fnb" href="#fr-map-16">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="rosetta">
+  <div class="sec-label">제3부</div>
+  <h2>용어의 지도 — 하나의 길, 여러 언어 <span class="ko">The Rosetta Stone</span></h2>
+
+  <div class="epigraph">
+    <p>"내가 하나님을 보는 그 눈은 하나님이 나를 보시는 그 눈과 같은 눈이다. 내 눈과 하나님의 눈은 한 눈이고, 하나의 봄, 하나의 앎, 하나의 사랑이다."</p>
+    <div class="who">— 마이스터 에크하르트(Meister Eckhart)<sup class="fnref" id="fr-rosetta-1"><a href="#fn-rosetta-1">1</a></sup>, 독일어 설교 12번 (14세기 초)</div>
+  </div>
+
+  <p class="lead">제1부에서 말한 그 바벨탑의 혼란을, 여기서 풉니다. 전통마다 길 위의 같은 지형지물을 다른 말로 부르는데, 아래 네 개의 표가 그 말을 <em>기능</em>에 따라 한 행씩 모았습니다. 세로로 읽으면 한 전통 안에 머물고, 가로로 읽으면 전통끼리 서로 화답하는 소리가 들립니다. 표 뒤에 붙인 '정직하게 쓰는 법'까지 읽어 두면 좋습니다. 울림도 실재하고 차이도 실재하기 때문입니다. 둘 다 알고 있어야, 어느 스승의 언어든 빌려 쓰면서도 그 안에서 길을 잃지 않습니다.</p>
+
+  <div class="tblwrap"><table>
+    <caption>표 1 · 두 '자기' — 나로 보이는 것과, 나인 것</caption>
+    <tr><th>전통</th><th>구성된 자기(입은 옷)</th><th>참된 본성(옷을 입은 이)</th></tr>
+    <tr><td class="t">그리스도교</td><td>옛사람(the old self, 엡 4:22) · 육신 · 거짓 자아(머튼<sup class="fnref" id="fr-rosetta-2"><a href="#fn-rosetta-2">2</a></sup>) · 잃어야 할 목숨(마 16:25)</td><td>새사람(the new self) · "내 안에 사시는 그리스도"(갈 2:20) · 하나님의 형상(image of God) · 속의 빛(요 1:9)</td></tr>
+    <tr><td class="t">다석<sup class="fnref" id="fr-rosetta-3"><a href="#fn-rosetta-3">3</a></sup> 유영모(한국의 흐름)</td><td>제나 — 태어나고 죽는 몸의 나</td><td>얼나 — 얼의 나. 내 안의 하나님의 얼로, 제나가 죽어 갈수록 "솟아오르는" 나</td></tr>
+    <tr><td class="t">불교</td><td>자기로 착각한 오온(五蘊, five aggregates — 몸과 마음의 다섯 무더기) · 아상(我相) · 에고(ego)</td><td>불성(佛性) · 본래면목(本來面目) · 참나(한국 선에서 쓰는 말)</td></tr>
+    <tr><td class="t">아드바이타(Advaita) / 직접의 길</td><td>아함카라(ahamkara), '나'라는 생각 · 개인(the person)</td><td>아트만 = 브라만(Atman = Brahman) · 참자기(the Self) · 순수한 앎(pure awareness)</td></tr>
+    <tr><td class="t">톨레(Tolle) / 싱어(Singer)</td><td>머릿속 목소리 · 고통체(pain-body) · '안에 사는 룸메이트'(the inner roommate) · 개인적 자기</td><td>현존(Presence) · 존재(Being) · 지켜보는 자(the watcher) · 의식의 자리(the seat of consciousness)</td></tr>
+    <tr><td class="t">심리학(제8부)</td><td>뇌가 이야기로 지어 올리는 자기 모형(서사적 자기 모형, narrative self-model) <span class="tier a">A</span></td><td>(과학은 구성된 자기까지 서술합니다. 지켜보는 자를 두고는 아직 말이 없습니다)</td></tr>
+  </table></div>
+
+  <div class="tblwrap"><table>
+    <caption>표 2 · 궁극 — 모든 것이 딛고 선 바탕</caption>
+    <tr><th>말</th><th>전통과 뜻의 결</th></tr>
+    <tr><td class="t">하나님 / 하느님 · 하나님 아버지(God the Father)</td><td>인격적 창조주. '당신'이라 부르며 마주하는 분입니다. 이현주는 하느님을 '하나'로 읽습니다. 그 하나 바깥에 서 있는 것은 아무것도 없습니다. "하느님 없이 있는 것은 없다."</td></tr>
+    <tr><td class="t">신성 자체(Gottheit, 신을 넘어선 신)</td><td>우리가 지닌 신 개념 <em>너머의</em> 신을 가리키는 에크하르트의 말. 이름보다 앞선 신적 사막입니다. "나는 하나님께, 나를 하나님에게서 풀어 주시기를 기도한다."</td></tr>
+    <tr><td class="t">도(道, Tao)</td><td>이름 붙일 수 없는 길. 만물을 낳아 움직입니다. 도덕경 1장이 첫머리에 말해 둡니다. 말할 수 있는 도는 이미 영원한 도가 아닙니다. 부정(否定)의 길, 곧 신을 '~이 아니다'로만 말하는 길이 가리키는 신성 자체와 같은 구실을 합니다.</td></tr>
+    <tr><td class="t">브라만(Brahman) · 존재-의식-지복(Sat-Chit-Ananda)</td><td>베단타(Vedanta)가 보는 절대 실재, 곧 존재–의식–지복입니다. 정교회 신학자 데이비드 벤틀리 하트(David Bentley Hart)는 고전 그리스도교의 하나님도 형이상학의 차원에서는 같은 대상을 가리킨다고 논증합니다.</td></tr>
+    <tr><td class="t">공(空, śūnyatā) · 죽음 없는 것(the Deathless)</td><td>불교의 공은 '아무것도 없음'이 아니라 '어떤 것도 아님'입니다. 무엇에도 홀로 선 자기 존재가 없다는 뜻이며, 자비와 떼어 놓을 수 없습니다.</td></tr>
+    <tr><td class="t">나는 스스로 있는 자(I AM, 에흐예) · 존재(Being) · 현존(Presence)</td><td>출애굽기 3:14 "나는 스스로 있는 자이니라". 아퀴나스(Aquinas)의 ipsum esse(존재 자체), 톨레의 "존재", 니사르가닷따(Nisargadatta)<sup class="fnref" id="fr-rosetta-4"><a href="#fn-rosetta-4">4</a></sup>의 "나는 있다". 존재한다는 순전한 감각으로 만나는 바탕입니다.</td></tr>
+  </table></div>
+
+  <div class="tblwrap"><table>
+    <caption>표 3 · 돌이킴, 가로막는 것, 내려놓음, 그리고 긴 걸음</caption>
+    <tr><th>지형지물</th><th>그리스도교</th><th>불교 / 선(禪)</th><th>다른 흐름들</th></tr>
+    <tr><td class="t">돌이킴(깨어남)</td><td>회개(μετάνοια, metanoia) — 본뜻은 마음을 돌이켜 넘어감('고행하라'는 오역) · 거듭남, 곧 위로부터 태어남(요 3장)</td><td>깨달음 · 견성(見性) · 사토리(satori) · 보리(bodhi)</td><td>해탈(moksha, 베단타) · '참자기를 깨달음'(라마나 마하르시<sup class="fnref" id="fr-rosetta-5"><a href="#fn-rosetta-5">5</a></sup>) · '전환'(the shift, 톨레)</td></tr>
+    <tr><td class="t">가로막는 것</td><td>죄 — 하마르티아(hamartia), '과녁을 빗나감' · 등 돌린 채 사는 삶(분리)</td><td>무명(無明, avidyā) — 내가 무엇인지 모름, 그 위에 선 갈애(渴愛, 목마른 갈망)</td><td>환영(māyā, 나타남을 실재로 여김) · 동일화(identification, 톨레) · 착각 — 나를 잘못 앎</td></tr>
+    <tr><td class="t">내려놓음</td><td>자기 비움(kenosis, 빌 2장) · 십자가를 짐 · 내려둠(Gelassenheit, 에크하르트) · 은총에 맡김</td><td>방하착(放下著) '내려놓아라' · 무아(無我)의 체득 · 붙듦을 버림</td><td>내맡김(surrender, 싱어의 방법 전체) · 무위(無爲, 억지로 하지 않음, 노자) · 무집착(vairagya)</td></tr>
+    <tr><td class="t">긴 걸음(돌이킴 뒤에)</td><td>성화(聖化, sanctification) '점점 더'(웨스트민스터 소요리문답 35문) · 신화(神化, theosis) — 하나님이 본성으로 그러하신 그 모습이 우리 안에서 은총으로 이루어져 감(아타나시우스) · 포도나무에 머묾(요 15장)</td><td>점수(漸修, 점차 닦음, 지눌<sup class="fnref" id="fr-rosetta-6"><a href="#fn-rosetta-6">6</a></sup>) · 보임(保任, 깨침을 길러 지킴) · 보살의 길</td><td>통합(integration, 콘필드<sup class="fnref" id="fr-rosetta-7"><a href="#fn-rosetta-7">7</a></sup>) · 체현 · '더 깊은 여정'(리처드 로어)<sup class="fnref" id="fr-rosetta-8"><a href="#fn-rosetta-8">8</a></sup></td></tr>
+    <tr><td class="t">열매</td><td>사랑과 희락과 화평…(갈 5:22의 열매) · 아가페</td><td>자비(慈悲, 사랑과 연민) · 평정(equanimity)</td><td>까닭 없는 기쁨 · 세속의 옷을 입은 '이해를 넘어서는 평화'</td></tr>
+  </table></div>
+
+  <div class="tblwrap"><table>
+    <caption>표 4 · 수행을 가리키는 말들 — 기도·묵상·명상·관상 풀어 보기</caption>
+    <tr><th>말</th><th>실제로 가리키는 것</th></tr>
+    <tr><td class="t">기도(prayer)</td><td>부름이며 관계입니다. 하나님께 말하고, 듣고, 함께 쉽니다. 무언가를 구하는 기도, 곧 간구(懇求)를 품지만 간구가 전부는 아닙니다. 가장 깊어지면 관상으로 번져 갑니다.</td></tr>
+    <tr><td class="t">묵상(그리스도교적 의미: meditatio)</td><td>성경과 진리를 생각으로 곱씹는 일. 본문과 <em>함께</em> 생각합니다(교회에서 큐티 또는 QT라 부르는 매일의 성경 묵상이 이것입니다). 귀고(Guigo)의 사다리로는 독서 → 묵상 → 기도 → 관상.</td></tr>
+    <tr><td class="t">명상(현대적·동양적 의미의 meditation)</td><td>생각을 거치지 않는 주의 훈련. 집중(사마타), 열린 관찰(위빠사나), 탐구가 여기에 듭니다. 영어권 책이 말하는 "meditation"은 대개 이것입니다.</td></tr>
+    <tr><td class="t">관상(contemplatio) · 관상기도 · 향심기도</td><td>말과 이미지와 애씀 너머에서 하나님 안에 쉬는 일. 만들어 내지 않고 받습니다. 향심기도는 이 오래된 수행을 오늘의 방법으로 다듬은 것으로, 센터링 기도(Centering Prayer)라고도 합니다. 기능으로 보면 침묵 명상의 그리스도교 사촌인데, 중심에 놓인 것이 기법이 아니라 하나님께 드리는 동의라는 점이 다릅니다.</td></tr>
+    <tr><td class="t">참선(參禪) · 좌선(坐禪)</td><td>선(禪)의 앉는 수행. 한국에서는 대개 간화선(看話禪), 곧 화두 수행입니다(제5부). 안거(安居)는 집중 수행 기간입니다.</td></tr>
+    <tr><td class="t">자기탐구(vichāra, self-inquiry)</td><td>라마나 마하르시의 방법. '나'라는 느낌을 근원까지 거슬러 따라갑니다. 자기를 생각하는 일이 아니라 <em>보는 자를 보는</em> 일입니다.</td></tr>
+  </table></div>
+
+  <h3>이 표들을 정직하게 쓰는 법</h3>
+  <p><strong>울림은 실재합니다.</strong> 서로 오간 적 없는 문명에서, 가장 깊이 들어간 수행자들이 같은 구조를 거듭 증언합니다. 구성된 자기를 꿰뚫어 봅니다. 그보다 앞선 알아차림, 혹은 바탕과 만납니다. 죽기 전에 죽습니다. 그리고 삶이 사랑을 중심으로 다시 짜입니다. 이렇게 한곳으로 모여드는 일(수렴)은 우연으로 넘기기에는 너무 구체적이고, 서로 너무 무관한 자리에서 나왔습니다. 게다가 일부는 이제 경험 과학의 동행까지 얻었습니다. '구성된 자기'는 오늘의 주류 인지과학이 하는 이야기입니다(제8부).</p>
+  <p><strong>차이도 실재합니다.</strong> 표는 차이를 납작하게 누르기 쉽지만, 그러라고 만든 표가 아닙니다. 그리스도교는 인격적 창조주를 고백하고, 창조와 역사의 선함을 고백합니다. 불교는 그 고백을 하지 않습니다. 신화(神化)는 동일성 <em>없는</em> 합일입니다. 은총으로 "신성한 성품에 참여하는 자"(베드로후서 1:4)가 될 뿐, 본성으로 그리되는 일은 결코 없습니다. 반면 엄격한 아드바이타는 동일성을 곧이곧대로 주장합니다. 타자가 먼저 움직이는 은총(타력)과 제 손으로 닦아 이르는 해방(자력)의 긴장도 진짜입니다. 다만 아미타불의 서원에 전부를 맡기는 정토불교가 있어, 동양은 자력이고 서양은 타력이라는 깔끔한 도식은 여기서 흔들립니다. 신비 체험 자체를 두고도 학자들이 백 년을 다퉜습니다. 하나의 체험을 여러 말로 옮겨 적었을 뿐일까요. 영원철학(모든 전통의 봉우리는 결국 하나라고 보는 입장) 쪽은 그렇다고 봅니다. 올더스 헉슬리(Aldous Huxley)와 휴스턴 스미스(Huston Smith)가 이 자리에 섭니다. 아니면 체험부터가 늘 전통의 손에 빚어질까요. 맥락주의 쪽의 스티븐 캐츠(Steven Katz)는 "매개되지 않은 체험은 없다"고 잘라 말했습니다. 지금까지 쌓인 증거는, 양쪽이 다 부분적으로 옳다고 강하게 말합니다. 무르익은 입장은, 그리고 이 안내서의 입장은 이렇습니다. <em>봉우리에서 내려온 증언은 서로 울림이 통하고, 그 울림은 가볍지 않습니다. 그러나 울림이 통한다고 같은 노래는 아니며, 차이는 전통마다 지닌 선물의 한 부분입니다.</em></p>
+  <p><strong>실용 규칙.</strong> 두 스승의 말이 부딪히는 듯 들리면 먼저 이 표를 펴 보면 됩니다. 열에 아홉은 같은 지형지물을 다른 말로 부르고 있거나, 다른 지형지물을 같은 말로 부르고 있습니다. '명상', '자기', '공'에서 특히 잦습니다. 남은 하나가 진짜 차이입니다. 그때는 적어 두고, 열린 물음으로 안고, 하던 수행을 이어 가면 됩니다. 비교신학을 먼저 정리한 다음에 깨어난 사람은 여태 없습니다. 이현주 목사<sup class="fnref" id="fr-rosetta-9"><a href="#fn-rosetta-9">9</a></sup>는 수십 년째 금강경과 복음서를 나란히 읽어 왔고, 그러고도 처음 그대로입니다. 목사입니다. 자기 우물을 깊이 파는 사람이라야, 모든 우물이 함께 닿아 있는 지하수에 이릅니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-rosetta-1">마이스터 에크하르트(Meister Eckhart, 1260경–1328). 독일 도미니코회의 신학자·설교자. 서방 그리스도교 신비 전통의 가장 깊은 목소리로 꼽힌다. <a class="fnb" href="#fr-rosetta-1">↩</a></li>
+    <li id="fn-rosetta-2">토머스 머튼(Thomas Merton, 1915–1968). 미국 트라피스트회 수도자·저술가. '거짓 자아/참 자아' 언어의 원류. <a class="fnb" href="#fr-rosetta-2">↩</a></li>
+    <li id="fn-rosetta-3">다석 류영모(1890–1981). '제나(몸의 나)/얼나(얼의 나)'의 구분을 세운 한국 근대의 스승. <a class="fnb" href="#fr-rosetta-3">↩</a></li>
+    <li id="fn-rosetta-4">니사르가닷따 마하라지(Nisargadatta Maharaj, 1897–1981). 인도 뭄바이의 담배 가게 주인이자 스승. 문답집 『아이 앰 댓』으로 알려졌다. <a class="fnb" href="#fr-rosetta-4">↩</a></li>
+    <li id="fn-rosetta-5">라마나 마하르시(Ramana Maharshi, 1879–1950). "나는 누구인가"를 평생 가르친 인도의 성자. <a class="fnb" href="#fr-rosetta-5">↩</a></li>
+    <li id="fn-rosetta-6">보조국사 지눌(1158–1210). 돈오점수를 가르친 고려의 선사. <a class="fnb" href="#fr-rosetta-6">↩</a></li>
+    <li id="fn-rosetta-7">잭 콘필드(Jack Kornfield, 1945– ). 『깨달음 이후 빨랫감』을 쓴 위빠사나 지도자. <a class="fnb" href="#fr-rosetta-7">↩</a></li>
+    <li id="fn-rosetta-8">리처드 로어(Richard Rohr, 1943– ). 미국 프란치스코회 수사. '인생 후반의 영성'을 가르치는 관상 전통의 대중적 스승. <a class="fnb" href="#fr-rosetta-8">↩</a></li>
+    <li id="fn-rosetta-9">이현주 목사(1944– ). 호는 관옥. 노자·불경을 그리스도인의 눈으로 읽어 온 감리교 목사·번역가. <a class="fnb" href="#fr-rosetta-9">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="attitude">
+  <div class="sec-label">제4부</div>
+  <h2>마음가짐 — 어떻게 걸을 것인가 <span class="ko">The Attitude</span></h2>
+
+  <div class="epigraph">
+    <p>"지극한 도는 가려서 택하지 않는 이에게 어렵지 않다. 사랑도 미움도 함께 사라질 때, 모든 것이 분명해지고 가려짐 없이 드러난다."</p>
+    <div class="who">— 신심명 信心銘<sup class="fnref" id="fr-attitude-1"><a href="#fn-attitude-1">1</a></sup> 첫 구절 (승찬 僧璨, 6세기; R. B. 클라크 영역) — 지도무난 유혐간택</div>
+  </div>
+
+  <p class="lead">기법은 수행의 절반도 되지 않습니다. 더 큰 몫은 자세입니다. 노력을, 실패를, 시간을, 그리고 자기 자신을 어떻게 대하는가 하는 것입니다. 같은 기법도 이 자세에 따라 전혀 다른 수행이 됩니다. 이 안내서에 흘러든 모든 물줄기에서 마음가짐 일곱을 추려 여기에 두었습니다. 가장 쉽게 잊히는 대목이고, 돌아오면 가장 빨리 사람을 일으키는 대목입니다. 그래서 자주 되짚을 만합니다.</p>
+
+  <h3>1 · 간절함, 비장함이 아니라 <span class="ko">Earnest, not grim</span></h3>
+  <p>간절함과 비장함은 다릅니다. 그 차이가 한국 선(禪)이 꼽는 수행의 세 동력에 이미 새겨져 있습니다. 대신심(大信心)은 깨어남이 실재하며 나에게도 가능하다는, 자리 잡은 믿음입니다. 대의심(大疑心)은 살아서 타오르는 물음입니다. 회의가 아니라, 한 점으로 벼려진 경이입니다. 대분심(大憤心)은 내 삶의 진짜 일을 하염없이 미루지는 않겠다는 결심입니다. 셋 어디에도 비장함은 없습니다. 간절함은 사막에서 물을 찾는 사람의 마음과 같아서, 전부를 걸지만 자기를 벌하지는 않습니다. 수행이 어느새 실적 평가를 닮아 있다면, 내려놓을 것은 수행이 아니라 평가표입니다. 반대로 취미 하나쯤으로 물러나 있다면, 무엇이 걸린 판인지 떠올릴 때입니다. 이 일을 하지 않은 채 두면 다른 모든 성공이 속 빈 소리를 냅니다. 그런 일은 이것 하나입니다.</p>
+
+  <h3>2 · 노력과 은총, 둘 다 <span class="ko">Effort and grace, both</span></h3>
+  <p>노력이냐 은총이냐, 고를 필요가 없습니다. 둘 다입니다. 이 문제를 두고 전통마다 하는 말이 달라 보이기는 합니다. 선(禪)은 맹렬한 정진을 요구합니다. 정토불교는 해방이 오직 타력(他力)으로 온다며, 아미타불의 본원(本願), 곧 모든 이를 건지겠다는 부처의 오랜 약속에 전부를 맡기라고 합니다. 라마나 마하르시<sup class="fnref" id="fr-attitude-2"><a href="#fn-attitude-2">2</a></sup>는 엄정한 자기탐구를 가르쳤고, <em>동시에</em> 온전한 내맡김도 같은 침묵에 닿는다고 했습니다. 개혁주의 교리문답은 성화를 "하나님의 값없이 주시는 은혜의 역사"라 부릅니다. 저마다 무엇을 지키려는지 보면 싸움은 풀립니다. 노력이 짓는 몫은 조건입니다. 흔들리지 않는 자세, 매일의 방석, 정직한 주의. 전환 그 자체는 누구도 만들어 내지 못합니다. 언제나 받습니다. 깊이 가 본 사람마다 조금은 멋쩍어하며 이 사실과 만납니다. 그래서 오래된 처방이 이렇습니다. <em>모든 것이 나에게 달린 듯 수행하고, 아무것도 나에게 달리지 않은 듯 신뢰하라.</em> 토머스 키팅(Thomas Keating)<sup class="fnref" id="fr-attitude-3"><a href="#fn-attitude-3">3</a></sup>은 이 역설을 향심기도의 문법 안에 심었습니다. 사람의 몫은 동의뿐, 일은 하나님이 하십니다. 라마나 마하르시는 호랑이를 끌어와 말했습니다. "호랑이 아가리에 든 먹이가 빠져나가지 못하듯, 스승의 은총 어린 눈길 아래 든 사람은 결코 버림받지 않는다." 이 길은 먼 봉우리를 기어오르는 일이 아니라, 발견되는 데에 동의하는 일입니다. 그리고 그 동의는 매일 앉아야만 참말이 됩니다.</p>
+
+  <h3>3 · 얻으려는 마음 없이 <span class="ko">Without a gaining idea</span></h3>
+  <p>얻으려는 마음이 문제의 뿌리입니다. 무언가를 <em>얻으려고</em> 하는 수행은, 그 무엇이 깨달음이라 해도, 얻으려는 자를 가만히 먹여 키웁니다. 그런데 문제가 바로 그 얻으려는 자입니다. 스즈키 순류(Shunryu Suzuki)<sup class="fnref" id="fr-attitude-4"><a href="#fn-attitude-4">4</a></sup>의 경고가 이것입니다. "수행이 잘되면 그 수행이 자랑스러워질 수 있다… 자랑은 군더더기다. 바른 노력은 군더더기를 덜어 내는 일이다." 무위, 곧 억지로 몰아가지 않음을 영성 자체에 적용한 말이고, 이 길의 한복판에 놓인 역설입니다. 온 마음으로 찾아야 하는데, 그 찾음은 찾는 자가 다 닳아 없어질 때에야 이루어집니다. 수수께끼처럼 풀기보다 리듬처럼 사는 편이 낫습니다. 낮 동안에는 뜻을 세우고, 공부하고, 수행합니다. 자리에 앉는 순간에는 전부 내려놓고, 이미 있는 그대로의 자기로 20분을 머뭅니다. 두 움직임을 하루 안에 다 삽니다. 신심명의 '가려서 택하지 않음'도 무관심이 아니라 바로 이것입니다. 남김없이 뛰어들되, 이 순간이 달라져야만 여기 있어 주겠다는 요구는 없는 마음.</p>
+
+  <h3>4 · 초심(初心), 오직 모를 뿐 <span class="ko">Beginner's mind, don't-know mind</span></h3>
+  <p>"초심자의 마음에는 많은 가능성이 있다. 전문가의 마음에는 거의 없다"(스즈키 순류). 숭산 스님<sup class="fnref" id="fr-attitude-5"><a href="#fn-attitude-5">5</a></sup>은 길 하나를 통째로 한마디에 눌러 담았습니다. <em>오직 모를 뿐.</em> "나는 무엇인가?" 하는 물음을 놓지 않되, 답은 꾸밈없는 "…모른다"에 머물게 합니다. 열려 있는, 생각이 붙기 전의 모름입니다. 그 모름은 생각 이전이며, 바로 그것이 참된 자기라고 그는 가르쳤습니다. 책을 많이 거쳐 온 독자에게는 이 대목이 안내서를 통틀어 가장 따끔한 약입니다. 쌓아 온 이해는 아무리 진짜여도 전문가의 마음으로 굳을 수 있습니다. 옳은 견해로 지은 천장입니다. 아는 전부를 가볍게 쥐는 연습, 이 순간이 아직 나를 놀라게 할 수 있을 만큼만 가볍게 쥐는 연습이 곧 수행입니다. 모름은 무지가 아닙니다. 해설 없는 친밀함입니다.</p>
+
+  <h3>5 · 평범하게, 꾸준하게, 작게 <span class="ko">Ordinary, faithful, small</span></h3>
+  <p>"평상심이 도다(평상심시도 平常心是道)." 길은 평범한 하루보다 멀리 있지 않습니다. 인도에 있지 않고, 다음 리트릿(retreat, 집중 수행 모임)에 있지 않고, 지난봄에 스쳤던 그 상태에 있지 않습니다. 설거지에, 출퇴근길에, 회의 자리에, 늙어 가는 부모 곁에 있습니다. 다만 온전히 마주할 때 그렇습니다. 로렌스 형제(Brother Lawrence)<sup class="fnref" id="fr-attitude-6"><a href="#fn-attitude-6">6</a></sup>는 사십 년을 수도원 부엌에서 요리사로 살았습니다. "나에게는 일하는 시간이 기도하는 시간과 다르지 않다. 부엌의 소란과 그릇 부딪는 소리 한가운데서도… 성체 앞에 무릎 꿇었을 때와 똑같은 큰 고요 안에서 하나님을 모신다." 크고 드문 쪽과 작고 꾸준한 쪽이 다투면, 언제나 작고 꾸준한 쪽이 이깁니다. 주 2시간보다 매일 10분이 낫고, 계획만 세우고 지나간 한 시간보다 실제로 쉰 의식적인 호흡 한 번이 낫습니다. 이 길은 정점이 아니라 돌아온 횟수로 잽니다.</p>
+
+  <h3>6 · 사랑이라는 기준 <span class="ko">Love as the criterion</span></h3>
+  <p>수행이 진짜인지 아닌지를 가리는 잣대는 사랑입니다. 스승도, 체험도, 통찰도 마찬가지입니다. 어느 전통이든 결국 같은 잣대 앞에서 만납니다. "산을 옮길 만한 모든 믿음이 있을지라도 사랑이 없으면 내가 아무것도 아니요"(고전 13:2). "그들의 열매로 그들을 알지니"(마 7:16). 그 열매의 목록도 이미 적혀 있습니다. "사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과 온유와 절제"(갈 5:22–23). 아빌라의 테레사<sup class="fnref" id="fr-attitude-7"><a href="#fn-attitude-7">7</a></sup>는 아무리 드높은 황홀경도, 지나간 자리에 겸손과 사랑이 남았는지로 판정했습니다. 라마나 마하르시는 "박띠(bhakti, 신애)는 즈냐나(jñāna, 지혜)의 어머니다"라고 했습니다. 혼자서는 고요해지고 저녁 식탁에서는 차가워지는 수행이라면, 상태가 아무리 근사해도 어딘가에서 길을 잘못 든 것입니다. 일 년에 두 번, 되도록 나를 아는 사람과 함께, 이 점검을 자신에게 정직하게 해 보면 좋습니다. 이 안내서가 인정하는 진척의 지표는 이것 하나입니다.</p>
+
+  <h3>7 · 악기를 다루듯 자신에게 부드럽게 <span class="ko">Gentle with the instrument</span></h3>
+  <p>앞의 여섯을 다 지키는 사람은 없습니다. 누구나 실패합니다. 여러 해에 걸쳐, 거듭. 실패가 길을 막는 것이 아닙니다. 실패가 곧 이 길의 교과 과정입니다. 명상의 핵심 기술은 딴 데 가 있음을 알아차리고 소란 없이 돌아오는 데에 있습니다. 수행하는 삶의 핵심 기술도 똑같습니다. 한 주, 한 달, 한 해를 놓았음을 알아차리고, 돌아오는 길을 더 어렵게 만드는 수치심의 소용돌이 없이 돌아옵니다. 하나님은 연속 기록을 요구하지 않으시고, 실재(實在)는 사람에게 실망하지 않습니다. 이현주 목사<sup class="fnref" id="fr-attitude-8"><a href="#fn-attitude-8">8</a></sup>는 여든에 자신을 "완벽하게 불완전한 존재"라고 소개했습니다. 콘필드<sup class="fnref" id="fr-attitude-9"><a href="#fn-attitude-9">9</a></sup>의 관찰도 여전히 유효합니다. 깨어난 이들조차 마음이 움츠러드는 철을 지나고 또 지납니다. 성인들은 절뚝이며 걷습니다. 계속 걸으면 됩니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-attitude-1">信心銘. 선종의 3대 조사 승찬(僧璨, ?–606)이 지었다고 전해지는 짧은 시. "지극한 도는 어렵지 않으니 다만 가려서 택하지 말라"로 시작한다. <a class="fnb" href="#fr-attitude-1">↩</a></li>
+    <li id="fn-attitude-2">라마나 마하르시(Ramana Maharshi, 1879–1950). "나는 누구인가"를 평생 가르친 인도의 성자. <a class="fnb" href="#fr-attitude-2">↩</a></li>
+    <li id="fn-attitude-3">토머스 키팅(Thomas Keating, 1923–2018). 미국 트라피스트회의 수도원장. 교회의 오랜 관상 기도를 현대인이 배울 수 있도록 '향심기도'로 정리한 주역. <a class="fnb" href="#fr-attitude-3">↩</a></li>
+    <li id="fn-attitude-4">鈴木俊隆(1904–1971). 일본 조동종의 선사. 샌프란시스코에 선원을 세웠고 『선심초심』으로 '초심자의 마음'을 가르쳤다. <a class="fnb" href="#fr-attitude-4">↩</a></li>
+    <li id="fn-attitude-5">숭산 행원(1927–2004). 한국 선을 서양 여러 나라에 심은 조계종 선사. '오직 모를 뿐'이라는 가르침으로 유명하다. <a class="fnb" href="#fr-attitude-5">↩</a></li>
+    <li id="fn-attitude-6">로렌스 형제(Brother Lawrence, 1614경–1691). 파리 카르멜회 수도원의 주방 수사. 설거지 가운데 하나님의 임재를 연습한 『하나님의 임재 연습』의 주인공. <a class="fnb" href="#fr-attitude-6">↩</a></li>
+    <li id="fn-attitude-7">아빌라의 테레사(Teresa of Ávila, 1515–1582). 『내면의 성』을 쓴 스페인 카르멜회의 신비가. <a class="fnb" href="#fr-attitude-7">↩</a></li>
+    <li id="fn-attitude-8">이현주 목사(1944– ). 호는 관옥. 노자·불경을 그리스도인의 눈으로 읽어 온 감리교 목사·번역가. <a class="fnb" href="#fr-attitude-8">↩</a></li>
+    <li id="fn-attitude-9">잭 콘필드(Jack Kornfield, 1945– ). 『깨달음 이후 빨랫감』을 쓴 위빠사나 지도자. <a class="fnb" href="#fr-attitude-9">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="toolbox">
+  <div class="sec-label">제5부</div>
+  <h2>수행의 도구들 <span class="ko">The Toolbox: Practices</span></h2>
+
+
+  <div class="epigraph">
+    <p>"사랑으로는 그분을 얻고 붙들 수 있으나, 생각으로는 결코 그럴 수 없다."</p>
+    <div class="who">— 무지의 구름 The Cloud of Unknowing<sup class="fnref" id="fr-toolbox-1"><a href="#fn-toolbox-1">1</a></sup>, 6장 (14세기)</div>
+  </div>
+
+  <p class="lead">아래의 수행은 모두 네 가지 얼굴로 소개합니다. 무엇인지, 정확히 어떻게 하는지, 바르게 쓰면 어떤 모습인지, 어긋나면 어떤 모습이 되는지. 진짜 도구에는 반드시 거꾸로 쥐는 길이 있고, 고장 나는 방식을 미리 알아 두면 그것만으로 절반은 지켜집니다. 수행은 하는 일에 따라 묶었습니다. 전부 할 필요는 없습니다. 여러 해 붙들 <em>하나</em>의 중심 수행, 일상 속의 짧은 수행 몇 가지, 그리고 필요한 때가 오면 꺼내 쓰는 나머지. 그것이면 됩니다.</p>
+
+  <div class="box green">
+    <div class="tag">짧은 답을 원한다면</div>
+    <p><strong>중심 수행(하나를 골라 90일은 해 본 뒤에 판단합니다):</strong> 호흡 명상 또는 향심기도, 매일 아침 20분. 두 수행이 익히는 동작은 같습니다. 생각에 실려 갔음을 알아차리고, 소란 없이 돌아옵니다. 한쪽은 주의의 언어로, 한쪽은 하나님께 동의하는 언어로 말할 뿐입니다. 마음이 믿는 언어 쪽을 고르면 됩니다. 그리스도교에 뿌리가 있다면 향심기도를 중심에 두고 호흡 명상을 곁들이면 잘 맞는 경우가 많습니다. 반대로 해도 좋습니다. <strong>일상 수행:</strong> 마음이 흔들릴 때마다 마이클 싱어<sup class="fnref" id="fr-toolbox-2"><a href="#fn-toolbox-2">2</a></sup>(Michael Singer)의 이완하고 놓아 보내기, 그리고 문턱마다 의식적인 한 호흡(문 앞에서, 빨간불에서, 휴대전화를 열기 전에). <strong>저녁:</strong> 5분 의식 성찰(하루를 돌아보는 기도). <strong>매주:</strong> 조금 긴 좌선이나 침묵 산책 한 번, 렉시오 디비나(lectio divina, 성경을 천천히 곱씹어 읽는 '거룩한 독서') 한 번. 여기까지가 완결된 하나의 길입니다. 아래 나머지는 모두 그 길을 더 깊게 하고, 형편에 맞게 바꾸고, 고장 난 데를 고치는 도구입니다.</p>
+  </div>
+
+  <h3>기초 — 고요를 기르는 일 <span class="ko">Foundation</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 모든 길의 공통 기초</div>
+    <h4>호흡 명상 <span class="kterm">수식관(數息觀) · 아나빠나사띠(ānāpānasati) · breath meditation</span></h4>
+    <p><strong>무엇인가:</strong> 숨 쉬는 몸에 주의를 얹어 두고, 흩어질 때마다 다시 데려오는 일. 불교의 기초 수행이며(맛지마 니까야 118경, MN 118), 모양만 다를 뿐 어느 전통에나 있습니다. 고요(사마타 samatha)가 자라고, 그 위에 통찰이 자라는 버팀대입니다.</p>
+    <p><strong>어떻게 하는가:</strong></p>
+    <ol>
+      <li>방석이든 의자든, 흔들리지 않게 등을 세우고 앉습니다. 척추는 스스로 서게 두고, 손은 편히 놓습니다. 눈은 감거나 반쯤 내리고, 턱과 배는 부드럽게 풉니다. 단정하되 굳지 않게.</li>
+      <li>숨은 그대로 둡니다. 조절하지 않습니다. 주의가 머물 자리를 하나 정해 지킵니다. 콧구멍의 감각이든, 배의 오르내림이든.</li>
+      <li>거기에 주의를 얹고 쉽니다. 도움이 되면 내쉬는 숨을 하나부터 열까지 세고 다시 하나로 돌아옵니다(수식관). 세다가 놓치면 아무 말도 붙이지 않고 하나부터 다시 셉니다.</li>
+      <li>마음이 딴 데 가 있음을 알아차립니다. 수백 번 그럽니다. 그때마다 <em>그 알아차림이 바로 수행이 작동하는 순간</em>입니다. 원하면 "생각", "계획" 하고 가만히 이름을 붙인 뒤, 온 마음으로 숨에게 돌아옵니다.</li>
+      <li>20분. 끝나면 아무 할 일 없이 30초쯤 그냥 앉아 있다가, 천천히 하루로 들어갑니다.</li>
+    </ol>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>매일, 소박하게, 그만두지 않고. 흩어졌다 돌아오는 순환은 수행이 끊긴 것이 아니라 그 자체로 <em>수행입니다</em>. 근육은 그 반복으로 붙습니다. 나아가고 있다는 표시는 이렇습니다. 앉은 시간이 짧게 느껴집니다. 산란과 산란 사이가 벌어집니다. 몸이 가라앉고, 조용한 즐거움이 옵니다. 고요는 보기 위한 연료이지 종착지가 아닙니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>희열과 빛을 쫓는 일, 얼마나 "좋았는지"로 그날 좌선에 점수를 매기는 일. 고요를 쫓기 시작하면 수행은 슬롯머신이 됩니다. 숨을 억지로 다듬는 일, 숨 세기를 자기 벌주기로 쓰는 일, 떠오른 생각의 개수로 자신을 재는 일. 폭풍 같았어도 성실히 돌아온 좌선이 <em>강한</em> 좌선입니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 누구에게나, 언제나. 처음 앉을 때의 기본이고, 위기가 올 때마다 돌아오게 되는 수행입니다. 다른 모든 수행에 필요한 바로 그 기술을 조용히 길러 주기도 합니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 그리스도교 전통의 중심</div>
+    <h4>향심기도 <span class="kterm">向心祈禱 · 센터링 기도(Centering Prayer) · 하나님의 현존에 드리는 동의</span></h4>
+    <p><strong>무엇인가:</strong> 교회의 오래된 관상 기도를 오늘의 방법으로 다듬은 기도. 재료는 『무지의 구름』과 요한 카시아누스(John Cassian)입니다. 트라피스트회 수도원장 토머스 키팅<sup class="fnref" id="fr-toolbox-3"><a href="#fn-toolbox-3">3</a></sup>(Thomas Keating)과 동료들이 1970년대에 틀을 잡았습니다. 주의를 훈련하지 않고 <em>지향(intention)</em>을 훈련합니다. 모든 생각 아래에서, 내 안에 계신 하나님의 현존과 활동에 동의하며 머무는 20분입니다. 근거가 되는 구절은 예수님이 직접 하신 말씀입니다. "네 골방에 들어가 문을 닫고 은밀한 중에 계신 네 아버지께 기도하라"(마 6:6).</p>
+    <p><strong>어떻게 하는가 (키팅의 네 가지 지침, Contemplative Outreach의 표현):</strong></p>
+    <ol>
+      <li>내 안에 계신 하나님의 현존과 활동에 동의하려는 지향의 상징으로 거룩한 단어를 하나 고릅니다. 한 음절이나 두 음절로, 한 번만 정합니다. 예수, 사랑, 하나님, 평화, 아버지.</li>
+      <li>편안히 앉아 눈을 감고, 잠시 몸과 마음을 가라앉힌 뒤, 속으로 거룩한 단어를 떠올립니다.</li>
+      <li>생각에 끌려 들어가 있음을 알아차리면(여기서 '생각'은 느낌, 이미지, 기억, 계획, 마음속 논평까지 아우르는 말입니다), 아주 부드럽게 거룩한 단어로 돌아옵니다.</li>
+      <li>20분이 끝나면 눈을 감은 채로 2분쯤 침묵 안에 머뭅니다.</li>
+    </ol>
+    <p>앉아 있는 동안은 키팅의 '네 개의 R'을 따릅니다. <em>어떤 생각에도 저항하지 말고(resist), 어떤 생각도 붙들지 말고(retain), 어떤 생각에도 감정으로 반응하지 말고(react), 아주 부드럽게 거룩한 단어로 돌아오라(return).</em> 거룩한 단어는 쉬지 않고 외는 만트라가 아닙니다. 생각에 끌려갔음을 알아차린 순간에만 씁니다. 깊은 고요에 들면 단어가 저절로 떨어져 나가는데, 그것이 옳습니다. 기본 리듬은 하루 두 번, 아침과 늦은 오후입니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>기법이 아니라 관계입니다. 앉아 있음이 곧 동의이고, 일은 하나님이 하십니다. 키팅이 이 기도의 오랜 효과를 "신적 치유(the divine therapy)"라 부른 까닭입니다. "짐 내려놓기(unloading)"도 미리 알아 둘 만합니다. 감정이 실린 묵은 잔해가 침묵 속에서 떠오르는 일인데, 실패가 아니라 정화가 일하고 있다는 표시입니다. 이 기도는 여러 달에 걸친 삶으로 판단합니다(인내, 따뜻함). 그날 좌선의 날씨로는 판단하지 않습니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>생각이 하나도 없는 텅 빈 상태를 좇으며 그것을 기도라 부르는 일. 목표는 공백이 아니라, 현존하시는 하나님 앞에 깨어 현존하는 일입니다. 거룩한 단어를 생각을 때려잡는 몽둥이로 쓰는 일. 시끄러웠던 좌선을 실패로 치는 일. 한 번의 기도에서 만 가지 생각이 일었다고 낙심하는 수녀에게 키팅은 이렇게 답했습니다. "얼마나 사랑스러운 일입니까 — 하나님께 돌아갈 기회가 만 번이나 있었다는 뜻이니."</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 그리스도교에 뿌리를 둔 구도자에게 자연스러운 중심 수행. 요구하는 것이 동의뿐이어서 이 안내서에서 가장 부드럽고, 슬픔에 잠겼거나 기도가 메말라 있는 시기에 특히 좋습니다. 한국 자료: 관상지원단 / Contemplative Outreach Korea, 키팅의 「마음을 열고 가슴을 열고」(가톨릭출판사).</p>
+  </div>
+
+  <h3>통찰 — 실상을 보는 일 <span class="ko">Insight</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 경험이 어떻게 만들어지는지 보는 일</div>
+    <h4>위빠사나 <span class="kterm">vipassanā · 관(觀) · 통찰 명상(insight meditation)</span></h4>
+    <p><strong>무엇인가:</strong> 주의가 어느 정도 가라앉은 뒤, 그 주의를 경험 자체로 돌려 실제 성질을 보는 일. 모든 것이 일어나고 사라집니다(무상 anicca). 붙잡으면 만족을 주지 못합니다(고 dukkha). 주인 없이 일어납니다(무아 anattā). 널리 쓰이는 형태는 둘입니다.</p>
+    <p><strong>이름 붙이기 · 마하시 사야도(Mahasi Sayadaw)<sup class="fnref" id="fr-toolbox-4"><a href="#fn-toolbox-4">4</a></sup> 계열:</strong> 주된 대상은 배의 오르내림입니다. "오름… 내림" 하고 가볍게 이름을 붙입니다. 소리든 가려움이든 떠오른 계획이든, 무엇이 두드러지면 그 자리에서 이름을 붙입니다("들림", "가려움", "계획"). 그러고는 놓아주고 주된 대상으로 돌아옵니다. 이름은 발판일 뿐입니다. 과녁은 하나하나가 나타나고 사라지는 모습을 직접 지각하는 데 있습니다.</p>
+    <p><strong>몸 훑기 · 고엔카(S. N. Goenka)<sup class="fnref" id="fr-toolbox-5"><a href="#fn-toolbox-5">5</a></sup> 계열:</strong> 주의로 몸을 한 부분씩 차례로 훑습니다. 저릿함, 열기, 눌림, 통증. 어떤 감각이든 평정한 마음으로 만나고, 그 모두를 일어나고 사라지는 과정으로 이해합니다. 무료 10일 코스에서 제대로 배울 수 있습니다(한국에서는 담마코리아. 제11부).</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>고요라는 바탕 위에서, 매일 욕심내지 않는 분량으로. 주기적으로 집중 수련의 도움을 받고, 통찰의 지도(地圖)를 아는 스승이 곁에 있으면 더 좋습니다. 이 수행을 진지하게 하면 제2부의 단계들이 실제로 움직이기 시작하는데, 그 길에는 어두운 구간도 들어 있기 때문입니다. 단단한 자아라는 착각을 잘라 내는 데는 이 도구 상자에서 가장 정밀한 수술칼입니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>기계적인 이름 붙이기. 감각에 닿지 않은 채 앵무새처럼 외는 이름은 경험과 나 사이를 막는 새 만트라가 됩니다. 지도도 안내자도 없이 혼자 벌이는 고강도 집중 수련. 브리튼의 연구가 기록한 어려운 영역으로 들어가는 길로 잘 알려져 있습니다. 무상을 관찰이 아니라 이념으로 쓰는 일("아무것도 중요하지 않다").</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 호흡 수행을 3~6개월쯤 안정되게 이어 온 뒤에. 또는 형편이 닿을 때 짜임새 있는 10일 코스로. 삶이 흔들리고 있을 때 처음 잡을 도구는 아닙니다. 그럴 때는 먼저 땅부터 다지는 편이 좋습니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 곧바로 묻는 물음</div>
+    <h4>자기탐구 <span class="kterm">"나는 누구인가" · 아트마 비차라(ātma-vichāra) · self-inquiry</span></h4>
+    <p><strong>무엇인가:</strong> 라마나 마하르시<sup class="fnref" id="fr-toolbox-6"><a href="#fn-toolbox-6">6</a></sup>의 방법이며, 직접적인 길의 심장입니다. 마음의 내용물을 손보는 대신, 그 모든 내용물이 일어나는 자리인 <em>그 하나</em>로 주의를 돌립니다. "마음에 일어나는 모든 생각 가운데 '나'라는 생각이 첫째다." 라마나 마하르시의 가르침입니다. 그 첫 생각을 근원까지 따라갑니다.</p>
+    <p><strong>어떻게 하는가 (그의 <em>나는 누구인가 Nan Yar</em>에서):</strong></p>
+    <ol>
+      <li>생각이 일어나면 묻습니다. <em>이 생각은 누구에게 왔는가?</em> 답은 이렇게 옵니다. 나에게.</li>
+      <li>그러면 다시 묻습니다. <em>나는 누구인가?</em> 말로 답할 물음이 아닙니다. '나'라고 느껴지는 그 감각 자체로 주의를 돌리는 일입니다. 일어났던 생각은 가라앉고, 마음은 제 근원 쪽으로 돌아섭니다.</li>
+      <li>"나는 있다"는 맨 감각에 머뭅니다. 거기에 '이것'도 '저것'도 붙이지 않습니다. 주의가 다시 바깥으로 새면 되풀이합니다. 라마나 마하르시의 비유로, 이 물음은 "화장(火葬)의 장작더미를 뒤적이는 데 쓰는 막대기와 같다". 다른 생각을 다 태우고 나면 마지막에는 자기 자신마저 태웁니다.</li>
+    </ol>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>짧게, 살아 있게, 자주. 강의가 아니라 한 번의 눈길입니다. 평범한 하루 한복판에서 "지금 불안한 것은 누구인가?"를 진짜 궁금함으로 묻고, 주의가 보는 자 쪽으로 도로 떨어지게 둡니다. 열매는 말없이 자라는 확신입니다. 내가 무엇이든, 그것은 애초에 이야기 속에 있지 않았다는 확신. 라마나 마하르시는 하나님께 온전히 내맡기는 길을 동등한 대안으로 꼽았습니다. 둘 다 '나'라는 착각을 끝냅니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>"나는 누구인가?"를 만트라처럼 되뇌는 일. 물음에 개념으로 답하는 일("나는 알아차림이다"를 외워 둔 답처럼 내놓는 것). 심리적 자기 분석으로 바꾸는 일. 라마나 마하르시는 셋 다 분명하게 물리쳤습니다. 탐구가 침묵 대신 결론을 내놓기 시작하면, 내려놓고 호흡으로 돌아가는 편이 낫습니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 주의가 어느 정도 안정된 뒤가 가장 좋습니다. 라마나 마하르시, 니사르가닷따(Nisargadatta), 에크하르트 톨레<sup class="fnref" id="fr-toolbox-7"><a href="#fn-toolbox-7">7</a></sup>(Eckhart Tolle)에게 끌리는 독자와 자연스럽게 맞습니다. 출애굽기 3:14와 아름답게 짝을 이룹니다. 이 물음과 "나는 스스로 있는 자"(I AM)는 한 실의 양 끝입니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 한국식 물음의 길</div>
+    <h4>화두(話頭) <span class="kterm">간화선(看話禪) · "이뭣고" · 오직 모를 뿐(don't-know mind)</span></h4>
+    <p><strong>무엇인가:</strong> 한국 선(조계종)의 핵심 수행. 살아 있는 물음 하나를 붙듭니다. 이뭣고? "이 몸뚱이를 끌고 다니는 이것이 무엇인가?" 무(無). "부모에게서 나기 전 너의 본래 면목은 무엇인가?" 분석하려고 붙드는 물음이 아닙니다. 물음이 의심(疑心), 곧 의정(疑情)으로 뭉칠 때까지 붙듭니다. 몸으로 느껴지는 절박한 모름, 개념으로 빠져나갈 문을 모조리 막아 버리는 모름입니다("은산철벽 銀山鐵壁"). 그 의심 덩어리가 익어 터지는 순간이 견성(見性)입니다. 터지는 계기는 흔히 아주 평범합니다. 고전이 꼽는 동력은 대신심, 대의심, 대분심입니다(제4부). 숭산<sup class="fnref" id="fr-toolbox-8"><a href="#fn-toolbox-8">8</a></sup> 스님은 이 장치 전체를 현대인의 말로 옮겼습니다. <em>오직 모를 뿐</em>. "나는 무엇인가?… 모른다"를 붙들라는 것입니다. 그 모름은 생각 이전이며, 그것이 참된 자기입니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>스승과 공동체와 함께. 이 안내서의 수행 가운데 전통 스스로 반드시 지도받으라고 못 박는 유일한 수행입니다. 점검이라는 절차가 물음을 살아 있게 하고, 수행자가 자기를 속이지 않게 지켜 줍니다. 어디든 지니고 다닐 수 있습니다. 운전하면서, 설거지하면서 모름을 붙듭니다. 이 수행이 다른 모든 수행에 주는 선물이 있습니다. 모름을 적이 아니라 동력으로 바꾸어 놓습니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>죽은 말, 사구(死句). 살아 있는 말인 활구(活句)의 반대입니다. 의심이 담기지 않은 화두를 그저 외는 일이며, 서산대사의 경고가 바로 이것을 겨눕니다. 물음이 정말로 묻고 있지 않으면 반복은 소음일 뿐입니다. 공안을 재주껏 풀어낼 수수께끼로 다루는 일도 마찬가지입니다. 이 길에 끌린다면 혼자 앉지 말고 선 공동체와 함께 앉는 편이 좋습니다(무상사는 외국인도 맞아 줍니다. 제11부).</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 기질이 강렬하고 물음에 이끌리는 구도자에게, 승가(僧伽, 수행 공동체) 안에서. 이 안내서의 독자 대부분에게는 숭산 스님의 '오직 모를 뿐'을 지니고 다니는 정도면 충분합니다. 정식 간화선은 맛보는 길이 아니라 작정하고 들어가는 길입니다.</p>
+  </div>
+
+  <h3>가슴 — 사랑을 기르는 일 <span class="ko">Heart</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 이름을 부르는 기도</div>
+    <h4>예수기도 <span class="kterm">the Jesus Prayer · 헤시카즘(hesychasm)<sup class="fnref" id="fr-toolbox-9"><a href="#fn-toolbox-9">9</a></sup></span></h4>
+    <p><strong>무엇인가:</strong> 쉬지 말고 기도하라(데살로니가전서 5:17)는 말씀을 따라 동방 교회가 끊이지 않고 이어 온 수행. "주 예수 그리스도, 하나님의 아들이시여, 저에게 자비를 베푸소서." 이 기도가 입술에서 머리로, 머리에서 가슴으로 내려가 저절로 기도하기 시작할 때까지 되풀이합니다. 필로칼리아(Philokalia)<sup class="fnref" id="fr-toolbox-10"><a href="#fn-toolbox-10">10</a></sup>의 방법 문헌은 이 기도를 호흡에 얹습니다. 들이쉬며 앞 구절, 내쉬며 뒤 구절. 전통 전체를 요약한 테오판 은수자(Theophan the Recluse, '은수자'는 홀로 숨어 기도하는 수도자)의 말은 이렇습니다. "마음을 가슴에 두고" 하나님 앞에 서는 것.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>기법이 아니라 사랑으로. 반복이 곧 관계이고, 한 번 부를 때마다 가슴이 조금씩 돌아옵니다. 침묵 좌선을 따로 두고, 이 기도를 하루의 밑물결로 삼으면 아름답습니다. 걸으면서, 기다리면서, 잠들면서. 정교회는 분명히 해 둡니다. 호흡을 다루는 기술은 말과 주의와 회개하는 마음의 부드러움에 비하면 훨씬 덜 중요합니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>기계적으로 쌓는 일(반복 횟수를 공덕으로 세는 것). 몸을 쓰는 기법만 떼어 혼자 밀어붙이는 일. 호흡과 가슴을 쓰는 방법은 경험 있는 지도자 아래에서 전해졌고 본질에는 아무 장치도 필요 없다고, 전통 스스로 말합니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 신심이 그리스도를 향해 흐르고, 하루 종일 지니고 다닐 수행을 바라는 구도자에게. 만트라와 염불(念佛)에 가장 가까운 그리스도교의 사촌입니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 선한 마음을 기르는 훈련</div>
+    <h4>자애 명상 <span class="kterm">멧따(mettā) · loving-kindness</span></h4>
+    <p><strong>무엇인가:</strong> 조건 없는 선의를 일부러 기르고, 점점 넓어지는 원으로 내보내는 일. 붓다가 기준으로 든 그림은 이것입니다. "어머니가 자기 목숨으로 하나뿐인 자식을 지키듯". 그렇게 모든 존재를 향합니다.</p>
+    <p><strong>어떻게 하는가:</strong> 호흡으로 마음을 잠시 가라앉힙니다. 그다음 서두르지 않고, 담을 수 있는 만큼 진심을 담아 되풀이합니다. <em>내가 안전하기를. 내가 행복하기를. 내가 건강하기를. 내가 평안하기를.</em> 같은 문구로 원을 넓혀 갑니다. 나를 미소 짓게 하는 사람 → 아끼는 친구 → 아무 감정 없는 사람 → 어려운 사람 → 어디에나 있는 모든 존재. 느낌은 와도 좋고 안 와도 좋습니다. 수행은 의도에 있습니다. 메마른 날은 정상이며, 실패가 아닙니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>해독제 수행입니다. 마음이 모질어져 있을 때, 원망이나 자기 공격이 잦아진 때, 통찰 수행이 차갑고 사무적으로 굳어 버린 때에 씁니다. 그리스도인에게는 중보기도(남을 위해 대신 드리는 기도) 곁에 자연스럽게 놓입니다. 원수를 축복하라는 것은 직접적인 계명이고(마 5:44), 여기가 그 훈련장입니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>정직한 분노나 필요한 선 긋기를 건너뛰는 데 쓰는 일. 입은 해를 다루는 일 <em>대신에</em> 그 사람을 축복하는 식입니다. 고전이 남긴 주의도 둘 있습니다. 연애 감정이 얽힌 사람으로 시작하지 않습니다. 그리고 자애의 가까운 적을 살핍니다. 사랑으로 차려입은 집착입니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 누구에게나 주 1회. 마음이 굳어 있는 시기에는 매일. 제4부 6절의 기준을 가장 곧게 겨누는 수행입니다.</p>
+  </div>
+
+  <h3>말씀 — 텍스트를 만나는 일 <span class="ko">Word</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 기도가 되는 읽기</div>
+    <h4>거룩한 독서 <span class="kterm">렉시오 디비나(lectio divina)</span></h4>
+    <p><strong>무엇인가:</strong> 성경을 읽는 수도원의 방식입니다. 12세기에 귀고 2세(Guigo II)가 사다리 모양으로 정리했습니다. 정보를 얻으려고 읽지 않고, 만나려고 읽습니다. 몇 절만 붙들고 네 걸음을 걷습니다. <strong>읽기(lectio)</strong>: 천천히 읽으며, 반짝 다가오는 한 단어나 한 구절에 귀 기울입니다. <strong>묵상(meditatio)</strong>: 그 말을 씹고 되뇌며, 말씀이 내 삶을 캐묻게 둡니다. <strong>기도(oratio)</strong>: 거기서 일어난 것으로 하나님께 응답합니다. <strong>관상(contemplatio)</strong>: 말을 넘어 하나님 안에 잠잠히 쉽니다. 귀고의 비유는 이렇습니다. 읽기는 음식을 입에 넣고, 묵상은 씹고, 기도는 맛보고, 관상은 그 단맛 자체입니다. 15분에서 30분. 네 걸음은 행진하지 않고 나선을 그리며 돕니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>성경과의 사이가 불안해졌거나 심문처럼 굳어 버린 사람에게, 성경으로 돌아가는 치유의 길입니다. 본문은 시험지가 아니라 문입니다. 다른 깊은 텍스트에도 통합니다. 도덕경, 특히 시편, 길동무로는 이현주의 신약 읽기. 한 장을 효율 좋게 읽기보다 한 단락을 천천히 읽는 쪽이 낫습니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>어느새 공부나 설교 준비로 되돌아가는 일. 본문에게 읽히는 대신 본문을 분석하고 있게 됩니다. 네 걸음을 점검표처럼 서둘러 지나가는 일. 이미 생각해 둔 결론을 확인해 줄 본문만 골라 읽는 일.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 적어도 주 1회. 주일에 자연스럽게 어울립니다. 개신교를 떠나온 사람에게는 화해의 수행이 되는 일이 많습니다. 같은 성경을, 이번에는 깊은 자리에서 만납니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 저녁의 거울</div>
+    <h4>의식 성찰과 일기 <span class="kterm">에그자멘(examen) · 하루 되짚기</span></h4>
+    <p><strong>무엇인가:</strong> 로욜라의 이냐시오(Ignatius of Loyola)<sup class="fnref" id="fr-toolbox-11"><a href="#fn-toolbox-11">11</a></sup>가 남긴 하루 돌아보기. 보통 저녁에 10분입니다. (1) 그날 받은 선물을 하나하나 짚으며 감사합니다. (2) 빛을 구합니다. (3) 하루를 되감아 봅니다. 사랑과 현존 쪽으로 움직인 자리(위안)와 멀어진 자리(황폐)를 알아차립니다. 다그치지 않고, 호기심으로. (4) 무너진 자리는 정직과 자비로 만납니다. (5) 내일을 위한 구체적인 지향 하나를 정합니다. 일기는 형식 없이 같은 일을 합니다. 생각의 흐름을 종이 위로 꺼내 놓으면 그것과 나 사이가 벌어집니다. 열매 점검(제4부 6절)을 가능하게 하는 기록도 남습니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>짧게, 친절하게, 꾸준히. 몇 달이 지나면 실제 무늬가 드러납니다. 무엇이 어김없이 마음을 닫게 하고, 무엇이 열게 하는지. 어떤 책도 대신 알려 줄 수 없는, 나에 관한 정보입니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>밤마다 자기를 법정에 세우는 일. 의식 성찰은 내면의 비판자가 진행하는 죄목 조사가 아닙니다. 이야기를 풀어 주기는커녕 도리어 살찌우는, 끝없는 자기 서사가 된 일기. 쓰다가 반추의 소용돌이에 끌려 들어가는 날은 한 쪽 분량에서 끊으면 됩니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 가볍게 이어지는 한, 매일. "나는 나아가고 있는가?"라는 물음에는 이만한 도구가 없습니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 책과 바르게 관계 맺기</div>
+    <h4>공부 <span class="kterm">문사수(聞思修)</span></h4>
+    <p><strong>무엇인가:</strong> 읽고 듣는 일. 이미 넉넉히 하고 있는 바로 그 일입니다. 전통은 이것을 세 걸음 길의 첫걸음으로 존중합니다. 문(聞), 가르침을 듣습니다. 사(思), 곱씹어 생각합니다. 수(修), 몸으로 익힙니다. 셋을 이 순서로, 되풀이해서.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>한 번에 한 권, 천천히, 수행에서 실제로 올라온 물음을 따라 고릅니다. 다 읽으면 덮고, 수행합니다. 울릴지도 모르는 여러 권을 쌓기보다 실제로 울린 몇 권을 다시 읽는 편이 낫습니다. 책은 견적(見跡), 소의 발자국입니다(제2부). 들판까지 데려다주는 딱 그만큼만 믿으면 됩니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>수집가의 함정. 초걈 트룽파(Chögyam Trungpa)<sup class="fnref" id="fr-toolbox-12"><a href="#fn-toolbox-12">12</a></sup>가 "영적 물질주의"라 부른 그것입니다. "우리는 영적인 기법으로 오히려 자기중심성을 강화하면서도, 스스로 영적으로 성장하고 있다고 착각할 수 있다." 책벌레에게는 이 함정이 이런 얼굴로 옵니다. 이해가 변화의 자리를 대신 차지합니다. 안전선은 거듭 말할 만합니다. <em>수행 시간 ≥ 독서 시간.</em></div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 언제나, 그 안전선 안에서. 제10부에 추려 둔 읽기 순서가 있습니다.</p>
+  </div>
+
+  <h3>몸 — 몸으로 드리는 기도 <span class="ko">Body</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 심장이 뛰는 겸손</div>
+    <h4>백팔배 <span class="kterm">절 수행 · 오체투지(五體投地)</span></h4>
+    <p><strong>무엇인가:</strong> 한국이 가진 위대한 몸의 수행. 무릎과 두 손과 이마를 바닥에 대는 오체투지(五體投地)로 108번 절합니다. 절마다 날숨에 참회(정직한 인정)나 발원(마음에 세우는 다짐)의 한 구절을 얹는 경우가 많습니다. 108이라는 수는 전통이 꼽아 온 백팔번뇌에서 왔지만, 뜻은 더 단순합니다. 교만과 반추가 사는 자리인 머리를 가슴보다 낮은 곳에 두는 일. 말로 다 못 한 것을 온몸이 말할 때까지 그 일을 되풀이합니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>마음이 들끓을 때, 슬픔이 무거울 때, 생각에 갇혀 도무지 앉아 있을 수 없을 때. 온몸으로 되풀이하는 리듬은 고요가 닿지 못하는 곳까지 가라앉힙니다. 개신교를 떠나온 사람이라면 몸으로 드리는 기도로 받아들여도 좋습니다. 무릎 꿇는 기도와, 춤추던 다윗과 한 핏줄입니다. 무릎이 허락하는 만큼만. 27배도 54배도 떳떳한 절입니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>운동 삼아 몰아붙이는 자기 처벌, 횟수를 쌓는 공덕 계산. 마음이 평소 달리던 속도로 하는 절. 느림이 곧 가르침입니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 필요할 때 꺼내 쓰는 약으로, 또는 아침의 붙박이 수행으로. 템플스테이에 가면 어차피 몸이 하게 되는 일이니, 거기서 배우면 됩니다.</p>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 시속 3킬로미터의 길</div>
+    <h4>걷기 명상 <span class="kterm">행선 · 경행(kinhin)</span></h4>
+    <p><strong>무엇인가:</strong> 형태는 셋, 요점은 하나입니다. 느린 정식 걷기(마하시 계통의 행선): 짧은 구간을 오가며 걸음마다 "듦, 나아감, 놓음"을 알아차립니다. 선의 경행: 좌선과 좌선 사이에 천천히 걸으며 발바닥과 호흡에 주의를 둡니다. 틱낫한(Thich Nhat Hanh)<sup class="fnref" id="fr-toolbox-13"><a href="#fn-toolbox-13">13</a></sup>의 방식은 일상에 가장 알맞습니다. 평소 속도로 걸으며 호흡에 맞추고, 소리 없는 게송(偈頌, 짧은 노래 구절)을 얹습니다. "도착했습니다 / 집에 왔습니다"(I have arrived / I am home). 걸음마다 도착이고, 목적지는 없습니다.</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>방석과 길거리를 잇는 다리. 안절부절못하는 날의 수행. 출퇴근길과 점심 산책이 그대로 길이 됩니다. 틱낫한은 "발로 땅에 입 맞추듯 걸으라"고 말합니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>머리로는 전속력으로 계획을 굴리며 걷고, 밖에 있다는 이유로 명상이라 부르는 일. 게송은 바로 그런 때를 붙잡으려고 있습니다.</div>
+    </div>
+    <p class="small"><strong>언제 하는가:</strong> 매일, 돈 들지 않고, 눈앞에 숨어 있습니다.</p>
+  </div>
+
+  <h3>삶 — 일상이라는 도량(道場, 수행의 자리) <span class="ko">Life</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 흐름 속의 현존(톨레)</div>
+    <h4>생각하는 자를 지켜보기 · 내면의 몸 <span class="kterm">watching the thinker · inner body</span></h4>
+    <p><strong>무엇인가:</strong> 에크하르트 톨레가 준, 어디든 들고 다니는 두 개의 문. (1) <em>생각의 관찰:</em> 머릿속 목소리를 편들지 않는 증인으로 듣습니다. 특히 되풀이되는 패턴을. 판단하지도 싸우지도 않습니다. 그 알아차림 자체가 곧 현존입니다. "내가 현존하고 있지 않다는 것을 깨닫는 순간, 나는 이미 현존한다." (2) <em>내면의 몸:</em> 주의를 몸 안쪽으로 내려, 안에서 느껴지는 살아 있음에 둡니다. 먼저 두 손, 다음에 온몸. 무슨 일을 하는 동안에도 그 실 한 올을 놓지 않습니다. 주의의 일부를 생각의 흐름 밖에 묶어 두는 닻입니다. 괴로움이 치솟을 때 톨레가 쓰는 진단은 이렇습니다. "내년도, 내일도, 오 분 뒤도 아니라, <em>지금 당장</em> 무슨 문제가 있습니까?"</p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>하루에 수십 번, 한 번에 몇 초씩. 수행이 방석을 벗어나 일하는 삶 전체에 스며드는 길이 이것입니다. 특히 고통체(pain-body)를 지켜볼 만합니다. 주기적으로 생각을 통째로 납치해 가는 묵은 감정의 응어리인데, 먹이를 주지 않고 바라보면 지나가는 시간이 매번 짧아집니다.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>"현존하기"를 또 하나의 낙제 과목으로 만드는 일. '지금'을 방패 삼아 꼭 필요한 계획과 애도와 책임을 미루는 일. 현존은 깨어서 세금을 처리하는 일도, 깨어서 상실을 아파하는 일도 품습니다.</div>
+    </div>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 흔들리는 순간의 내려놓음(싱어)</div>
+    <h4>이완하고 놓아 보내기 <span class="kterm">relax and release · 내맡김(surrender)</span></h4>
+    <p><strong>무엇인가:</strong> 마이클 싱어의 순간순간 방법. 무언가가 마음을 찌릅니다. 어떤 눈빛, 말 한마디, 기억, 막힌 도로. 가슴 언저리에서 에너지가 움직이는 것이 느껴집니다. 바로 그 순간 <em>이완합니다</em>. 어깨, 가슴, 심장 둘레를. 흔들림 쪽이 아니라, 흔들림을 알아차리는 자 쪽으로 살짝 물러나 기댑니다. 일어난 에너지는 누르지도 않고 그것에 떠밀려 행동하지도 않으면서, 그대로 지나가게 둡니다. 한 번 놓아 보낼 때마다 오래 쌓인 저항이 한 조각씩 풀려납니다(그의 용어로 삼스카라 samskara). 『상처받지 않는 영혼』 첫머리에, 방향을 잡아 주는 물음이 있습니다. 그 목소리를 듣고 있는 자가 나입니다. 그렇다면 <em>나는 누구인가?</em></p>
+    <div class="rw">
+      <div class="right-use"><div class="h">바른 사용</div>꾸준하지 못한 수행자에게는 이 안내서를 통틀어 가장 좋은 일상 수행입니다. 반복 횟수를 삶이 무한정 대 주기 때문입니다. 흔들림 하나가 곧 연습 한 번입니다. 몇 달이 지나면 틀림없는 가벼움이 느껴집니다. 건드려도 더는 터지지 않는 오래된 자리들.</div>
+      <div class="wrong-use"><div class="h">어긋난 사용</div>간판만 바꿔 단 억압이 되어 버린 "내려놓음". 에너지는 지나가는 동안 온전히 느껴져야 하며, 눌러 넣는 것이 아닙니다. 행동이나 선 긋기가 필요한 상황을 견디는 데 이것을 쓰는 일.</div>
+    </div>
+  </div>
+
+  <div class="box practice">
+    <div class="tag">수행 · 일, 가족, 섬김</div>
+    <h4>일상이 곧 수도원 <span class="kterm">일이 곧 수행 · 카르마 요가(karma yoga) · 섬김</span></h4>
+    <p><strong>일:</strong> 바가바드기타<sup class="fnref" id="fr-toolbox-14"><a href="#fn-toolbox-14">14</a></sup>의 카르마 요가<sup class="fnref" id="fr-toolbox-15"><a href="#fn-toolbox-15">15</a></sup>를 한 절로 줄이면 이렇습니다. "네 권리는 행위 자체에만 있고 그 열매에는 결코 없다. 행위의 열매를 동기로 삼지 말고, 행하지 않음에 집착하지도 말라"(2장 47절). 짝이 되는 구절이 뒤따릅니다. "마음의 평정을 요가라 부른다"(2장 48절). 힘은 다 쏟고, 결과는 놓습니다. 소진에도 움켜쥠에도 이것이 답이고, 어떤 직업이든 이 한 줄을 따라가면 수행이 됩니다. 그리스도교의 원형은 로렌스 형제<sup class="fnref" id="fr-toolbox-16"><a href="#fn-toolbox-16">16</a></sup>(Brother Lawrence)의 부엌입니다.</p>
+    <p><strong>가족과 관계:</strong> 램 다스(Ram Dass)<sup class="fnref" id="fr-toolbox-17"><a href="#fn-toolbox-17">17</a></sup>가 겪어 보고 하는 말이 있습니다. "자신이 깨달았다고 생각하면, 가족과 일주일을 지내 보라." 관계가 고급 과정인 이유는 정확히 이것입니다. 리트릿이라면 재워 두었을 것들을 관계는 기어이 건드려 깨웁니다. 집에서 되풀이되는 짜증 하나하나가 방해가 아니라 교과 과정입니다. 그때마다 이완하고 놓아 보내기를 연습할 기회가 한 번씩 옵니다.</p>
+    <p><strong>섬김:</strong> 늘 하는 도움의 형태를 하나 정해 둡니다. 스스로 고른, 소박하고 규칙적인 것입니다. 길의 부록이 아니라 뼈대에 넣습니다. 입전수수(入鄽垂手)를 설계 원리로 삼는 일입니다. 되도록 이름은 숨깁니다(마태복음 6:3). 자기 이미지를 위해 하는 섬김은 자아가 자원봉사에 나선 것입니다.</p>
+  </div>
+
+  <h3>함께 — 도반, 스승, 광야 <span class="ko">Together</span></h3>
+
+  <div class="box practice">
+    <div class="tag">수행 · 공동체와 안내</div>
+    <h4>도반, 스승, 리트릿 <span class="kterm">상가(sangha) · 스승 · 수련회·피정(retreat)</span></h4>
+    <p><strong>공동체(도반 · 상가 · 교회):</strong> 혼자 하는 수행은 어느 선에서 멈춥니다. 함께 하는 수행은 복리로 불어납니다. 격려, 정직함, 그리고 나의 들쭉날쭉함이 당해 낼 수 없는 주 1회의 약속. 공동체는 하나면 충분합니다. 좌선 모임, 향심기도 모임, 절의 프로그램, 교회의 정직한 소그룹. 고르는 기준은 교리의 순도가 아니라 진실함입니다.</p>
+    <p><strong>스승:</strong> 도움이 되지만, 처음부터 꼭 있어야 하는 것은 아닙니다. 언젠가는 값집니다. 먼저 가 본 사람이 내 봄(見)을 점검해 주고, 부풀어 오른 곳을 찔러 터뜨려 줍니다. 선은 이 일을 점검이라는 제도로 만들어 두었습니다. 가려 보는 기준은 제9부에 있습니다. 이 관계 전체가 어긋나지 않게 지켜 주는 말은 붓다가 임종의 자리에서 남긴 당부입니다. "스스로를 등불로 삼으라, 법(다르마)을 그 등불로 삼아."</p>
+    <p><strong>수련회·피정·안거:</strong> 적어도 한 해에 한 번, 하루 이상의 안내받는 침묵. 엿봄이 가장 자주 찾아오고 수행이 다시 제자리를 잡는, 밀도 높은 조건입니다. 한국은 깊이로 보나 비용으로 보나 선택지가 유별나게 넉넉합니다. 무료도 있습니다. 제11부에 모아 두었습니다.</p>
+  </div>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-toolbox-1">14세기 영국의 무명 수도자가 쓴 관상 기도 안내서. 생각으로는 하나님께 닿을 수 없으나 사랑으로는 닿는다고 가르친다. <a class="fnb" href="#fr-toolbox-1">↩</a></li>
+    <li id="fn-toolbox-2">마이클 싱어(Michael Singer, 1947– ). 『상처받지 않는 영혼』의 저자. <a class="fnb" href="#fr-toolbox-2">↩</a></li>
+    <li id="fn-toolbox-3">토머스 키팅(Thomas Keating, 1923–2018). 교회의 관상 기도를 '향심기도'로 정리한 트라피스트회 수도원장. <a class="fnb" href="#fr-toolbox-3">↩</a></li>
+    <li id="fn-toolbox-4">마하시 사야도(Mahasi Sayadaw, 1904–1982). 미얀마의 큰 스승. 배의 오르내림을 관찰하며 이름을 붙이는 위빠사나 방법을 정리해 세계에 퍼뜨렸다. <a class="fnb" href="#fr-toolbox-4">↩</a></li>
+    <li id="fn-toolbox-5">고엔카(S. N. Goenka, 1924–2013). 미얀마에서 위빠사나를 배운 인도의 재가 지도자. 몸의 감각을 훑는 10일 코스를 보시로만 돌아가는 세계적 과정으로 세웠다. <a class="fnb" href="#fr-toolbox-5">↩</a></li>
+    <li id="fn-toolbox-6">라마나 마하르시(Ramana Maharshi, 1879–1950). "나는 누구인가"를 평생 가르친 인도의 성자. <a class="fnb" href="#fr-toolbox-6">↩</a></li>
+    <li id="fn-toolbox-7">에크하르트 톨레(Eckhart Tolle, 1948– ). 『지금 이 순간을 살아라』의 저술가. <a class="fnb" href="#fr-toolbox-7">↩</a></li>
+    <li id="fn-toolbox-8">숭산 행원(1927–2004). '오직 모를 뿐'으로 한국 선(禪)을 세계에 전한 선사. <a class="fnb" href="#fr-toolbox-8">↩</a></li>
+    <li id="fn-toolbox-9">'고요'를 뜻하는 그리스어에서 온 동방 교회의 기도 전통. 예수기도가 그 중심이다. <a class="fnb" href="#fr-toolbox-9">↩</a></li>
+    <li id="fn-toolbox-10">Φιλοκαλία. 동방 교회 기도 전통의 문헌을 모은 선집(18세기 편찬). '아름다움을 사랑함'이라는 뜻. <a class="fnb" href="#fr-toolbox-10">↩</a></li>
+    <li id="fn-toolbox-11">로욜라의 이냐시오(1491–1556). 예수회의 창립자. 하루를 하나님 앞에서 되짚어 보는 '의식 성찰'을 남겼다. <a class="fnb" href="#fr-toolbox-11">↩</a></li>
+    <li id="fn-toolbox-12">초걈 트룽파(Chögyam Trungpa, 1939–1987). 티베트 불교를 서양에 전한 스승. 수행이 에고의 장식이 되는 위험을 '영적 물질주의'라 이름 붙였다. <a class="fnb" href="#fr-toolbox-12">↩</a></li>
+    <li id="fn-toolbox-13">틱낫한(Thich Nhat Hanh, 1926–2022). 베트남의 선승·평화운동가. '마음챙김'을 일상의 언어로 세계에 전했다. 이현주 목사가 그의 책 여럿을 우리말로 옮겼다. <a class="fnb" href="#fr-toolbox-13">↩</a></li>
+    <li id="fn-toolbox-14">바가바드기타(Bhagavad Gītā). '거룩한 이의 노래'라는 뜻의 힌두교 경전. 전쟁터 한복판에서 왕자 아르주나가 신 크리슈나에게 받는 가르침의 형식으로, 행위 한가운데서의 수행을 노래한다. <a class="fnb" href="#fr-toolbox-14">↩</a></li>
+    <li id="fn-toolbox-15">카르마 요가(karma yoga). 행위의 결과에 대한 집착을 내려놓고, 일 자체를 수행으로 삼는 길. 바가바드기타의 중심 가르침이다. <a class="fnb" href="#fr-toolbox-15">↩</a></li>
+    <li id="fn-toolbox-16">로렌스 형제(Brother Lawrence, 1614경–1691). 수도원 부엌에서 하나님의 임재를 연습한 수사. <a class="fnb" href="#fr-toolbox-16">↩</a></li>
+    <li id="fn-toolbox-17">람 다스(Ram Dass, 1931–2019). 하버드 심리학 교수였다가 인도에서 스승을 만나 영성 교사가 된 미국인. 『지금 여기에 살라』(Be Here Now)의 저자다. <a class="fnb" href="#fr-toolbox-17">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="rhythm">
+  <div class="sec-label">제6부</div>
+  <h2>삶의 리듬 — 하루, 한 주, 한 해 <span class="ko">A Living Rhythm</span></h2>
+<div class="artvig"><svg width="640" height="96" viewBox="0 0 640 96" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20,74 Q320,58 620,74" stroke="#6b6156" stroke-width="3"/><circle cx="130" cy="44" r="10" stroke="#a07d2a" stroke-width="3"/><circle cx="320" cy="26" r="12" fill="#a07d2a" opacity=".8" stroke="none"/><circle cx="510" cy="44" r="10" stroke="#6b6156" stroke-width="3"/></svg></div>
+
+  <div class="epigraph">
+    <p>"설거지를 할 때는 오직 설거지만 해야 한다. 곧 설거지를 하는 동안 자기가 설거지를 하고 있다는 사실을 온전히 알아차리고 있어야 한다는 뜻이다."</p>
+    <div class="who">— 틱낫한<sup class="fnref" id="fr-rhythm-1"><a href="#fn-rhythm-1">1</a></sup>(Thich Nhat Hanh), 『마음챙김의 기적』(The Miracle of Mindfulness, 1975)</div>
+  </div>
+
+  <p class="lead">시작했다가 멈추는 수행. 이 한마디에 문제가 이미 정확히 담겨 있습니다. 그래서 이 부는 오직 한 가지 결과를 겨냥해 지은 것입니다. <strong>다지기(consolidation)</strong>입니다. 띄엄띄엄하던 수행을, 바쁜 날과 여행과 가라앉은 기분과 깜박 잊는 날을 지나고도 살아남는 리듬으로 바꾸는 일입니다. 아래의 틀은 일부러 소박하게 잡았습니다. 여러 해 동안 80%만 지킨 리듬은 사람을 바꿉니다. 2월이면 접게 되는 아름다운 계획은 아무것도 바꾸지 못합니다.</p>
+
+  <h3>수행이 끊기는 이유 — 짜임새의 문제 다섯 가지</h3>
+  <p>꾸준하지 못한 것은 인격의 결함이 아닙니다. 거의 언제나 짜임새의 문제, 그것도 흔한 다섯 가지 가운데 하나입니다. <strong>(1) 정해 둔 신호가 없습니다.</strong> "시간 날 때 해야지"로 잡아 둔 수행은 다른 모든 일에 밀립니다. <strong>(2) 분량이 너무 많습니다.</strong> 의욕이 차오른 순간에 세운 계획(하루 한 시간!)은 처음 맞는 피곤한 화요일에 무너지고, 무너지면서 습관 전체를 끌고 내려갑니다. <strong>(3) 모 아니면 도로 칩니다.</strong> 하루 빠지면 실패로 여깁니다. 실패는 수치심이 되고, 수치심은 회피가 되고, 그렇게 한 달이 사라집니다. <strong>(4) 자꾸 새것을 찾습니다.</strong> 새 책을 만날 때마다 수행을 갈아타면 아무것도 쌓이지 않습니다. 11미터만 파면 물이 나오는 땅에서 1미터짜리 우물을 열 개 파는 구도자가 됩니다. <strong>(5) 혼자 합니다.</strong> 공동체가 없으면, 안의 의욕이 사그라들 때 밖에서 붙잡아 주는 것이 하나도 없습니다. 아래의 리듬은 이 다섯 허점을 모두 막도록 짰습니다. 정해 둔 신호, 가장 작은 분량, 다시 시작하는 규칙, 90일 동안 붙드는 닻 하나, 그리고 한 주에 한 번 사람들과 만나는 약속입니다.</p>
+
+  <div class="box green">
+    <div class="tag">하루의 틀 · The Daily Frame</div>
+    <p><strong>아침 — 닻으로 삼는 앉기(20분, 휴대폰보다 먼저).</strong> 일어나면 물 한 잔, 그리고 앉습니다. 호흡 명상이든 향심기도(Centering Prayer)든 닻으로 정한 수행 하나를, 같은 자리에서 같은 순서로 합니다. SNS도 받은편지함도 마음에 닿기 전이어야 합니다. 휴대폰 규칙이 이 수행의 절반입니다. 하루의 첫 몇 분이 그날의 주인을 정합니다.</p>
+    <p><strong>가장 작은 분량의 규칙 — 0인 날은 없습니다.</strong> 도무지 안 되는 날의 수행은, 그 자리에 앉아 세 번 숨을 의식하며 쉬는 것입니다. 시늉이 아닙니다. 그 세 번의 숨이 바로 수행의 알맹이입니다. 지키는 것은 분량이 아니라 정체성입니다. <em>나는 매일 돌아오는 사람이다.</em> 그리고 한 번도 끊긴 적 없는, 돌아오는 습관입니다.</p>
+    <p><strong>낮 동안 — 문턱 수행.</strong> 이미 있는 순간을 종(鐘, bell)으로 바꿉니다. 틱낫한의 방식입니다. 문을 지날 때마다, 빨간불마다, 엘리베이터마다 숨 한 번을 의식하며 쉽니다. 휴대폰을 열기 전과 어려운 메시지에 답하기 전에는 세 번을 쉽니다(STOP: 멈추고 Stop, 숨을 쉬고 Take a breath, 몸과 감정과 생각을 살피고 Observe, 그런 다음 나아갑니다 Proceed). 마음이 출렁일 때마다 힘을 풀고 놓아 보냅니다. 일과 일 사이에는 모를 뿐. 따로 드는 시간은 0분입니다. 길이 몸에 배어드는 자리가 바로 여기입니다.</p>
+    <p><strong>저녁 — 의식 성찰(examen, 5~10분).</strong> 감사하고, 빛을 청하고, 하루를 호기심으로 되짚고, 자비를 구하고, 내일의 지향 하나를 정합니다. 잠들기 전 정해 둔 시각부터 미디어는 끕니다. 하루 끝에 마음에 담는 것도, 하루 첫머리처럼 내 것이어야 합니다.</p>
+  </div>
+
+  <div class="box green">
+    <div class="tag">한 주의 틀 · The Weekly Frame</div>
+    <p><strong>긴 수행 하나</strong>(40~60분. 길게 앉거나, 108배를 하거나, 자연 속을 말없이 걷습니다. 산행도 좋습니다. 한국은 어디에 살아도 산이 가깝습니다). <strong>거룩한 독서(lectio divina) 하나.</strong> <strong>공동체 약속 하나.</strong> 좌선 모임이나 향심기도 모임, 아니면 교회에서 얻을 수 있는 가장 정직한 한 시간입니다. <strong>되도록 느린 반나절 하나.</strong> 미디어를 금식하는 안식의 시간입니다. 아브라함 헤셸(Abraham Joshua Heschel)<sup class="fnref" id="fr-rhythm-2"><a href="#fn-rhythm-2">2</a></sup>이 말한 "시간 속의 궁전", 곧 행위에서 존재를 지켜 주는 한 주 한 번의 멈춤입니다. 주일 오후가 꼭 맞습니다.</p>
+  </div>
+
+  <div class="box green">
+    <div class="tag">한 해의 틀 · The Seasonal Frame</div>
+    <p><strong>석 달에 한 번:</strong> 온전히 침묵하는 하루(당일형 템플스테이, 피정의 집, 아니면 휴대폰을 끄고 혼자 오르는 산)입니다. <strong>한 해에 한 번:</strong> 며칠짜리 집중 수행입니다. 처음에는 2박3일 예수원이나 템플스테이가 좋고, 준비가 되면 10일 위빠사나 코스가 있습니다(제11부). <strong>한 해에 두 번:</strong> 일지를 펴 놓고 하는 열매 점검입니다(제4부 6절). 지난 여섯 달 동안 인내가 자랐는지. 발끈하던 자리가 부드러워졌는지. 따뜻함이 닿는 범위가 넓어졌는지. 리듬은 기분이 아니라 증거를 보고 고칩니다.</p>
+  </div>
+
+  <h3>다시 시작하는 법 <span class="ko">The Restart Protocol</span></h3>
+  <p>떨어져 나가는 날은 옵니다. 그래서 이 리듬에서 가장 중요한 것은 돌아오는 일입니다. 규칙은 셋입니다. <strong>두 번 거르지 않습니다.</strong> 하루 빠진 것은 날씨입니다. 이틀이면 기후가 시작됩니다. 그러니 빠진 다음 날에는 닻으로 삼는 앉기 하나만은 무슨 일이 있어도 지킵니다. <strong>작게 다시 들어갑니다.</strong> 오래 쉬었다면 전체 리듬이 아니라 10분부터 시작해 보름에 걸쳐 다시 쌓아 올리면 됩니다. 에고는 화려한 복귀를 원합니다. 그것은 다음 무너짐을 미리 예약해 두는 에고의 방식일 뿐입니다. <strong>요란하지 않게 돌아옵니다.</strong> 스스로를 심문하는 일도, 새 맹세도, 수치심의 소용돌이도 없이. 흩어진 줄 알아차리면 그냥 돌아옵니다. 한 번의 앉기 안에서 하던 그대로입니다. 떨어졌다가 돌아오는 일, 그것이 삶의 크기로 이어 가는 수행 <em>그 자체</em>입니다. 20년 수행자란 대개, 자신에 대해 어두운 결론을 내리지 않은 채 수백 번 다시 시작한 사람입니다.</p>
+
+  <p class="small">야심에 관해 한마디만 보태 둡니다. 리듬이 자리를 잡으면 늘리고 싶어집니다. 늘리더라도 마지못해 늘리듯, 천천히 늘리는 편이 좋습니다. 깊이는 분량이 아니라 세월에서 옵니다. 5년을 지킨 충실한 20분이 흔들리는 한 시간을 이깁니다. 더 하고 싶은 진짜 허기가 올라오면, 하루의 분량을 늘리기 전에 집중 수행의 날을 먼저 더하면 됩니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-rhythm-1">틱낫한(Thich Nhat Hanh, 1926–2022). '마음챙김'을 일상의 말로 세계에 전한 베트남 선승. <a class="fnb" href="#fr-rhythm-1">↩</a></li>
+    <li id="fn-rhythm-2">아브라함 요슈아 헤셸(Abraham Joshua Heschel, 1907–1972). 유대교 랍비·사상가. 안식일을 '시간 속의 궁전'이라 불렀다. <a class="fnb" href="#fr-rhythm-2">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="fruits">
+  <div class="sec-label">제7부</div>
+  <h2>열매 — 이 길이 데려가는 곳 <span class="ko">Where It Leads</span></h2>
+
+  <div class="epigraph">
+    <p>"루이빌의 4번가와 월넛가가 만나는 상점가 한복판에서, 나는 저 모든 사람을 사랑한다는 깨달음에 갑자기 압도되었다… 그들 모두가 해처럼 빛나며 걸어다닌다는 것을 사람들에게 알려줄 방법이 없다."</p>
+    <div class="who">— 토머스 머튼<sup class="fnref" id="fr-fruits-1"><a href="#fn-fruits-1">1</a></sup>(Thomas Merton), 『어느 죄 지은 방관자의 단상』(Conjectures of a Guilty Bystander, 1966)</div>
+  </div>
+
+  <p class="lead">이 길을 몇 해, 몇십 년 살아가면 실제로 무엇을 기대할 수 있을까요? 아래는 그 물음에 드리는 정직한 대답입니다. 이 안내서에 나오는 모든 전통의 스승들이 남긴 증언을 포개어 그렸고, 과학이 닿는 자리에는 근거를 붙였으며(제8부), 광고는 걷어 냈습니다. 남은 그림은 흔한 환상보다 소박하고, 동시에 그 환상보다 놀랍습니다.</p>
+
+  <h3>삶으로 겪는 궤적</h3>
+  <p><strong>처음(몇 주에서 몇 달):</strong> 자극과 반응 사이에 작지만 진짜인 틈이 생깁니다. 날 선 말이 나가려는 순간 제 목소리가 들리고, 어떤 날은 그 말을 삼키게 됩니다. 잠과 평소의 불안은 대개 조금 나아집니다. 마음이 <em>얼마나</em> 쉬지 않고 떠드는지 처음으로 보이는데, 잠깐은 오히려 나빠진 것처럼 느껴집니다. 어질러진 방에 불이 켜졌을 뿐입니다. 그리고 청하지 않은 고요의 첫맛이 예고 없이 옵니다. 저녁의 1분, 세상이 씻긴 듯 말갛게 보이는 어느 아침.</p>
+  <p><strong>중간(여러 해):</strong> 배경이 바뀝니다. 곱씹는 생각은 더 일찍 힘을 잃고, 서운함은 더 빨리 삭아 거름이 되고, 고통체(pain-body)의 발작은 짧아집니다. 대상 없는 조용한 기쁨이 들르기 시작합니다. 들뜸이 아니라 집에 돌아온 느낌에 가깝습니다. 지킬 자아가 줄어드니 관계가 부드러워집니다. 함께 있기 편해졌다는 말을, 스스로 느끼기도 전에 곁에서 먼저 들을 수도 있습니다. 엿봄이 깊어질 수 있고(제2부 3~6단계), 어두운 구간이 올 수도 있습니다. 이미 지도에 있고, 지나갈 수 있으며, 돌아보면 가장 깊은 스승이었던 구간입니다. 그리고 죽음이 생각해 볼 수 있는 일이 됩니다. 풀린 것은 아니지만, 차마 못 볼 것도 더는 아닙니다.</p>
+  <p><strong>깊은 시기(긴 세월 — 그리고 시간표가 아니라 은총을 따라):</strong> 여러 증언이 하나의 상태로 모여듭니다. 전통마다 말은 달라도 묘사는 한집안 식구처럼 닮았습니다. 어떤 조건이 와도 그 조건을 뚫고 이어지는 배경의 고요입니다. 아빌라의 테레사<sup class="fnref" id="fr-fruits-2"><a href="#fn-fruits-2">2</a></sup>(Teresa of Ávila)가 말한 일곱째 궁방이 그것입니다. 그 표지는 "소란 아래에서도 지속되는 평화", 그리고 "마르다와 마리아가 함께 있음"입니다. 에크하르트 톨레<sup class="fnref" id="fr-fruits-3"><a href="#fn-fruits-3">3</a></sup>(Eckhart Tolle)가 전한 1977년의 무너짐과 열림 이후의 삶도 그렇습니다. 끊이지 않는 평화가 여러 달 이어지다 영구적인 바탕으로 가라앉았고, 그 위에서 생각은 강박이 아니라 쓸모를 따라 일어나게 되었습니다. 라마나 마하르시<sup class="fnref" id="fr-fruits-4"><a href="#fn-fruits-4">4</a></sup>(Ramana Maharshi)는 열여섯에 스스로 죽음을 미리 겪어 본 탐구 한가운데서 죽음의 공포를 잃었고, 지켜본 모든 이의 증언으로는 그 공포가 쉰네 해 동안 돌아오지 않았습니다. 세상은 에두름 없이 곧바로 와 닿게 됩니다. "물은 잔잔히 흐르고, 꽃은 붉다." 자비는 애씀이기를 그치고, 불에서 온기가 번지듯 저절로 일어나는 일이 됩니다. 그리고 깨달은 삶은 바깥을 향합니다. 십우도(十牛圖)의 열 번째 그림이고, 수건과 대야입니다. 예수와 붓다에게서 본 것이 바로 이것이며, 두 분만 타고난 특별한 체질이 아닙니다. 거짓 자아가 다 죽고 나면 누구에게든 남는 것이 이것이라고 전통 전체가 증언합니다.</p>
+
+  <h3>깨어남이 뜻하지 않는 것 — 두 번 읽어 둘 대목</h3>
+  <p>깨어남이 바꾸는 것은 경험의 <em>주인</em>이지 날씨가 아닙니다. 아픔은 남습니다. 붓다가 말한 두 개의 화살입니다. 첫째 화살, 곧 아픔 자체는 여전히 날아와 박힙니다. 멎는 것은 둘째 화살입니다. 아픔에 맞서는 저항, 아픔을 둘러싸고 짓는 이야기. 그 화살을 더는 제 손으로 쏘지 않게 됩니다. 성격과 기질도 남습니다. 깨어난 내향인은 여전히 내향인이고, 유머와 별난 버릇과 취향도 그대로입니다. 능력이 주어지지도 않습니다. 모든 것을 알게 되는 것도 아니고, 틀리는 법 없는 판단이 생기는 것도 아닙니다. 스승들의 추문이 잔인하게 증명하듯(제9부) 윤리가 저절로 따라오지도 않습니다. 인격은 깨어난 뒤에도 계속 가꿔야 하는 정원입니다. 오래된 상처는 여전히 심리적인 돌봄이 필요할 수 있습니다. 잭 콘필드<sup class="fnref" id="fr-fruits-5"><a href="#fn-fruits-5">5</a></sup>(Jack Kornfield)는 관계에서 입은 상처 때문에 심리치료가 여전히 필요했던, 경지 높은 스승들을 보았습니다. 그 둘을 나란히 하는 일은 부끄러운 일이 아닙니다. 알아차림과 치유는 경쟁자가 아니라 한편입니다. 마지막으로, 날씨가 사라진 영원한 지복(至福)도 없습니다. 깊은 삶에도 흐리고 갠 날이 번갈아 옵니다. 다른 점은 하나입니다. 그 날씨가, 날씨에 더는 위협받지 않는 무엇 <em>안에서</em> 지나갑니다.</p>
+
+  <div class="box note">
+    <div class="tag">왜 무엇보다 이것인가 — 대답의 마무리</div>
+    <p>제1부에서 근거를 미리 놓았습니다. 여기서는 한 문장씩이면 됩니다. 이것은 목표가 이미 와 있는 유일한 추구입니다. "하나님의 나라는 너희 안에(너희 가운데) 있느니라"(눅 17:21). 그러니 끝내 잃을 수는 없습니다. 다만 못 알아볼 수 있을 뿐입니다. 죽음이 장부를 들추지 못하는 유일한 재산입니다. 고통에서 무기를 빼앗습니다. 같은 상실이 여전히 찾아오지만, 둘째 화살 없이 깨끗하게 슬퍼하게 됩니다. 복리로 쌓입니다. 수행의 한 해가 다음 한 해를 더 기름지게 합니다. 정점을 찍고 내려오는 몸과 경력과 다른 모든 자산의 정반대입니다. 그리고 이 길에서 넘쳐흐르는 것은 이 세상에 틀림없이 모자란 단 한 가지입니다. 정말로 곁에 있어 주고, 정말로 두려워하지 않고, 정말로 친절한 사람 하나. "내가 온 것은 양으로 생명을 얻게 하고 더 풍성히 얻게 하려는 것이라"(요 10:10). 풍성한 삶이란 성공한 삶에 하나님을 얹은 삶이 아닙니다. 바로 이것입니다.</p>
+  </div>
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-fruits-1">토머스 머튼(Thomas Merton, 1915–1968). 미국 트라피스트회 수도자·저술가. '거짓 자아/참 자아' 언어의 원류. <a class="fnb" href="#fr-fruits-1">↩</a></li>
+    <li id="fn-fruits-2">아빌라의 테레사(Teresa of Ávila, 1515–1582). 『내면의 성』을 쓴 스페인 카르멜회의 신비가. <a class="fnb" href="#fr-fruits-2">↩</a></li>
+    <li id="fn-fruits-3">에크하르트 톨레(Eckhart Tolle, 1948– ). 『지금 이 순간을 살아라』의 저술가. <a class="fnb" href="#fr-fruits-3">↩</a></li>
+    <li id="fn-fruits-4">라마나 마하르시(Ramana Maharshi, 1879–1950). "나는 누구인가"를 평생 가르친 인도의 성자. <a class="fnb" href="#fr-fruits-4">↩</a></li>
+    <li id="fn-fruits-5">잭 콘필드(Jack Kornfield, 1945– ). 『깨달음 이후 빨랫감』을 쓴 위빠사나 지도자. <a class="fnb" href="#fr-fruits-5">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="bigpicture">
+  <div class="sec-label">제8부</div>
+  <h2>큰 그림 — 우주, 존재, 의식 <span class="ko">The Big Picture</span></h2>
+<div class="artvig"><svg width="640" height="96" viewBox="0 0 640 96" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="320" cy="48" r="34" stroke="#a07d2a" stroke-width="2.6"/><circle cx="90" cy="30" r="2.4" fill="#6b6156"/><circle cx="150" cy="64" r="1.8" fill="#6b6156"/><circle cx="220" cy="24" r="2" fill="#6b6156"/><circle cx="420" cy="70" r="2.2" fill="#6b6156"/><circle cx="480" cy="26" r="2.6" fill="#6b6156"/><circle cx="560" cy="52" r="1.8" fill="#6b6156"/><circle cx="255" cy="70" r="1.6" fill="#6b6156"/><circle cx="380" cy="18" r="1.6" fill="#6b6156"/></svg></div>
+
+  <div class="epigraph">
+    <p>"나 자신의 짐작은 이렇다. 우주는 우리가 짐작하는 것보다 더 괴이할 뿐 아니라, 우리가 짐작<em>할 수 있는</em> 것보다 더 괴이하다."</p>
+    <div class="who">— 홀데인(J. B. S. Haldane)<sup class="fnref" id="fr-bigpicture-1"><a href="#fn-bigpicture-1">1</a></sup>, 『가능한 세계들』(Possible Worlds, 1927) — 자주 잘못 인용되는 이 문장의 검증된 원문</div>
+  </div>
+
+  <p class="lead">이 우주와 이 존재가 무엇인지, 가장 눈이 뜨이는 관점들을 알고 싶다는 요청이 있었습니다. 조건이 하나 붙어 있었습니다. <em>과학적으로 건전할 것.</em> 그 둘은 함께 갈 수 있습니다. 다만 규율이 하나 필요합니다. 모든 주장에, 근거가 실제로 튼튼한 만큼만 등급을 매기는 규율입니다. 이 부 전체에서 <span class="tier a">A · 확립된 과학</span>은 주류이거나, 되풀이 실험에서 다시 확인되었거나(재현), 합의에 이른 것을 뜻합니다. <span class="tier b">B · 진지한 소수 학술 견해</span>는 틀릴 수도 있으나 실제로 출판되어 논증되고 있는 학계의 입장입니다. <span class="tier c">C · 열린 문제</span>는 정말로 풀리지 않았거나 아직 짐작에 머무는 것입니다. 놀라운 대목은 곧 드러납니다. A 등급 안에서만도 얼마나 많은 경이가 살아남는지. 가장 깊은 물음들이 얼마나 정직하게 열려 있는지. 구도자에게 유사과학은 필요 없습니다. 실제 상황이 그보다 더 이상합니다.</p>
+
+  <h3>관상(觀想, contemplative) 전통의 주장 — 검증대에 올린 명제</h3>
+  <p>무엇을 검증하려는지 알 수 있도록 꾸밈없는 말로 적어 둡니다. 관상 전통의 주장은 네 조항입니다. 첫째, '나는 분리되고 경계 지어진 자아다'라는 그 느낌은 타고난 실체가 아니라 만들어진 것이며, 꿰뚫어 볼 수 있습니다. 둘째, 꿰뚫고 나면 남는 것이 있습니다. 경험의 어떤 내용보다 나에게 더 근본적인, 알아차림으로서의 열려 있음입니다. 셋째, 그 자리에서 만나는 실재는 이음매 없는 하나의 전체, 서로 기대어 함께 일어나는 전체로 드러납니다. 넷째, 그 전체의 바탕을 말하는 데에는 기계나 우연이라는 낱말보다 알아차림, 있음, 사랑이라는 낱말이 더 잘 맞습니다. 뒤의 두 조항을 과학은 아직 확인해 주지 못합니다. 놀라운 것은, 그리고 거의 아무도 분명히 말해 주지 않는 것은, 앞의 두 조항을 두고 과학이 내린 판정입니다.</p>
+
+  <h3>1 · 자아는 정말로, 뇌가 지어낸 것입니다 <span class="tier a">A</span></h3>
+  <p>여기가 커다란 합류 지점입니다. 영성에는 아무 관심이 없는 신경과학과 인지과학이 한 결론에 다다랐습니다. 통일되고 연속된 듯 느껴지는 그 "나"는 뇌 안에 든 물건이 아니라 뇌가 지어 올리는 <em>모형</em>이라는 결론입니다. 분리뇌 연구(로저 스페리 Roger Sperry, 마이클 가자니가 Michael Gazzaniga)에서, 말하는 좌반구는 본 적도 없는 정보가 일으킨 행동을 두고 자신만만하게 이유를 <em>지어냈습니다</em>. 일이 다 벌어진 뒤에 자서전을 쓰는 "해석자"입니다. 기억 연구는 회상이 재생이 아니라 재구성임을 보여 줍니다. 예측 처리(predictive processing) 신경과학의 논증은 한 걸음 더 나아갑니다. 지각 자체가 "통제된 환각(controlled hallucination)"이라는 것입니다. 뇌가 먼저 내놓은 최선의 추측을 감각이 쉼 없이 바로잡아 가는 일, 그것이 곧 지각이라는 뜻입니다. 아닐 세스(Anil Seth)<sup class="fnref" id="fr-bigpicture-2"><a href="#fn-bigpicture-2">2</a></sup>의 『내가 된다는 것』(<em>Being You</em>)이 이 그림을 대표합니다. 그리고 자아 역시 그렇게 지각되는 내용 가운데 하나입니다. "자아는 지각하는 자가 아니라 하나의 지각이다." 토마스 메칭거(Thomas Metzinger)<sup class="fnref" id="fr-bigpicture-3"><a href="#fn-bigpicture-3">3</a></sup>의 자기 모형 이론은 더 단호합니다. 뇌는 자기 모형을 돌리는데, 그 모형이 하도 투명해서 시스템 스스로 그 모형을 진짜 내면의 누군가로 착각합니다. 우리는 "에고 터널" 안에서 삽니다. 머릿속의 작은 사람, 곧 호문쿨루스(homunculus)를 찾아낸 사람은 아무도 없고, 학계는 이제 찾기를 그만두었습니다.</p>
+  <p>이제 그보다 2,500년 앞선 붓다의 무아(無我, anattā) 가르침을 들어 볼 차례입니다. 오온(五蘊), 곧 몸·느낌·지각·형성작용·의식을 샅샅이 뒤져도 고정된 자아는 어디에서도 나오지 않습니다. "나"는 과정인데, 실체로 잘못 읽어 온 것입니다. 다석<sup class="fnref" id="fr-bigpicture-4"><a href="#fn-bigpicture-4">4</a></sup>(多夕)의 말로 하면, 제나 곧 에고인 나는 몸과 살아온 역사가 지어낸 것이라, 살아 있는 동안에 죽을 수 있습니다. A 등급 인지과학과 관상 전통의 진단은, 수행에 가장 중요한 바로 그 지점에서 정확히 겹칩니다. <em>하루 종일 지키고 있는 그 자아는 자기가 주장하는 방식으로는 존재하지 않습니다.</em> 신경과학자들이 꼭 덧붙이는 정직한 한마디도 있습니다. "호문쿨루스가 없다"는 말이 "사람이 없다"는 말은 아닙니다. 그리고 그 지어낸 자아를 꿰뚫었을 때 남는다고 관상 전통이 말하는 것, 곧 알아차림으로서의 열려 있음 앞에서는 과학이 아직 침묵합니다. 병의 진단은 과학이 확인해 주었습니다. 다만 병이 나은 자리에 무엇이 남는지를 겨눌 기계가 아직 없을 뿐입니다. 이렇게 보면 명상은 무아라는 교리를 믿는 일이 아닙니다. 그 발견을 1인칭으로, 나라는 실험실에서 직접 확인해 보는 일입니다.</p>
+
+  <h3>2 · 우리는 문자 그대로, 서로 기대어 있는 존재입니다 <span class="tier a">A</span></h3>
+  <p>틱낫한<sup class="fnref" id="fr-bigpicture-5"><a href="#fn-bigpicture-5">5</a></sup>은 아무것도 홀로 존재하지 않고 서로 기대어 서로를 이루고 있다는 진실에 상즉(相卽, interbeing)이라는 이름을 붙였습니다. 종이 한 장이 곧 구름이고 비이고 나무꾼이고 해라는 통찰입니다. 그런데 생물학을 들여다보면 이것은 은유가 아닙니다. 몸에는 사람 세포와 얼추 같은 수의 세균 세포가 삽니다. 머릿수로는 절반쯤이 내가 아니고, 그 절반이 없으면 점심 한 끼 소화하지 못합니다. 세포마다 든 발전소인 미토콘드리아는 약 20억 년 전에 삼켜진, 홀로 살던 세균의 후손입니다. 복잡한 생명이란 아직 끝나지 않은 합병입니다. 유전체(몸의 유전 정보 전체)의 약 8%는 레트로바이러스에서 왔고, 그 바이러스 유전자 가운데 몇은 없어서는 안 될 것이 되었습니다. 그중 하나는 우리를 품었던 태반을 만드는 일을 돕습니다. 몸속 탄소와 산소와 철은 별 속에서 융합되어 별의 죽음과 함께 흩뿌려졌습니다. 칼 세이건(Carl Sagan)의 "별의 재료(star-stuff)"는 시가 아니라 화학입니다. 게다가 몸은 열린 계(系, open system)입니다. 물질과 에너지, 공기와 미생물이 "나"라는 경계를 쉬지 않고 드나듭니다. 홀로 서서 저를 스스로 만들었다는 개인은 영성의 눈으로만 수상한 것이 아닙니다. 생물학으로 보면 거짓입니다. 바울은 "우리가 서로 지체가 됨이라"(엡 4:25) 했고, 생태학자는 데이터로 같은 말을 합니다. 우주가 무언가 일러 주려 한다고 짐작해도 지나치지 않은 대목입니다.</p>
+
+  <h3>3 · 의식의 과학은 정말로, 스스로도 인정하듯 열려 있습니다 <span class="tier a">A · 열려 있다는 것이 확립된 사실</span></h3>
+  <p>데이비드 차머스(David Chalmers)<sup class="fnref" id="fr-bigpicture-6"><a href="#fn-bigpicture-6">6</a></sup>가 1995년에 정식화한 "어려운 문제(hard problem)"는 이렇습니다. 뇌의 <em>기능</em>, 곧 구별하고 통합하고 보고하는 일을 설명하기는 그저 어려울 뿐입니다. 그런데 그 모든 처리에 <em>왜 경험이 따라붙는가</em>는 차원이 다른 문제입니다. 처리는 캄캄한 어둠 속에서 그냥 돌아가도 될 텐데, 왜 빨강을 보는 데에는 "그것을 겪는 느낌"이 있을까요? 이 물음에는 어떤 이론도 합의를 얻지 못했습니다. 신비주의자가 하는 말이 아니라 학계 스스로 내린 평가이며, 최근 몇 해 사이 보기 드물게 공개적인 정직함으로 두 번 확인되었습니다. 2023년, 신경과학자 크리스토프 코흐(Christof Koch)는 차머스에게 25년 내기의 패배를 인정했습니다. 1998년에 포도주를 걸고 시작된 내기였습니다. 그때까지 의식의 신경 상관물, 곧 의식에 정확히 대응하는 뇌 활동이 발견된다는 쪽에 코흐가 섰고, 발견되지 않았습니다. 2025년 4월에는 『네이처』(<em>Nature</em>)가 기념비적인 적대적 협업(adversarial collaboration) 연구를 실었습니다. 선두의 두 이론, 통합정보이론(IIT)과 전역 신경 작업공간 이론(GNWT)을, 미리 등록해 둔 설계에 따라 피험자 256명 규모로 맞붙인 실험입니다. 결과는 이랬습니다. 두 이론의 대표 예측이 <em>둘 다</em> 상당 부분 빗나갔습니다. 의식의 내용은 예측된 지속적 동기화 없이 뒤쪽(후측) 피질에서 해독되었고, 예측된 전전두엽의 "점화"는 사실상 나타나지 않았습니다. 이 분야의 선두 둘을 세워 놓고도, 실험은 어느 쪽에도 왕관을 씌우지 못했습니다. 한편 2023년에는 연구자 124명이 IIT를 "유사과학"으로 불러야 한다는 공개서한을 냈고, 그 서한에 반발이 뒤따랐습니다. 좋은 의식 이론이 어떤 모습이어야 하는지조차 아직 합의가 없다는 뜻입니다. 구도자가 챙길 결론은 정확히 이것입니다. <strong>과학이 의식을 설명해 냈다고 말하는 사람은 과장하고 있습니다. 과학에 따르면 의식은 아무것도 아니라고 말하는 사람도 똑같이 과장하고 있습니다.</strong> 온 우주에서 나에게 가장 가까운 단 하나의 사실, 곧 경험이 있다는 사실이 지금도 열려 있는 과학의 최전선입니다.</p>
+
+  <h3>4 · 물질은 우리가 생각하는 그런 것이 아닙니다 <span class="tier a">A</span></h3>
+  <p>양자역학에는 정직한 한 단락을 내어 줄 만합니다. 영성 서적에서 가장 심하게 잘못 쓰이는 과학이기 때문입니다. 확립된 것부터. 중첩, 얽힘(entanglement), 그리고 2022년 노벨 물리학상을 받은 벨 검증(Bell test) 실험들입니다. 이 실험들은 빠져나갈 구멍들을 마저 닫고, <em>국소적</em> 숨은 속성으로는 어떤 이론도 실재를 재현하지 못함을 확인했습니다. 확정된 성질을 미리 갖춘 독립된 작은 물체들의 세계라는 일상의 그림은 실험으로 사망했습니다. 다음, 풀리지 않은 것. 측정 문제(measurement problem), 곧 왜 하나의 확정된 결과가 일어나는가 하는 물음입니다. 코펜하겐 해석, 다세계 해석, 봄(Bohm) 역학, 큐비즘(QBism)이 모두 진지한 물리학자들 사이에 살아 있습니다. 마지막으로, 거짓인 것. "양자역학은 의식이 실재를 창조함을 증명한다"는 말입니다. 그 생각의 대표자로 꼽히던 물리학자 위그너부터가 마음을 바꿨습니다. 관찰자의 마음 없이도 세계가 왜 익숙한 고전적 모습으로 보이는지를 설명하는 결어긋남(decoherence) 이론에 설득된 것입니다. 설문에서도 마음에 특별한 물리적 역할을 주는 물리학자는 소수에 그칩니다. 그런데 정당하게 열려 있는 최전선은 그 반박된 주장보다 더 이상합니다. 확장된 위그너의 친구(Wigner's friend) 정리와 실험들(2018~2020)이 시사하는 바는 이렇습니다. 그리 무겁지 않은 가정 아래에서도, 서로 다른 관찰자에게 언제나 하나의 공유된 객관적 사실을 배정할 수는 없다는 것입니다. 실재가 밑바닥까지 관찰자와 무관한지는 물리학 안에서 살아 있는 질문입니다. 결론 난 신비주의도 아니고, 결론 난 유물론도 아닙니다. 색즉시공(色卽是空)은 적어도 당구공보다는 나은 추측이었습니다.</p>
+
+  <h3>5 · 철학이 의식에 열어 둔 존중받는 문들 <span class="tier b">B</span></h3>
+  <p>어려운 문제가 그대로 서 있는 탓에, 현역 철학자 가운데 상당한 소수가 비유물론 입장에 섭니다. 2020년 필페이퍼스(PhilPapers) 조사에서 대략 3분의 1로, 물리주의(physicalism) 약 52%와 나란히 놓이는 숫자입니다. 이 입장들은 대학 출판부에서 책으로 나오고 학술지에서 논증됩니다. 이런 입장에 설 자격을 남에게서 빌리지 않고 제 힘으로 얻으려면, 가장 강한 세 입장과 각각의 약점을 알아 두면 좋습니다. <strong>범심론(panpsychism)</strong>부터. 게일런 스트로슨(Galen Strawson)과 필립 고프(Philip Goff)가 대표입니다. 경험은 물질 자체의 근본 성질이라는 입장입니다. 스트로슨의 논증으로는, 없던 것이 마법처럼 문득 생겨난다는 창발(emergence)에 기대지 않고 <em>진지한</em> 유물론자가 되는 길이 이것뿐입니다. 아직 풀리지 않은 급소는 조합 문제, 곧 미시 경험들이 어떻게 모여 하나의 마음이 되는가 하는 물음입니다. <strong>러셀식 일원론(Russellian monism)</strong>. 버트런드 러셀(Bertrand Russell)이 1927년에 내놓았고 차머스를 비롯한 이들이 되살렸습니다. 이 목록에서 가장 깊은 착상입니다. 물리학이 기술하는 것은 물질이 <em>무엇을 하는가</em>까지입니다. 구조, 관계, 성향. 물질이 그 자체로 <em>무엇인가</em>에 대해서는 체계적으로 침묵합니다. 의식이 바로 그 본래 성질이거나, 거기에 속할 수 있습니다. 이렇게 보면 물리학은 관상 전통의 주장과 한 번도 부딪친 적이 없습니다. 애초에 그 층위에서 말하지 않기 때문입니다. <strong>분석적 관념론(analytic idealism)</strong>. 베르나르도 카스트루프(Bernardo Kastrup)의 입장으로, 근본은 의식 하나뿐이고 각각의 마음은 거기서 갈라져 나온 "해리된 인격"입니다. 앞뒤가 맞고 논의도 늘고 있지만 학계에서는 아직 변두리입니다. 급소는, 공유된 세계가 왜 이토록 법칙대로 움직이는지 설명하는 일입니다. 도널드 호프먼(Donald Hoffman)의 인터페이스 이론("진화는 실재를 숨긴다, 시공간은 바탕화면이다")은 자극적이지만 <span class="tier c">C</span>이고, 너무 멀리 나갔습니다. 진화가 진실을 잘 추적하는 쪽을 선호할 때가 많다는 수학적 반례들이 있습니다. 공정하게 덧붙이면 물리주의의 논거도 여전히 강력합니다. 뇌의 인과적 폐쇄성, 신경과학의 꾸준한 성공, 절약의 원리, 그리고 어려운 문제 자체가 인지적 착각이라는 환영주의(illusionism)의 논증이 있습니다. 정직한 지도는 이렇습니다. 유물론은 다수의 <em>입장</em>이지 확정된 결과가 아닙니다. 의식의 형이상학은 학계 최고 수준에서 아직 판가름 나지 않았습니다. 알아차림을 근본으로 여기는 구도자는 살아 있는, 존중받는 철학적 선택지 안에 서 있습니다. 과학 바깥에 서 있는 것이 아닙니다.</p>
+
+  <h3>6 · 기계 아래 놓인 명상 <span class="tier a">A</span></h3>
+  <p>이 안내서의 수행이 기대고 있는 관상 과학의 정직한 현황입니다. 임상에서는 이렇습니다. 마음챙김 프로그램은 불안과 우울과 통증을 실제로, 그러나 <em>중간 정도로</em> 개선합니다. 기준이 되는 『JAMA』 메타분석(여러 연구를 합쳐 본 분석)에서 효과크기 약 0.3~0.4입니다. 이 질환들에 관한 한 항우울제와 비슷한 수준이고, 다른 적극적 치료보다 낫지는 않습니다. MBCT(마음챙김 기반 인지치료)는 가장 좋은 심리치료들만큼은 우울증 재발을 막아 줍니다. 부풀려진 기대는 학계 안에서 공식적으로 바로잡혔습니다(「Mind the Hype」, 2018). 뇌에서는 이렇습니다. 숙련된 명상가는 수행 중에 디폴트 모드 네트워크(default mode network)의 활동이 줄고 연결이 달라집니다(브루어 Brewer, 2011)<sup class="fnref" id="fr-bigpicture-7"><a href="#fn-bigpicture-7">7</a></sup>. 자기 이야기를 곱씹는 마음 방황과 가장 깊이 얽힌 계통이라, "나에 관한 재잘거림이 줄어든다"는 증언과 시사하는 바가 겹칩니다. 다만 이 네트워크가 곧 "자아 모듈"은 아닙니다. 1만 시간 넘게 훈련한 수행자는 뇌의 역동에 크고 재현되는 변화를 스스로 일으킵니다. 티베트 장기 수행 대가들에게서 관찰된 그 유명한 고진폭 감마 동기화입니다. 최전선은 깊은 상태 자체에 닿았습니다. 하버드/MGH의 명상 연구 프로그램은 선정(jhāna, 깊은 몰입의 명상 상태)을 7테슬라 해상도로 찍고 있고, 명상적 소멸(cessation), 곧 훈련으로 경험을 잠시 꺼 두는 상태를 다룬 고밀도 뇌파 사례연구가 2023~2026년 사이에 나오기 시작했습니다. 단일 피험자의 예비 결과라 아직 <span class="tier c">C</span>입니다. 그래도 관상 전통의 가장 깊은 주장들이 처음으로 기계 아래에 놓였습니다. 그림을 마무리하는 냉정한 두 마디가 남습니다. 명상에는 실재하는 부작용 목록이 있습니다(제9부). 그리고 어떤 뇌 영상도 "깨어남을 증명"하지 못합니다. 기계가 재는 것은 상관물인데, 깨어남은 상관물이 아닙니다. 데이터가 확립해 준 것은 이것입니다. 안으로 난 길은 객관적인 지문을 남깁니다. 그리고 관상 전통은, 과학이 이제야 따라잡기 시작한 정밀함으로, 실재하는 무언가를 줄곧 묘사하고 있었습니다.</p>
+
+  <h3>7 · 정직하게 열려 있는 심연들 <span class="tier c">C</span></h3>
+  <p><strong>미세조정(fine-tuning):</strong> 몇 가지 물리 상수가 생명을 허용하는 좁은 범위 안에 놓여 있습니다. 후보 설명은 셋입니다. 다중우주에 인간중심적 선택을 더한 그림, 설계, 그냥 그런 사실. 셋 다 앞뒤가 맞고, 셋 다 입증되지 않았습니다. 진짜 신비이며, 무엇의 증명도 아닙니다. <strong>왜 아무것도 없지 않고 무언가가 있는가:</strong> 라이프니츠의 이 물음은 남아 있고, 아마 영원히 물리학 너머에 남을 것입니다. 모든 것의 이론이 완성되어도 그 이론이 말해 주는 범위는 <em>무엇이</em> 있고 <em>어떻게</em> 있는가까지입니다. <em>왜 실재라는 것이 있기는 한가</em>는 끝내 말하지 못합니다. 현대 사상에서 이 물음만큼, 경외가 그저 정확한 반응이 되는 자리는 없습니다. <strong>임사체험(근사체험, near-death experience):</strong> 가장 좋은 연구(AWARE-II, 2023년, 심정지 567건)에서 생존자 가운데 소수가 구조를 갖춘, 흔히 빛으로 가득한 "회상된 죽음의 경험"을 보고했습니다. 뇌파에서는 소생술이 시작되고 최대 한 시간까지 조직화된 뇌 활동이 치솟는 모습이 잡혔습니다. 실재하고 출판된 현상입니다. 그리고 "죽어 가는 뇌가 깊은 경험을 만들어 낸다"는 해석과도, 그보다 이상한 해석과도 <em>양쪽 다</em> 어긋나지 않습니다. 이 연구는 몸 밖에서 보았다는 내용이 실제 사실과 들어맞은 사례를 입증하지 못했고, 어느 진영에서든 정직한 연구자들은 형이상학이 아직 판가름 나지 않았다고 말합니다. <strong>임종기 명료(terminal lucidity):</strong> 일부 치매 환자에게서 죽음 직전에 설명되지 않는 명료함이 돌아오는 현상입니다. 작지만 실재하는 연구 문헌이 있고, 어떻게 일어나는지는 아직 아무도 모릅니다. 이 모두는 이 안내서가 이 등급을 대하는 방식 그대로 쥐면 됩니다. 손을 편 채로. 확신의 탄약이 아니라 겸손으로 이끄는 초대로.</p>
+
+  <h3>과학과 관상 수행의 자리 — 이 모든 것을 어떻게 쥘 것인가 <span class="ko">How to Hold It All — The Stance</span></h3>
+  <p>과학은 구조를 다루는, 규율 잡힌 3인칭 탐구입니다. 잴 수 있고 나눌 수 있는 것을 다룹니다. 관상 수행은 경험을 다루는, 규율 잡힌 1인칭 탐구입니다. 의식이 안쪽에서 볼 때 무엇인지를 다룹니다. 둘은 정확히 어려운 문제가 그어 놓은 이음선에서 만나고, 어느 쪽도 상대를 삼키지 못합니다. 뇌 영상에는 침묵의 맛이 담기지 않고, 아무리 깊은 침묵도 벨 부등식(Bell inequality)을 풀어 주지 않습니다. 프란시스코 바렐라(Francisco Varela)의 "신경현상학(neurophenomenology)"은 이 만남을 정식 절차로 만들었습니다. 훈련된 관상 수행자를 숙련된 관찰자로 세워, 그 보고가 신경과학을 다듬고 신경과학이 다시 그 보고를 다듬게 합니다. 위에 적은 선정과 소멸 연구가 바로 그 프로그램의 실행입니다. 윌리엄 제임스(William James)<sup class="fnref" id="fr-bigpicture-8"><a href="#fn-bigpicture-8">8</a></sup>는 먼저 그 자리에 가 있었습니다. <em>철저한</em> 경험론이라면 경험 전부를 자료로 받아야 하고, 거기에는 성인(聖人)들의 경험도 들어갑니다. 그래서 이 안내서가 길 전체의 지적 토대로 권하는 태도는 이것입니다. <strong>A 등급은 단단히 쥡니다. B 등급은 잠정적으로 쥡니다. C 등급은 가볍게 쥡니다. C 등급의 짜릿함이 A 등급의 사실 행세를 하게 두지 않습니다. 그리고 A 등급의 가장 깊은 결과들, 곧 지어낸 것으로 드러난 자아, 서로 기대어 있는 존재, 의식의 열려 있음, 소박한 물체 개념의 죽음이 모두 수행이 가리키는 쪽을 가리킨다는 사실을 눈여겨봅니다.</strong> 정직한 머리와 기도하는 가슴 사이에서 하나를 고를 필요는 없습니다. 최전선에서 그 둘은 같은 질문을 묻고 있습니다.</p>
+
+  <div class="wow">
+    <div class="item"><p><strong>하루 종일 지키고 방어하는 그 자아는, 뇌가 지어낸 것입니다.</strong> 이유를 지어내는 해석자, 다시 짓는 기억, 예측하는 자기 모형. 호문쿨루스는 끝내 나오지 않았습니다. 붓다의 무아가 기계 아래 놓인 셈입니다. <span class="tier a">A</span></p></div>
+    <div class="item"><p><strong>몸의 절반은 미생물이고, 동력은 삼켜진 세균이 대고, 유전체의 8%는 바이러스이고, 원자는 별의 용광로에서 왔습니다.</strong> 이쯤 되면 '서로 기대어 있음'은 아름다운 비유가 아닙니다. 몸을 열어 세어 보면 그대로 나오는, 사실의 목록입니다. <span class="tier a">A</span></p></div>
+    <div class="item"><p><strong>의식 과학은 방금, 공개적으로, 어느 이론에도 왕관을 씌우지 못했습니다.</strong> 2025년 『네이처』의 적대적 검증은 선두 두 이론을 함께 주저앉혔고, 유명한 25년 내기는 승복으로 끝났습니다. 경험 자체는 아직 설명되지 않았습니다. <span class="tier a">A</span></p></div>
+    <div class="item"><p><strong>국소적 실재론은 실험으로 사망했습니다(2022년 노벨상).</strong> 세계는 확정된 성질을 지닌 독립된 알갱이들의 모임이 아닙니다. "물질"이 본래 무엇인지는 물리학이 말하지 않습니다. <span class="tier a">A</span></p></div>
+    <div class="item"><p><strong>지각은 통제된 환각이고, 자아는 그 내용물 가운데 하나입니다.</strong> "지각하는 자가 아니라 하나의 지각." <span class="tier b">B</span></p></div>
+    <div class="item"><p><strong>현역 철학자의 약 3분의 1은 유물론자가 아닙니다.</strong> 그리고 물리학은 구조만 기술한다는 러셀식 일원론이, 존재의 바탕에 의식이 놓일 가능성 쪽으로 엄정한 학문의 문 하나를 계속 열어 두고 있습니다. <span class="tier b">B</span></p></div>
+    <div class="item"><p><strong>숙련된 명상가는 경험을 잠시 꺼 버릴 수 있고, 뇌의 역동을 뜻대로 다시 빚을 수 있습니다.</strong> 깊은 상태들이 지금 영상으로 찍히는 중이고, 그 지문은 실재합니다. 효과는 <span class="tier a">A</span>, 그 의미는 <span class="tier c">C</span>.</p></div>
+    <div class="item"><p><strong>"왜 아무것도 없지 않고 무언가가 있는가"에는 답이 없고, 어쩌면 영영 없을 것입니다.</strong> 우주는 열린 물음 위에 얹혀 있습니다. 경외가 정확한 응답입니다. <span class="tier c">C</span></p></div>
+  </div>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-bigpicture-1">J. B. S. 홀데인(Haldane, 1892–1964). 영국의 생물학자. 진화유전학의 기초를 놓은 과학자 가운데 한 사람이다. <a class="fnb" href="#fr-bigpicture-1">↩</a></li>
+    <li id="fn-bigpicture-2">아닐 세스(Anil Seth). 영국의 신경과학자. 『내가 된다는 것』의 저자. <a class="fnb" href="#fr-bigpicture-2">↩</a></li>
+    <li id="fn-bigpicture-3">토마스 메칭거(Thomas Metzinger, 1958– ). 독일의 철학자. 자아를 뇌가 돌리는 '자기 모형'으로 설명했다. <a class="fnb" href="#fr-bigpicture-3">↩</a></li>
+    <li id="fn-bigpicture-4">다석 류영모(1890–1981). '제나(몸의 나)/얼나(얼의 나)'의 구분을 세운 한국 근대의 스승. <a class="fnb" href="#fr-bigpicture-4">↩</a></li>
+    <li id="fn-bigpicture-5">틱낫한(Thich Nhat Hanh, 1926–2022). '마음챙김'을 일상의 말로 세계에 전한 베트남 선승. <a class="fnb" href="#fr-bigpicture-5">↩</a></li>
+    <li id="fn-bigpicture-6">데이비드 차머스(David Chalmers, 1966– ). 오스트레일리아의 철학자. 1995년 의식의 '어려운 문제'를 정식화했다. <a class="fnb" href="#fr-bigpicture-6">↩</a></li>
+    <li id="fn-bigpicture-7">저드슨 브루어(Judson Brewer). 미국의 정신과 의사·신경과학자. 숙련 명상가의 뇌에서 '디폴트 모드 네트워크'가 조용해지는 것을 처음 보여 준 연구로 알려졌다. <a class="fnb" href="#fr-bigpicture-7">↩</a></li>
+    <li id="fn-bigpicture-8">윌리엄 제임스(William James, 1842–1910). 미국의 철학자·심리학자. 『종교적 경험의 다양성』(The Varieties of Religious Experience)에서 신비 체험을 학문의 자료로 삼았다. <a class="fnb" href="#fr-bigpicture-8">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="pitfalls">
+  <div class="sec-label">제9부</div>
+  <h2>함정 — 구도자가 길을 잃는 방식들 <span class="ko">Pitfalls</span></h2>
+
+  <div class="epigraph">
+    <p>"영성의 일그러진, 자아 중심의 형태로 이끄는 곁길이 수없이 많다. 우리는 영적인 기법으로 오히려 자기중심성을 강화하면서도, 스스로 영적으로 성장하고 있다고 착각할 수 있다."</p>
+    <div class="who">— 초걈 트룽파(Chögyam Trungpa), 『영적 물질주의를 넘어서』(Cutting Through Spiritual Materialism, 1973년)</div>
+  </div>
+
+  <p class="lead">아래의 함정은 하나같이, 진실하고 총명한 구도자를 넘어뜨린 적이 있습니다. 그중 여럿은 우리 누구보다 규율 있는 사람이었습니다. 그러니 이 목록은 남의 실수 모음이 아닙니다. 앞으로 올 여러 해에 걸어 둘 거울입니다. 걷다 보면 이 가운데 몇 곳에는 들르게 됩니다. 들르는 일은 정상입니다. 눌러앉아 거기를 집이라 부르는 일이 해롭습니다.</p>
+
+  <h3>1 · 영적 우회 <span class="ko">Spiritual bypassing</span></h3>
+  <p>이 말을 지은 심리학자 존 웰우드(John Welwood)<sup class="fnref" id="fr-pitfalls-1"><a href="#fn-pitfalls-1">1</a></sup>의 정의부터 적어 둡니다. "해결되지 않은 감정적 문제, 심리적 상처, 아직 끝나지 않은 발달 과제를 마주하는 일을 비켜 가거나 피하려고 영적인 관념과 수행을 사용하는 광범위한 경향." 모습은 낯익습니다. 꼭 필요한 대면을 피하는 데에 '모든 게 완전하다'를 씁니다. 애도해야 할 자리에서 명상을 합니다. 나나 남의 정당한 필요를 물리치는 데에 '궁극의 진리'를 꺼냅니다. '화는 누가 내는가, 화낼 자아가 없는데.' 알아보는 표시는 이 어긋남입니다. 혼자 있을 때는 더 고요한데, 관계 안에서는 더 나빠집니다. 회복은 절대와 상대(궁극의 차원과 사람살이의 차원), 두 층을 함께 존중하는 데서 시작합니다. 그다음은 사람의 몫입니다. 미뤄 둔 대화, 미뤄 둔 슬픔, 필요하다면 심리치료. 알아차림은 심리적 치유를 대신하지 못합니다. 둘은 경쟁자가 아니라 동맹입니다. 잭 콘필드<sup class="fnref" id="fr-pitfalls-2"><a href="#fn-pitfalls-2">2</a></sup>의 인터뷰에는 관계의 상처로 여전히 치료가 필요했던 원숙한 스승들이 나옵니다. 그 스승들 스스로 그렇다고 말했습니다.</p>
+
+  <h3>2 · 체험 수집 — 상태를 좇는 일 <span class="ko">Chasing states, collecting experiences</span></h3>
+  <p>자아가 가장 좋아하는 바꿔치기는, 길을 소유로 바꾸는 일입니다. 지복의 상태를 모으고, 리트릿 횟수를 모으고, 통찰과 어휘를 모으고, 끝내 그럴듯한 영적 정체성을 세웁니다. 위에 걸어 둔 트룽파의 말, 영적 물질주의입니다. 가장 위험한 모습은 셋째 단계의 팽창입니다(제2부). 생멸이 드러나는 그 영역은 빛과 희열과 애쓰지 않아도 오는 명료함을 쏟아 냅니다. 고전 문헌은 경고합니다. 수행자는 어김없이 바로 거기서 '나는 깨달았다'고 결론짓습니다. '관(觀)의 오염'이라는 이름까지 붙여 둘 만큼 어김없습니다. 보호 장치는 셋입니다. 열매 점검. 나를 아는 공동체. 그리고 아무리 깊은 체험도 날씨일 뿐이라는, 늘 걸어 두는 규칙. 체험 자체가 중요했던 적은 없습니다. 여섯 달 뒤에도 남아 있는 변화, 그것이 전부입니다.</p>
+
+  <h3>3 · 공병(空病) — 공을 뒤집어쓴 허무주의 <span class="ko">Nihilism dressed as emptiness</span></h3>
+  <p>덜 소화된 무아의 가르침은 이렇게 굳습니다. '아무것도 중요하지 않다. 여기엔 아무도 없다. 사랑도 윤리도 그냥 이야기다.' 선은 이를 공병(空病)이라 부릅니다. 실제로 다친 사람이 있는 병입니다. 바로잡는 길은 전통 전체의 짜임새 안에 이미 있습니다. 공(空)은 분리가 비었다는 말이지, 가치가 비었다는 말이 아닙니다. 색(色)은 공이 자신을 드러내는 바로 그 방식입니다. 십우도는 텅 빈 원에서 끝나지 않고, 저잣거리로 내려가 손 내미는 그림에서 끝납니다. 『반야심경』의 공은 자비의 보살이 설합니다. 공을 이해했는데 사람이 차가워졌다면, 이해한 그것은 공이 아닙니다.</p>
+
+  <h3>4 · 영적 교만 <span class="ko">Spiritual pride</span></h3>
+  <p>이 함정이 유난히 미묘한 까닭은, 진짜 진전을 먹고 자라기 때문입니다. 둘레의 깨어나지 못한 사람들보다 내가 앞서 있다는 조용한 확신. 아프게도 그 명단에는 자기 가족과 자기 교회가 들어 있곤 합니다. 표시는 이렇습니다. 묻지도 않은 남의 신학을 고쳐 주려는 버릇. '잠든' 사람들을 향한 은밀한 경멸. 깊은 사람으로 보이고 싶은 마음. 전통이 내미는 처방은 하나같이 투박합니다. 성철<sup class="fnref" id="fr-pitfalls-3"><a href="#fn-pitfalls-3">3</a></sup>의 삼천배. 겸손이 성(城)의 주춧돌이라는 테레사<sup class="fnref" id="fr-pitfalls-4"><a href="#fn-pitfalls-4">4</a></sup>의 강조. 비교라면 무엇이든 거절한 사막 교부<sup class="fnref" id="fr-pitfalls-5"><a href="#fn-pitfalls-5">5</a></sup>들. 실천 규칙도 하나 있습니다. 가족이 그 길을 미심쩍어하는 구도자에게는 두 배로 무거운 규칙입니다. <em>더 나은 사람이 되는 일, 그것만이 해 볼 만한 유일한 논증입니다.</em> 집에서 더 참을성 있는 사람, 더 도움이 되는 사람, 더 온전히 곁에 있는 사람이 되면, 다른 말은 필요 없습니다.</p>
+
+  <h3>5 · 스승 문제 <span class="ko">Teacher trouble</span></h3>
+  <p>실패는 두 방향 모두에서 흔합니다. <strong>지도를 전부 거절하면</strong> 맹점과 단둘이 남습니다. 맹점은 혼자서는 볼 수 없는 단 하나의 자리입니다. 카리스마 있는 스승에게 <strong>판단을 통째로 넘기면</strong> 어떻게 되는지는 지난 세기가 이미 보여 주었습니다. 지난 백 년의 영적 스캔들이 다 거기서 나왔습니다. 깨달음은 권력 남용을 막아 주지 않습니다. 선불교, 티베트 불교, 힌두 전통, 그리스도교 공동체에 두루 남은 기록이 그 물음을 이미 매듭지었습니다. 여러 전통이 스스로 써 온 시험을 모으면 분별 점검표가 됩니다. 카리스마가 아니라 열매로 판단하는가. "그들의 열매로 그들을 알지니"(마태복음 7:16). 재정이 투명한가. 성(性)과 권력의 경계가 모호하지 않은가. 동료와 공동체 앞에 책임을 지는가. 가르침이 의존이 아니라 독립을 향해 있는가. 붓다는 "스스로를 등불로 삼으라" 했고, 좋은 선 스승의 점검은 본 자리를 확인한 뒤 도로 방석으로 돌려보냅니다. 질문과 떠남을 벌하지 않는가. 깊이 헌신하기 전에는 여러 해를 두고 보는 편이 안전합니다. 위험 신호 앞에서는 깔끔하게 떠나는 편이 낫습니다. 윤리적 판단만은, 어느 문하에 들어가든 끝까지 지니고 있어야 할 장비입니다. 참된 스승은 사람이 깨어나기를 바라지, 감탄을 바라지 않습니다.</p>
+
+  <h3>6 · 수행의 부작용 — 수행 자체가 나를 흔들 때 <span class="ko">When practice itself destabilizes</span></h3>
+  <p>명상계가 좀처럼 하지 않는 말이니, 여기서는 분명히 해 두겠습니다. 명상은 마음에 실제로 손을 대는 개입이고, 부작용 목록도 엄연히 있습니다. 미리 계획을 세우고 추적한 전향적(前向的) 연구로는 브리튼 연구진의 2021년 연구가 가장 좋습니다. 마음챙김 프로그램 참가자의 58%가 명상 관련 이상 반응을 적어도 하나 보고했습니다. 대부분은 지나갔습니다. 다만 6% 안팎은 일상생활에 지장이 갈 만큼 오래가는 어려움을 겪었습니다. 치솟는 불안, 해리(나와 현실이 낯설게 끊겨 느껴지는 상태), 불면, 감정의 무뎌짐, 다시 올라오는 트라우마. 통찰 수행을 집중적으로 밀어붙일 때는, 제2부에 그려 둔 어두운 밤의 지형이 거세게 펼쳐지기도 합니다. 이 안내서가 권하는 만큼의 수행에서라면, 이것은 겁낼 이유가 못 됩니다. 무겁게 여길 이유, 알고 대응할 이유는 됩니다. 수행이 흔들어 놓기 시작하면 이렇게 합니다. 먼저 분량을 줄입니다. 더 짧게, 더 드물게, 더 부드럽게 앉습니다. 발이 땅에 닿는 수행으로 옮깁니다. 걷기, 절, 몸 살피기, 자애(mettā), 평범한 일, 운동, 잠. 사람들과 이어진 끈을 놓지 않습니다. 일상이 돌아가지 않을 정도라면, 두 지도를 다 아는 도움을 구할 때입니다. 트라우마를 아는 치료자가 있습니다. 어려움에 빠진 명상가를 돕기 위해 세워진 치타 하우스(Cheetah House, cheetahhouse.org) 같은 곳도 있습니다. 전통의 스승들은 이를 다 알고 있었습니다. 집중 수행을 언제나 어른들이 지키는 수도원과 절 담 안에 두었던 까닭입니다. 수행은 힘이 셉니다. 가볍게 여기지 말고, 자기에게 맞는 만큼으로 조절하면 됩니다.</p>
+
+  <h3>7 · 가족이라는 도량 — 보수 신앙의 집에서 <span class="ko">The family field</span></h3>
+  <p>엄격한 개혁주의 가정이 있습니다. 이를테면 실제 순교의 역사와, 교리를 지키는 의무로 빚어진 장로교 고신 교단의 집. 그런 집에서는 명상과 관상기도, 여러 종교의 책 읽기가 위험으로 들릴 수 있습니다. 심지어 이단(異端)으로 들릴 수 있습니다. 놀라지 않기 위해, 마음 상하지 않기 위해, 역사를 알아 두면 좋습니다. 2000년대에서 2010년대 사이 한국의 여러 주요 교단이 관상기도 운동을 공식적으로 경계하거나 배격했습니다. 예장합동(대한예수교장로회 합동 교단)의 2011년 결의가 그 분기점입니다. 그때 밝힌 우려는 이랬습니다. 성경을 건너뛴다. '동양적 방법'이다. 창조주와 피조물의 경계를 흐린다. 가족이 쓰게 될 어휘와 정확히 같습니다. 응답은 정직한 세 걸음이면 됩니다. 셋 중 무엇도 논쟁이 아닙니다. <strong>첫째, 내 전통의 깊이를 아는 일입니다.</strong> 관상기도는 동양에서 들여온 수입품이 아닙니다. 사막 교부들이 있었습니다. 한 구절을 쉼 없이 되뇐 카시아누스(John Cassian)의 기도가 있었습니다. 예수 기도, 『무지의 구름』(The Cloud of Unknowing), 테레사가 있었습니다. 개신교 안에도 있습니다. 청교도는 날마다 '천상의 묵상'을 했습니다. 리처드 백스터(Richard Baxter)의 표현입니다. 에드워즈(Jonathan Edwards)에게는 관상의 달콤함이 있었습니다. 칼뱅(John Calvin) 자신이 복음의 목적을 두고 썼습니다. "말하자면, 우리를 신화(神化)하는 것"(베드로후서 1:4 주석). 그리고 곧바로 덧붙였습니다. 그 참여는 본질이 아니라 성질의 일이라고. 침묵 속에 앉아 하나님께 동의하는 사람은 이 계보 안에 있습니다. 2011년의 비판자들조차, 교회가 제 안의 '침묵기도의 전통'을 되찾아야 한다는 데는 뜻을 같이했습니다. <strong>둘째, 함께 믿는 시험을 쓰는 일입니다.</strong> 가족이 붙든 바로 그 성경이 기준을 줍니다. 열매입니다. 갈라디아서 5:22–23의 성령(하나님의 영)의 열매, 마태복음 7:16. 그 기준의 교본을 쓴 사람도 그들의 신학자입니다. 에드워즈의 『신앙 감정론』(Religious Affections)은 참된 체험의 가장 확실한 표지가 사랑과 실천이라고 가르칩니다. 여러 해에 걸쳐 그 기준으로 자기 길을 판단해 달라고 청하고, 청했다면 진심이어야 합니다. <strong>셋째, 옳음보다 조용함과 다정함을 고르는 일입니다.</strong> 혁명을 선포하지 않습니다. 누구의 설교도 고치지 않습니다. 부모를 공경합니다. 효(孝)도 수행입니다. 함께 앉을 수 있는 밥상이라면 무엇이든 지킵니다. 기도, 성화, 로렌스 형제<sup class="fnref" id="fr-pitfalls-6"><a href="#fn-pitfalls-6">6</a></sup>(Brother Lawrence), 예수원. 변호가 필요 없는 말과 자리입니다. 나머지는 시간과 열매가 말하게 둡니다. 논쟁이 가족 누군가를 깊이로 데려가는 일은 거의 없습니다. 사랑을 받은 가족이 그 깊이와 화평해지는 일은 더러 있습니다.</p>
+
+  <h3>8 · 끝없는 구도자 <span class="ko">The endless seeker</span></h3>
+  <p>마지막 함정은 책을 많이 읽은 사람에게 가장 가깝습니다. 찾는 일 자체가 정체성이 되는 함정입니다. 다음 책, 다음 스승, 다음 체계. 도착은 늘 또 한 번의 탐색 뒤로 미뤄집니다. 어느 지점에서 찾음은 뒤집혀야 합니다. 가리킴을 더 모으는 쪽에서, 하나를 믿고 멈춰 서는 쪽으로. 고전의 그림들은 매섭고, 매서운 만큼 자비롭습니다. 얕은 우물 열 개가 아니라 깊은 우물 하나를 파는 일. 뗏목은 건너라고 있지 지고 다니라고 있지 않다는 붓다의 비유. 손가락과 달. 더 부드러운 말도 있습니다. 김기태<sup class="fnref" id="fr-pitfalls-7"><a href="#fn-pitfalls-7">7</a></sup>의 책 제목은 한국의 구도자에게 바로 건네는 말입니다. 『지금 이대로 완전하다』. 이 안내서가 가장 바라는 순간은 이 책을 덮는 순간입니다. 다 읽어서가 아닙니다. 아침 6시 40분이고, 방석이 기다리고 있어서입니다. 찾아 헤맨 세월은 소의 발자국이었습니다. 앉는 일은, 소가 처음부터 서 있던 그 밭입니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-pitfalls-1">존 웰우드(John Welwood, 1943–2019). 미국의 심리치료사. 수행으로 감정의 숙제를 피해 가는 '영적 우회'라는 말을 만들었다. <a class="fnb" href="#fr-pitfalls-1">↩</a></li>
+    <li id="fn-pitfalls-2">잭 콘필드(Jack Kornfield, 1945– ). 『깨달음 이후 빨랫감』을 쓴 위빠사나 지도자. <a class="fnb" href="#fr-pitfalls-2">↩</a></li>
+    <li id="fn-pitfalls-3">성철 스님(1912–1993). 돈오돈수와 삼천배로 유명한 조계종 종정. <a class="fnb" href="#fr-pitfalls-3">↩</a></li>
+    <li id="fn-pitfalls-4">아빌라의 테레사(Teresa of Ávila, 1515–1582). 『내면의 성』을 쓴 스페인 카르멜회의 신비가. <a class="fnb" href="#fr-pitfalls-4">↩</a></li>
+    <li id="fn-pitfalls-5">사막 교부(Desert Fathers). 3–5세기 이집트 사막에서 침묵과 기도로 산 초기 그리스도교 수도자들. 그리스도교 수도 전통과 관상 기도의 뿌리다. <a class="fnb" href="#fr-pitfalls-5">↩</a></li>
+    <li id="fn-pitfalls-6">로렌스 형제(Brother Lawrence, 1614경–1691). 수도원 부엌에서 하나님의 임재를 연습한 수사. <a class="fnb" href="#fr-pitfalls-6">↩</a></li>
+    <li id="fn-pitfalls-7">대구를 중심으로 도덕경과 성경을 함께 읽으며 '지금 이대로 완전하다'를 가르쳐 온 한국의 재야 스승이다. <a class="fnb" href="#fr-pitfalls-7">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="curriculum">
+  <div class="sec-label">제10부</div>
+  <h2>공부의 길 — 무엇을, 언제, 왜 읽을 것인가 <span class="ko">The Curriculum</span></h2>
+
+  <p class="lead">참고문헌 목록이 아니라 순서가 있는 독서 길입니다. 각 층은 아래층을 딛고 서고, 책마다 한 가지 일을 잘 해낸 값으로 제 자리를 얻었습니다. 한국어판이 있으면 이름을 밝혀 두었습니다(2026년 확인). 제5부에서 세운 원칙이 여기서도 그대로 법입니다. 한 번에 한 권, 천천히, 수행과 나란히. 울리는 대목은 다시 읽습니다. 그리고 책이 지도의 어디쯤에 있는지도 기억해 둘 만합니다. 견적(見跡), 소 발자국. 열 단계 가운데 둘째일 뿐입니다.</p>
+
+  <h3>0층 · 모국어의 우물 — 자기 강줄기를 더 깊이 <span class="ko">Layer 0 · The home well — your own stream, deepened</span></h3>
+  <div class="bookrow"><div class="bt">이현주, 「무위당 장일순의 노자 이야기」 <span class="bk">(삼인)</span></div><p>이미 서 있는 자리에서 시작하는 책입니다. 가톨릭 현자와 감리교 목사가 마주 앉아 나눈 도덕경 이야기. 노자를 지나 그리스도께 더 깊이 들어가는, 이 안내서의 방법 전체가 여기 먼저 있습니다. 장일순<sup class="fnref" id="fr-curriculum-1"><a href="#fn-curriculum-1">1</a></sup>이 세상을 뜬 뒤에는 이현주가 홀로 책을 마쳤습니다. 묻는 쪽도 답하는 쪽도 혼자 맡아서.</p></div>
+  <div class="bookrow"><div class="bt">이현주, 「예수에게 도를 묻다」 <span class="bk">(삼인)</span> · 「관옥 이현주의 신약 읽기」 <span class="bk">(삼인, 2021)</span> · 「관옥 이현주의 토마복음 읽기」 <span class="bk">(삼인, 2023)</span></div><p>복음서를 스승과 제자 사이의 전승으로 다시 듣고, 신약을 자기 손으로 옮겨 풀고, 관상가들이 아껴 온 초기 예수 어록집 「토마복음」("그 나라는 너희 안에 있고 너희 밖에 있다")까지 한국 목사의 눈으로 읽습니다. 2025년의 「두려워 마라, 별것 아니다」도 곁에 둘 만합니다. 두려움도 죽음도 하느님의 일로 받아 안는 이야기입니다.</p></div>
+  <div class="bookrow"><div class="bt">다석 유영모 — 박영호의 전기 「진리의 사람 다석 류영모」 <span class="bk">(두레)</span>나 「다석 강의」 <span class="bk">(현암사)</span>부터</div><p>한국 땅에서 자라난 가장 깊은 관상적 그리스도교 사상가입니다. 제나와 얼나, 없이 계신 하느님, 하루 한 끼. '종교 간 대화'라는 말이 생기기 수십 년 전에 성경을 노자와 불경 곁에 놓고 읽었습니다. 「다석 강의」가 원천이고, 전기는 더 순한 문입니다. 이현주 뒤에 장일순이 있고, 그 세대 뒤에 이 사람이 있습니다.</p></div>
+  <div class="bookrow"><div class="bt">함석헌<sup class="fnref" id="fr-curriculum-2"><a href="#fn-curriculum-2">2</a></sup>, 「뜻으로 본 한국역사」 <span class="bk">(한길사)</span> · 최성현, 「좁쌀 한 알」 <span class="bk">(도솔 — 장일순 이야기)</span></div><p>같은 강줄기의 두 끝입니다. 다석의 제자 함석헌은 이 나라의 고난을 뜻이 담긴 역사로 다시 읽었습니다. 퀘이커가 되었고, 노벨 평화상 후보에 두 번 올랐습니다. 원주의 현자 장일순은 노자와 가톨릭의 깊이를 한살림이라는, 생명을 모시는 경제로 옮겨 놓았습니다. 뿌리를 보려고 읽는 책들입니다. 이 길에는 한국인 조상이 있습니다.</p></div>
+
+  <h3>1층 · 현존을 가르치는 스승들 — 읽기를 깨우기 <span class="ko">Layer 1 · The presence teachers — waking up the reading</span></h3>
+  <div class="bookrow"><div class="bt">에크하르트 톨레<sup class="fnref" id="fr-curriculum-3"><a href="#fn-curriculum-3">3</a></sup>(Eckhart Tolle), 「지금 이 순간을 살아라」 <span class="bk">(양문 · 원제 The Power of Now)</span> · 「삶으로 다시 떠오르기」 <span class="bk">(연금술사, 류시화 역 · 원제 A New Earth)</span></div><p>생각을 나로 여기는 착각과 현존을, 지금까지 나온 어떤 책보다 맑게 말합니다. 진단과 연습은 「지금 이 순간을 살아라」에서 얻고(제5부와 짝이 됩니다), 고통체와 에고의 집단 형태는 「삶으로 다시 떠오르기」에서 봅니다. 메타노이아 대목은 그 그리스어의 내력을 알고 읽으면 전혀 다르게 울립니다.</p></div>
+  <div class="bookrow"><div class="bt">마이클 싱어<sup class="fnref" id="fr-curriculum-4"><a href="#fn-curriculum-4">4</a></sup>(Michael Singer), 「상처받지 않는 영혼」 <span class="bk">(라이팅하우스 · 원제 The Untethered Soul)</span> · 「될 일은 된다」 <span class="bk">(정신세계사 · 원제 The Surrender Experiment)</span></div><p>지켜보는 자리, 그리고 힘을 풀고 놓아 보내기. 이보다 쉬운 말로 쓴 책이 없습니다. 짝이 되는 자서전은 삶이 가져오는 일마다 사십 년 동안 예라고 답해 본 기록입니다. 내맡김을 몸으로 치른 실험. 당장 오늘부터 쓸 수 있는 한 쌍으로는 현대 문헌에서 으뜸입니다.</p></div>
+  <div class="bookrow"><div class="bt">안토니 드 멜로(Anthony de Mello)<sup class="fnref" id="fr-curriculum-5"><a href="#fn-curriculum-5">5</a></sup>, 「깨어나십시오」 <span class="bk">(분도출판사 · 원제 Awareness)</span></div><p>예수회 신부의 깨우는 강연입니다. 웃기고, 무례하고, 수술칼처럼 정확합니다. 교회를 떠나온 독자에게 드문 일을 해 줍니다. 깨어남이 예수께서 알아보실 만한 일로 들리게 합니다. 맥락 하나만 함께 두면 됩니다. 1998년 교황청 통고는 초기 저작의 가치를 인정하면서도 사후에 엮인 일부 입장에 주의를 달았습니다. 잠을 깨우는 일은 이 책에 맡기고, 교리의 무게는 토머스 머튼<sup class="fnref" id="fr-curriculum-6"><a href="#fn-curriculum-6">6</a></sup>과 마르틴 레어드<sup class="fnref" id="fr-curriculum-7"><a href="#fn-curriculum-7">7</a></sup>에 두면 됩니다. 이현주가 옮긴 드 멜로 「사랑으로 가는 길」(삼인, 2026)이 있습니다. 그것만으로 이 사람이 꽂힐 책장이 어디인지 알 수 있습니다.</p></div>
+
+  <h3>2층 · 그리스도교의 심층 — 같은 우물, 더 아래로 <span class="ko">Layer 2 · The Christian depth — the same well, further down</span></h3>
+  <div class="bookrow"><div class="bt">토머스 키팅<sup class="fnref" id="fr-curriculum-8"><a href="#fn-curriculum-8">8</a></sup>(Thomas Keating), 「마음을 열고 가슴을 열고」 <span class="bk">(가톨릭출판사 · 원제 Open Mind, Open Heart)</span></div><p>닻으로 삼은 향심기도의 교본입니다. 방법이 있고, 신학이 있고, 침묵 속에서 올라오는 것들을 읽어 주는 '신적 치료'의 틀이 있습니다. 이 목록의 그리스도교 책 가운데 가장 실용적인 한 권입니다.</p></div>
+  <div class="bookrow"><div class="bt">리처드 로어(Richard Rohr), 「위쪽으로 떨어지다」 <span class="bk">(국민북스/한국기독교연구소 계열 · 원제 Falling Upward)</span> · 「보편적 그리스도」 <span class="bk">(한국기독교연구소 · 원제 The Universal Christ)</span></div><p>인생을 전반과 후반으로 나눈 지도입니다. 젊은 날의 종교가 왜 그릇이었는지, 그 그릇의 금 간 자리가 왜 배교(믿음을 저버리는 일)가 아니라 처음부터 짜여 있던 교과 과정인지를 다정하게 짚습니다. 이어서 골로새서 1장의 우주적 그리스도. "하나님은 사물이 됨으로써 사물을 사랑하신다." 집을 떠나지 않고도 다른 전통을 존중하게 해 주는 신학입니다. 복음주의 쪽 비판도 있으니, 자기 판단을 믿는 데 도움이 된다면 나란히 읽어도 좋습니다.</p></div>
+  <div class="bookrow"><div class="bt">토머스 머튼(Thomas Merton), 「새 명상의 씨」 <span class="bk">(가톨릭출판사 · 원제 New Seeds of Contemplation)</span> · 로렌스 형제<sup class="fnref" id="fr-curriculum-9"><a href="#fn-curriculum-9">9</a></sup>(Brother Lawrence), 「하나님의 임재 연습」 <span class="bk">(두란노 · 원제 The Practice of the Presence of God)</span></div><p>머튼은 거짓 자아와 참 자아의 문법, 그리고 현대 관상 문학에서 가장 아름다운 산문 때문에 읽습니다. 로렌스 형제는 예순 쪽. 가족 누가 보아도 탈이 없고, 두란노에서 나왔고, 부엌을 성당으로 바꿉니다. 닻 수행의 중세 원천이 궁금해지면 「무지의 구름」(바오로딸)이 기다립니다. 마르틴 레어드(Martin Laird)의 Into the Silent Land(뜻: 침묵의 땅으로)는 영어로 쓰인 실천적 그리스도교 교본 가운데 으뜸인데, 아직 한국어판이 없습니다. 읽을 수 있다면 영어로라도 볼 만합니다.</p></div>
+  <div class="bookrow"><div class="bt">달라스 윌라드(Dallas Willard)<sup class="fnref" id="fr-curriculum-10"><a href="#fn-curriculum-10">10</a></sup>, The Divine Conspiracy(뜻: 하나님의 은밀한 계획) · 리처드 포스터(Richard Foster)<sup class="fnref" id="fr-curriculum-11"><a href="#fn-curriculum-11">11</a></sup>, 「영적 훈련과 성장」 <span class="bk">(생명의말씀사 · 원제 Celebration of Discipline)</span></div><p>보수 쪽에서도 의심받지 않는 깊이의 스승들입니다. 남침례교에서 자란 철학 교수는 복음이 <em>지금</em> 예수께 배우는 도제 수업이라고 논증합니다. 다른 한 권은 영성 훈련의 현대 고전으로, 한국 복음주의 안에서 이미 오래 신뢰받아 왔습니다. 걱정하는 가족의 손에 처음 쥐여 드리기에도 이만한 책이 없습니다.</p></div>
+
+  <h3>3층 · 불교의 정밀함 — 잘 벼린 도구들 <span class="ko">Layer 3 · The Buddhist clarity — the precision instruments</span></h3>
+  <div class="bookrow"><div class="bt">틱낫한<sup class="fnref" id="fr-curriculum-12"><a href="#fn-curriculum-12">12</a></sup>(Thich Nhat Hanh), 「틱낫한 명상」 <span class="bk">(불광출판사, 이현주 역 · 원제 The Miracle of Mindfulness)</span> 그리고 이현주가 옮긴 「너는 이미 기적이다」, 「지금 이 순간이 나의 집입니다」 <span class="bk">(불광출판사)</span></div><p>일상의 마음챙김을 그 일의 대가(1926–2022)에게 직접 배우는 책들입니다. 옮긴 사람이 이현주입니다. 두 강줄기가 여기서 자연스럽게 한 물이 됩니다.</p></div>
+  <div class="bookrow"><div class="bt">스즈키 순류(Shunryu Suzuki), 「선심초심」 <span class="bk">(김영사 · 원제 Zen Mind, Beginner's Mind)</span> · 숭산<sup class="fnref" id="fr-curriculum-13"><a href="#fn-curriculum-13">13</a></sup>, 「선의 나침반」 <span class="bk">(김영사 · 원제 The Compass of Zen)</span></div><p>가장 순한 선의 목소리에게서 초심을, 얻으려는 마음 없이 앉는 법을 배웁니다. 그다음은 한국이 낳은 세계의 스승. 오직 모를 뿐. 간화선을 서양까지 지고 간 사람이 불교 전체를 한 권으로 갈무리해 놓았습니다.</p></div>
+  <div class="bookrow"><div class="bt">잭 콘필드<sup class="fnref" id="fr-curriculum-14"><a href="#fn-curriculum-14">14</a></sup>(Jack Kornfield), 「깨달음 이후 빨랫감」 <span class="bk">(한문화 · 원제 After the Ecstasy, the Laundry)</span></div><p>통합의 책입니다. 큰 열림 뒤에 서양의 수행자와 스승들이 실제로 겪은 일들. 오르내림, 실패, 결혼, 심리치료, 겸손. 큰 체험이 찾아왔을 때 함께 읽고, 아무 일 없어도 십 년에 한 번은 다시 펴 볼 만합니다.</p></div>
+  <div class="bookrow"><div class="bt">법정, 「무소유」 <span class="bk">(범우사 — 절판)</span></div><p>저자의 유언으로 절판된 책입니다. 내 책을 더는 찍지 말라 당부하고 떠났고, 그래서 이 책은 구할 수 없다는 사실 자체로 무소유의 마지막 가르침을 폅니다. 도서관이나 헌책방에서 만나면 오후 한나절에 읽힙니다. 읽고 나서 아무것도 갖지 않는 데까지가 이 책 읽기입니다.</p></div>
+
+  <h3>4층 · 직접적인 길 — 물음이 날카로워질 때 <span class="ko">Layer 4 · The direct path — for when the question sharpens</span></h3>
+  <div class="bookrow"><div class="bt">라마나 마하르시<sup class="fnref" id="fr-curriculum-15"><a href="#fn-curriculum-15">15</a></sup>(Ramana Maharshi), 「나는 누구인가」 <span class="bk">(청하)</span></div><p>스무 쪽 안에 직접적인 길 전부가 들어 있습니다. 자기 탐구의 실제 방법을 적은 「나는 누구인가(Nan Yar)」 원문입니다. 수행이 여섯 달쯤 자리 잡은 뒤에 처음 읽고, 그 뒤로는 해마다 평생 꺼내 읽을 책입니다.</p></div>
+  <div class="bookrow"><div class="bt">니사르가닷따 마하라지(Nisargadatta Maharaj), 「아이 앰 댓」 <span class="bk">(탐구사 · 원제 I Am That)</span></div><p>상급 과정입니다. 가차 없이, 그러나 자비롭게 허물어 가는 문답이 "나는 있다"에 머무는 일을 축으로 이어집니다. 탐구가 안에서 살아 움직일 때까지 아껴 두는 편이 좋습니다. 때가 되면 사막에서 만난 물처럼 읽힙니다. "사랑은 '나는 모든 것이다'라고 말한다. 지혜는 '나는 아무것도 아니다'라고 말한다. 그 둘 사이로 내 삶이 흐른다."</p></div>
+  <div class="bookrow"><div class="bt">아디야샨티<sup class="fnref" id="fr-curriculum-16"><a href="#fn-curriculum-16">16</a></sup>(Adyashanti), The End of Your World <span class="bk">(영어판 · 뜻: 당신 세계의 끝)</span> · 김기태, 「지금 이대로 완전하다」 <span class="bk">(침묵의향기)</span></div><p>깨어남과 그 이후를 꾸밈없이 적은 현상학입니다. 머물지 않는 깨어남과 머무는 깨어남, 에고의 반격, 머리와 가슴과 배가 차례로 열리는 일. 곁에 놓인 김기태는 한국이 낳은 비이원의 스승입니다. 절박하게 찾아 헤매다 깨어난 전직 윤리 교사가 이제 도덕경과 금강경과 성경을 한국어로, 비이원으로 읽습니다. 직접적인 길이 한국어로도 말한다는 증거입니다.</p></div>
+
+  <h3>들을 것 <span class="ko">Listening</span></h3>
+  <p>들을 것은 매섭게 고릅니다. 강연은 구도가 어느새 이것저것 주워듣는 일로 변하기 가장 쉬운 자리입니다. 그래도 시간이 아깝지 않은 것들이 있습니다. 에크하르트 톨레의 리트릿 강연은 문장보다 문장 사이의 살아 있는 침묵이 더 많이 가르칩니다. 토머스 키팅의 <em>Spiritual Journey</em> 영상 시리즈가 있고, 깨어남 이후를 다룬 아디야샨티의 강연이 있습니다. 법륜스님의 즉문즉설(유튜브 <a href="https://www.youtube.com/@JungtoOrg" target="_blank">youtube.com/@JungtoOrg</a>)은 문제를 전제에서부터 녹이는 한국 불교의 응용 솜씨를 보여 줍니다. 그리고 이현주의 인터뷰와 강의는 올라오는 대로 들을 만합니다. 스스로를 완벽하게 불완전한 존재라 부르는 팔순 인터뷰 연작도 그 가운데 있습니다 — 유튜브 "이현주와 만난 사람들" 1편(<a href="https://www.youtube.com/watch?v=pJE49vBSPXs" target="_blank">youtube.com/watch?v=pJE49vBSPXs</a>)에서 시작하면 됩니다. 규칙은 하나면 됩니다. 강연 하나, 앉기 한 번. 강연을 연달아 두 개 듣는 일은 없습니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-curriculum-1">무위당 장일순(1928–1994). 원주의 가톨릭 평신도 사상가. 노자와 동학을 품고 한살림 운동을 일으켰다. 이현주 목사의 스승이다. <a class="fnb" href="#fr-curriculum-1">↩</a></li>
+    <li id="fn-curriculum-2">함석헌(1901–1989). 다석의 제자, 퀘이커. 『뜻으로 본 한국역사』를 쓴 '씨알'의 사상가다. <a class="fnb" href="#fr-curriculum-2">↩</a></li>
+    <li id="fn-curriculum-3">에크하르트 톨레(Eckhart Tolle, 1948– ). 『지금 이 순간을 살아라』의 저술가. <a class="fnb" href="#fr-curriculum-3">↩</a></li>
+    <li id="fn-curriculum-4">마이클 싱어(Michael Singer, 1947– ). 『상처받지 않는 영혼』의 저자. <a class="fnb" href="#fr-curriculum-4">↩</a></li>
+    <li id="fn-curriculum-5">안토니 드 멜로(Anthony de Mello, 1931–1987). 인도의 예수회 사제. 우스개와 짧은 이야기로 '깨어남'을 가르쳤다. <a class="fnb" href="#fr-curriculum-5">↩</a></li>
+    <li id="fn-curriculum-6">토머스 머튼(Thomas Merton, 1915–1968). 미국 트라피스트회 수도자·저술가. '거짓 자아/참 자아' 언어의 원류. <a class="fnb" href="#fr-curriculum-6">↩</a></li>
+    <li id="fn-curriculum-7">마르틴 레어드(Martin Laird). 미국 아우구스티노회 수사·교부학자. 그리스도교 관상 수행의 손꼽히는 현대 안내자다. <a class="fnb" href="#fr-curriculum-7">↩</a></li>
+    <li id="fn-curriculum-8">토머스 키팅(Thomas Keating, 1923–2018). 교회의 관상 기도를 '향심기도'로 정리한 트라피스트회 수도원장. <a class="fnb" href="#fr-curriculum-8">↩</a></li>
+    <li id="fn-curriculum-9">로렌스 형제(Brother Lawrence, 1614경–1691). 수도원 부엌에서 하나님의 임재를 연습한 수사. <a class="fnb" href="#fr-curriculum-9">↩</a></li>
+    <li id="fn-curriculum-10">달라스 윌라드(Dallas Willard, 1935–2013). 미국의 철학자. 복음을 '예수의 도제 살이'로 읽어 보수 교회 안에 영성 훈련을 되살렸다. <a class="fnb" href="#fr-curriculum-10">↩</a></li>
+    <li id="fn-curriculum-11">리처드 포스터(Richard Foster, 1942– ). 퀘이커 배경의 저술가. 『영적 훈련과 성장』으로 개신교에 고전 영성 훈련을 소개했다. <a class="fnb" href="#fr-curriculum-11">↩</a></li>
+    <li id="fn-curriculum-12">틱낫한(Thich Nhat Hanh, 1926–2022). '마음챙김'을 일상의 말로 세계에 전한 베트남 선승. <a class="fnb" href="#fr-curriculum-12">↩</a></li>
+    <li id="fn-curriculum-13">숭산 행원(1927–2004). '오직 모를 뿐'으로 한국 선(禪)을 세계에 전한 선사. <a class="fnb" href="#fr-curriculum-13">↩</a></li>
+    <li id="fn-curriculum-14">잭 콘필드(Jack Kornfield, 1945– ). 『깨달음 이후 빨랫감』을 쓴 위빠사나 지도자. <a class="fnb" href="#fr-curriculum-14">↩</a></li>
+    <li id="fn-curriculum-15">라마나 마하르시(Ramana Maharshi, 1879–1950). "나는 누구인가"를 평생 가르친 인도의 성자. <a class="fnb" href="#fr-curriculum-15">↩</a></li>
+    <li id="fn-curriculum-16">아디야샨티(Adyashanti, 1962– ). 깨어남 '이후'를 가르치는 미국의 영성 교사. <a class="fnb" href="#fr-curriculum-16">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="korea">
+  <div class="sec-label">제11부</div>
+  <h2>한국에서 수행하기 — 갈 수 있는 곳들 <span class="ko">Practicing in Korea</span></h2>
+
+  <p class="lead">한국은 알고 보면 리트릿 수행을 하기에 세계에서 손꼽히게 좋은 나라입니다. 전국을 잇는 템플스테이 망이 있고, 보시만으로 돌아가는 세계 수준의 위빠사나 센터가 있고, 영어가 통하는 국제 선원이 있고, 성공회 수도 전통부터 예수회까지 그리스도교 침묵의 집들이 있습니다. 2026년 중반 기준으로 확인한 내용입니다. 프로그램은 바뀌니, 예약할 때 세부 사항을 다시 확인하면 됩니다.</p>
+
+  <div class="box practice"><div class="tag">불교 · 전국</div>
+    <h4>템플스테이 <span class="kterm">templestay.com</span></h4>
+    <p>조계종 공식 프로그램입니다. 절 150곳가량이 참여합니다. 당일형은 하루 나들이, 체험형은 예불·참선·발우공양으로 짜인 일정, 휴식형은 정해진 일정 없이 쉬는 방식입니다. 스스로 수행하는 사람에게는 휴식형이 가장 맞습니다. 절의 리듬 안에서 자기 앉기 시간표를 그대로 지킬 수 있습니다. 비용은 보통 1박 50,000–70,000원이고, 이따금 지원 사업이 붙습니다. 명상을 진지하게 이어 가려는 체류라면 미황사(해남)가 참선 문화로 이름났고, 봉인사(남양주)가 혼자 하는 휴식형에 좋습니다. 더 깊이 들어가고 싶어지면 해인사의 여러 주짜리처럼 긴 휴식형도 있습니다. 절하는 법과 발우공양은 여기서 배우고, 침묵은 집으로 가져가면 됩니다.</p>
+  </div>
+
+  <div class="box practice"><div class="tag">위빠사나 · 집중수행</div>
+    <h4>담마코리아 (고엔카) · 호두마을 · 보리수선원</h4>
+    <p><strong>담마코리아</strong>(전북 진안 — korea.dhamma.org)는 전 세계 공통의 고엔카 10일 코스를 엽니다. 성스러운 침묵, 몸 훑기, 엄격하고 훌륭한 짜임. 그러면서 <em>완전히 무료</em>입니다. 먼저 다녀간 사람들의 보시로 다음 사람의 자리가 마련됩니다. 지금 갈 수 있는 집중수행 가운데 이만한 곳이 없습니다. 자리가 차니 몇 주 전에 신청해 두면 좋습니다. <strong>호두마을</strong>(천안)은 한국 테라와다의 오래된 수행 마을입니다. 정기·집중 위빠사나 리트릿이 있고, 미얀마 스승들이 다녀가며, 비용은 보시 기반으로 소박합니다. <strong>보리수선원</strong>(합천·제주)은 붓다락키따 스님 지도로 사마타–위빠사나를 익히는 곳입니다. 주간 앉기 모임과 초보자 리트릿, 온라인 강좌가 있고 역시 보시로 돌아갑니다. 10일 코스는 매일 앉기가 몇 달 이어진 뒤에 가는 편이 좋습니다. 무용담을 만들러 가는 일이 아니라, 한동안 그 안에 들어가 사는 일입니다.</p>
+  </div>
+
+  <div class="box practice"><div class="tag">선(禪) · 국제</div>
+    <h4>무상사 <span class="kterm">Musangsa, 계룡산 — musangsa.org</span></h4>
+    <p>숭산<sup class="fnref" id="fr-korea-1"><a href="#fn-korea-1">1</a></sup>이 세운 국제 선원입니다(관음선종/Kwan Um school). 처음부터 영어로 살도록 지은 절이라, 서양 수행자와 한국 수행자가 한솥밥을 먹습니다. 다달이 하루짜리와 주말 리트릿이 열리고, 석 달 안거(Kyol Che)에는 재가자가 더 짧게 끊어서 참여할 수도 있습니다. 영어가 편하고 화두, 곧 모를 뿐의 수행에 마음이 가는 사람이라면, 제대로 된 지도와 점검을 받을 수 있는 자연스러운 집입니다.</p>
+  </div>
+
+  <div class="box practice"><div class="tag">그리스도교 · 침묵</div>
+    <h4>예수원 · 피정의 집 · 향심기도 모임</h4>
+    <p><strong>예수원</strong>(Jesus Abbey, 태백)은 1965년 대천덕<sup class="fnref" id="fr-korea-2"><a href="#fn-korea-2">2</a></sup>이 세운 중보기도와 노동의 공동체입니다. 대천덕은 본명이 루벤 아처 토레이 3세(Reuben Archer Torrey III)로, 이름난 부흥사 R. A. 토레이의 손자입니다. 가장 보수적인 친척까지 축복해 줄 리트릿 장소가 하나 있다면 바로 여기인 이유입니다. 2박3일을 머물며 하루 세 번의 기도와 공동 노동에 끼어 삽니다. 숙식은 무료 또는 헌금이고, 전화로 예약하며, 입소는 월요일과 수요일입니다. 개신교 유산 위에 선, 참으로 수도원다운, 잊히지 않는 곳입니다. <strong>가톨릭 피정의 집</strong>은 주교회의가 전국 목록을 관리합니다(missa.cbck.or.kr/Retreat). 예수회는 서울의 예수회센터/이냐시오영성연구소에서 지도받는 침묵의 이냐시오 피정을 엽니다(3–8일). 가톨릭 신자가 아니어도 대개 환영하지만, 집마다 미리 확인하는 편이 좋습니다. <strong>향심기도</strong>는 관상지원단(Contemplative Outreach Korea — contemplativeoutreach.org/ko)이 한국어 모임과 자료를 이어 줍니다. 개신교 쪽 문으로는 이강학 교수의 관상 영성 모임(횃불트리니티)과, 임영수 목사가 양평에 세운 개신교 침묵 공동체 모새골이 있습니다. <strong>비종교:</strong> 임상에서 다듬어진 짜임새가 수행을 다지는 데 맞는다면, 한국MBSR연구소(mbsrkorea.com)의 8주 MBSR 과정이 있습니다.</p>
+  </div>
+
+  <p class="small">들쭉날쭉하다가 이제 꾸준해지려는 참이라면, 첫해는 이런 그림도 그려 볼 수 있습니다. 몇 달 안에 휴식형 템플스테이 한 번(숨 고르기, 절 배우기). 예수원 한 번(두 강줄기의 화해). 해 중간쯤 무상사나 호두마을에서 주말 리트릿 한 번. 그리고 매일의 리듬이 여섯 달을 버텨 준 해에는 담마코리아 10일 코스를 점찍어 두기. 공동체는 일주일에 한 번 모이는 곳 하나면 넉넉합니다. 향심기도 모임이든 앉기 모임이든, 교리보다 따뜻함과 정직함을 보고 고르면 됩니다.</p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-korea-1">숭산 행원(1927–2004). '오직 모를 뿐'으로 한국 선(禪)을 세계에 전한 선사. <a class="fnb" href="#fr-korea-1">↩</a></li>
+    <li id="fn-korea-2">대천덕(Reuben Archer Torrey III, 1918–2002). 성공회 사제. 1965년 태백에 기도와 노동의 공동체 예수원을 세웠다. <a class="fnb" href="#fr-korea-2">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="harddays">
+  <div class="sec-label">제12부</div>
+  <h2>문답 — 어려운 날들을 위하여 <span class="ko">For the Hard Days</span></h2>
+<div class="artvig"><svg width="640" height="96" viewBox="0 0 640 96" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M290,80 V30 q30,-16 60,0 V80" stroke="#6b6156" stroke-width="3.4"/><path d="M320,80 v-26" stroke="#6b6156" stroke-width="0" /><path d="M250,80 H390" stroke="#6b6156" stroke-width="3"/><path d="M320,44 l-70,-26 M320,40 l0,-30 M320,44 l70,-26" stroke="#a07d2a" stroke-width="2.2" opacity=".8"/><circle cx="320" cy="62" r="3.4" fill="#6b6156"/></svg></div>
+
+  <p class="lead">언젠가 실제로 찾아올 물음들입니다. 답은 앞의 모든 부에서 길어 왔습니다. 오늘 필요한 하나만 펼치고, 나머지는 저마다의 날을 위해 남겨 두면 됩니다.</p>
+
+  <details><summary>자꾸 시작했다가 그만둡니다. 저한테 무슨 문제가 있는 걸까요?</summary><div class="inner">
+    <p>아무 문제도 없습니다. 문제가 있던 쪽은 설계였고, 그 설계는 제6부에서 다시 지었습니다. 고정된 신호, 최소 분량, 두 번 연속 거르지 않기, 90일 동안 닻 하나, 일주일에 한 번 공동체 약속. 그런데 그보다 깊은 이야기가 하나 있습니다. 지금 익히는 기술이 바로 <em>돌아오기</em>입니다. 한 번 앉는 이십 분 사이에도 쉰 번 흩어지고 쉰 번 돌아옵니다. 한 해 사이에는 다섯 번 놓았다가 다섯 번 다시 잡을 수 있습니다. 같은 기술입니다. 크기만 다릅니다. 수행자는 한 번도 떠나지 않은 사람이 아닙니다. 떠났다는 이야기를 지어 붙이는 일을 그만두고, 돌아오는 일을 솜씨로 익힌 사람입니다. 오늘 밤 십 분, 아무 다짐 없이 다시 앉으면 됩니다.</p>
+  </div></details>
+
+  <details><summary>제가 나아가고 있는지는 어떻게 알 수 있나요?</summary><div class="inner">
+    <p>앉기가 잘되었는지로는 알 수 없습니다. 그것은 날씨입니다. 특별한 체험으로도 알 수 없습니다. 그것도 날씨입니다. 진전은 열매로 압니다. 여섯 달 단위로, 되도록 일지를 넘겨 보며, 함께 사는 사람에게 물어서 확인합니다. 자극과 반응 사이에 틈이 조금 넓어졌는가. 서운한 일 하나를 붙들고 곱씹는 시간이 줄었는가. 억지로 짜내지 않아도 인내와 따뜻함과 정직이 늘었는가. 대하기 어려운 사람들이 나를 전보다 조금 편해하는가. 점수판은 이것이 전부입니다(갈라디아서 5:22, 제4부 6절). 느낌과 실제가 거꾸로일 수 있다는 경고 하나만 보태 둡니다. <em>메마르게 느껴지는</em> 시기가 사실은 가장 기름진 때인 경우가 많습니다. 바로 다음 문답이 그 이야기입니다. 반대로 눈부시게 느껴지는 시기는 가끔 에고를 살찌웁니다. 삶으로 판단하면 됩니다. 번쩍이는 체험으로는 판단하지 않는 편이 낫습니다.</p>
+  </div></details>
+
+  <details><summary>기도도 명상도 완전히 말라 버렸습니다. 다 잃은 걸까요?</summary><div class="inner">
+    <p>먼저 몸과 마음부터 살펴보는 편이 좋습니다. 밀린 잠, 우울, 과로는 모두 영적 사막의 얼굴을 하고 찾아옵니다. 우울은 따로 돌봄이 필요하니, 수행이 흔들어 놓을 때의 문답을 함께 보면 좋습니다. 삶은 그런대로 돌아가는데 메마름이 수행에만 있다면, 이 사막이 <em>감각의 어두운 밤</em>인지 알아볼 차례입니다. 어두운 밤은 은총이 위로라는 젖을 떼는 시간입니다. 주시는 분보다 그 달콤한 느낌을 더 사랑하는 일을 그만두게 하려는 뜻입니다. 십자가의 성 요한<sup class="fnref" id="fr-harddays-1"><a href="#fn-harddays-1">1</a></sup>이 남긴 표지는 셋입니다. 첫째, 영적인 일에도, 그 자리를 대신할 세상 재미에도 즐거움이 없습니다. 둘째, 하나님께 잘못하고 있다는 아픈 걱정이 있습니다. 미지근한 사람은 그렇게 아파하지 않습니다. 셋째, 예전처럼 생각을 굴려 가며 묵상하는 일이 더는 되지 않습니다. 이 셋이 겹친다면 처방은 이미 나와 있습니다. 전에 통하던 방식을 억지로 밀지 말고, 고요 속에 머물러 "하나님을 향한 사랑스럽고 평온한 주의"를 지키는 일입니다. 앉는 시간은 줄이고, 일정은 지키고, 체험을 바라는 마음은 내려놓습니다. 통찰 수행의 지도들도 어두운 구간에서 똑같이 말합니다. 힘은 덜, 부드러움은 더, 그리고 공동체 곁에. 메마른 시기를 성실히 앉아 건너는 바로 그 자리에 깊이가 부어집니다. 정체기가 아니라 뿌리 내리는 시기입니다.</p>
+  </div></details>
+
+  <details><summary>수행이 저를 흔들어 놓습니다. 불안, 해리, 옛 트라우마까지 올라옵니다. 어떻게 해야 하나요?</summary><div class="inner">
+    <p>진지하게 받아들일 일입니다. 그리고 더 세게 수행하는 쪽으로는 가지 않는 편이 좋습니다. 이 영역은 실재하고, 지도도 이미 있습니다(제2부, 제9부 6절). 당장 할 수 있는 조치는 이렇습니다. 앉는 시간을 확 줄이거나, 형식을 갖춘 앉기를 잠시 쉽니다. 발이 땅에 닿는 수행으로 옮깁니다. 걷기, 절, 운동, 요리, 온 주의를 기울여 하는 평범한 일. 잠과 밥과 햇빛을 먼저 챙깁니다. 혼자 있기보다 사람들 곁에 머뭅니다. 그리고 누군가에게 말합니다. 공황, 비현실감, 불면, 자꾸 밀고 들어오는 기억으로 일상이 돌아가지 않을 정도라면, 전문가와 함께 가는 길이 맞습니다. 트라우마를 아는 치료자가 있고, 두 지도를 함께 아는 곳으로 치타 하우스(cheetahhouse.org)가 있습니다. 어려움에 빠진 명상가를 위해 세워진 곳입니다. 본인이나 가족에게 정신증이나 조증의 이력이 있다면, 수행은 늘 부드럽게, 지도받으며 한다는 것을 움직이지 않는 원칙으로 삼을 만합니다. 이 가운데 어느 것도 실패가 아닙니다. 분량 조절입니다. 전통이 집중 수행을 어른이 있는 수도원 담 안에 두었던 이유가 바로 이것입니다. 심리치료와 수행은 서로 편입니다. 훌륭한 스승 가운데도 둘 다 거친 사람이 많습니다.</p>
+  </div></details>
+
+  <details><summary>깨어난다는 게 두렵습니다. 나를, 내 성격을, 내가 사랑하는 것들을 잃을까 봐요.</summary><div class="inner">
+    <p>정직한 두려움입니다. 다만 두려워하는 대상이 잘못 그려져 있습니다. 이 길에서 죽는 쪽은 인격이 아닙니다. 누가 나인지 잘못 짚은 착오 하나, 곧 자기라고 우기며 꽉 움켜쥔 해설자입니다. 정말 내 것인 부분은 다 살아남습니다. 기질, 유머, 기억, 솜씨, 그리고 사랑하는 것들. 사랑은 오히려 깊어집니다. 나와 그들 사이를 막던 자기 방어가 얇아지기 때문입니다. 에크하르트 톨레<sup class="fnref" id="fr-harddays-2"><a href="#fn-harddays-2">2</a></sup>는 여전히 차(茶)를 좋아합니다. 테레사<sup class="fnref" id="fr-harddays-3"><a href="#fn-harddays-3">3</a></sup>는 수도원 여럿을 빈틈없이 꾸렸습니다. 팔십 대의 이현주는 옅어지기는커녕 더 이현주다워졌습니다. 그리고 가만히 보면, 지금 두려워하는 쪽이 <em>누구</em>일까요. 꿰뚫어 보일까 봐 떠는 쪽은 그 구조물 자신입니다. 바다가 되기를 두려워하는 파도입니다. 서두를 이유가 없습니다. 믿음이 자라는 속도만큼만 가면 됩니다. 캐묻는 언어가 벼랑 끝처럼 느껴지는 날은 사랑의 언어에 닻을 내리면 됩니다. 향심기도의 동의가 그렇고, 자애 수행이 그렇습니다. 복음이 이 약속을 어떤 모양으로 건네는지도 기억해 둘 만합니다. 소멸이 아니라 맞바꿈입니다. "누구든지 나를 위하여 제 목숨을 잃으면 찾으리라." 지워짐이 아니라 되찾음입니다.</p>
+  </div></details>
+
+  <details><summary>저는 아직도 그리스도인일까요? 결국 하나를 골라야 하나요?</summary><div class="inner">
+    <p>이 물음에는 전통이 이미 몇 사람의 생애로 답해 두었습니다. 다석<sup class="fnref" id="fr-harddays-4"><a href="#fn-harddays-4">4</a></sup> 유영모는 도덕경과 금강경을 칠십 년 읽으면서 그리스도 고백을 하루도 거두지 않았습니다. 이현주는 지금도 목사입니다. 토머스 머튼<sup class="fnref" id="fr-harddays-5"><a href="#fn-harddays-5">5</a></sup>은 수도자로 죽었습니다. 대천덕<sup class="fnref" id="fr-harddays-6"><a href="#fn-harddays-6">6</a></sup>은 가장 보수적인 친척이라도 믿고 맡길 기도 공동체를 세웠습니다. 지금 되어 가는 그 모습에는 오래된, 정통의 이름이 있습니다. 관상적 그리스도인. 그 신학도 수입품이 아니라 집안에서 자란 것입니다. 메타노이아, 거듭남, 케노시스<sup class="fnref" id="fr-harddays-7"><a href="#fn-harddays-7">7</a></sup>, 성화, 그리고 테오시스<sup class="fnref" id="fr-harddays-8"><a href="#fn-harddays-8">8</a></sup>. "신성한 성품에 참여하는 자"(베드로후서 1:4)라는 말이 있고, 칼뱅은 복음의 목적이 "말하자면 우리를 신화(神化)하는 것"이라 썼습니다. 본질이 아니라 성질에서 그렇다는 단서와 함께. 예수와, 맛본 그 깊이 사이에서 하나를 고를 일은 없습니다. 그 깊이가 <em>그분 안에</em> 있기 때문입니다. "하나님의 나라는 너희 안에 있느니라"는 라마나 마하르시<sup class="fnref" id="fr-harddays-9"><a href="#fn-harddays-9">9</a></sup>가 아니라 그분의 문장입니다. 놓아야 할 것이 있다면 하나뿐입니다. 좁은 그릇 하나가 집 전체인 양 행세하려는 주장입니다. 리처드 로어의 「위쪽으로 떨어지다」를 읽으면, 그 놓음이야말로 그릇이 처음부터 품고 있던 교과 과정이었음이 보입니다. 사랑이 허락하는 동안 그 밥상에 머물고, 자기 우물을 깊이 파고, 다른 전통은 이현주에게 그랬던 그 자리에 두면 됩니다. 자기 주님의 음성을 더 잘 듣게 해 준 주석이라는 자리입니다.</p>
+  </div></details>
+
+  <details><summary>가족은 이걸 이단이라고 합니다. 뭐라고 말해야 할까요?</summary><div class="inner">
+    <p>대체로는 이렇습니다. 생각보다 적게 말하고, 바라는 때보다 늦게 말하고, 그쪽에서 짐작하는 것보다 따뜻하게 말합니다. 자세한 이야기는 제9부 7절에 있고, 주머니에 넣고 다닐 요약은 넷입니다. 첫째, 교리로 다투지 않습니다. 이길 수 없고, 이긴다 해도 관계를 값으로 치릅니다. 통하는 논증은 하나뿐입니다. 여러 해에 걸쳐 눈에 보이는 열매. 둘째, 함께 쓰는 말과 함께 하는 일을 지킵니다. 기도, 말씀, 감사. 양심이 허락하는 만큼의 교회 출석. 책장에는 로렌스 형제<sup class="fnref" id="fr-harddays-10"><a href="#fn-harddays-10">10</a></sup>와 리처드 포스터를, 리트릿은 예수원으로. 셋째, 정면으로 물어 오면 정직한 한 문장이면 됩니다. "제가 요즘 침묵 속에서 기도하는 법을 배우고 있어요 — 옛날 수도자들이 하던 방식으로요. 열매로 판단해 주세요." 이 말은 그들이 붙드는 바로 그 성경 안에서는 반박되지 않습니다(마태복음 7:16). 넷째, 어느 쪽이든 부모는 공경합니다. 효(孝)도 수행이고, 그들의 두려움은 갑옷을 입은 사랑입니다. 어떤 집은 삼 년이면 녹고, 어떤 집은 이십 년이 걸리고, 끝내 녹지 않는 집도 있습니다. 내 평화를 거기에 저당 잡힐 수는 없습니다. 서두르지 않고, 숨기지 않고, 친절하게. 그거면 됩니다.</p>
+  </div></details>
+
+  <details><summary>어떤 날은 이게 다 자기 최면 같습니다. 믿음이 꼭 있어야 하나요?</summary><div class="inner">
+    <p>교리를 통째로 믿는 믿음이라면, 필요 없습니다. 이 길을 굴리는 연료는 오늘 하루 앉을 만큼의 신뢰입니다. 거기에 정직한 검증이 더해지는데, 그 채비는 이미 갖추어져 있습니다. 제8부는 이 길의 진단, 곧 구성된 자기와 열린 의식이 주류 과학 위에 서 있음을 보여 줍니다. 일지는 열매를 보여 줍니다. 전통 자신도 의심을 적이 아니라 엔진으로 삼습니다. 간화선의 세 요소 가운데 하나가 대의심, 큰 의심입니다. "내가 믿나이다 나의 믿음 없는 것을 도와 주소서"(마가복음 9:24)라는 부르짖음은 꾸중이 아니라 치유로 응답받았습니다. 의심이 짙은 날의 처방은 간단합니다. 모든 주장을, 시험해 볼 수 있는 알맹이만 남을 때까지 줄입니다. "조용히 앉아 생각을 알아차리기를 하루 이십 분씩 하면, 몇 주 안에 반응이 달라진다." 그리고 그것을 시험해 봅니다. 형이상학은 열어 둔 채로 두어도 됩니다. 이 길은 그 문제를 먼저 매듭짓고 오라고 요구한 적이 없습니다. 자기 최면이라는 걱정에는 이렇게 답할 수 있습니다. 최면은 주의를 좁혀 이야기 하나를 심습니다. 이 수행은 주의를 넓혀 이야기를 녹입니다. 둘은 반대 방향으로 달립니다. 여섯 달쯤 지나면, 어느 방향으로 가고 있는지 안에서부터 느껴집니다.</p>
+  </div></details>
+
+  <details><summary>너무 늦은 걸까요? 나이도 있고, 결혼도 했고, 직장에도 매여 있습니다.</summary><div class="inner">
+    <p>재가자(출가하지 않고 살림 속에서 수행하는 사람)의 오래된 물음이고, 전통의 답은 놀랄 만큼 한목소리입니다. 저잣거리가 <em>곧</em> 열 번째 그림입니다. 로렌스 형제는 부엌에서 기도했습니다. 방거사<sup class="fnref" id="fr-harddays-11"><a href="#fn-harddays-11">11</a></sup>(龐居士)는 "물 긷고 나무 나르기"라 했습니다. 바가바드기타의 가르침 전체는 수도원이 아니라 전쟁터 한복판의 사람에게 주어졌습니다. 장일순<sup class="fnref" id="fr-harddays-12"><a href="#fn-harddays-12">12</a></sup>은 협동조합을 꾸렸고, 마이클 싱어<sup class="fnref" id="fr-harddays-13"><a href="#fn-harddays-13">13</a></sup>는 회사 경영을 내맡김의 수행으로 삼았습니다. 결혼하고 일하는 삶은 이 길에 필요한 재료를 정확히 대 줍니다. 끝없이 주어지는 반복 연습이 그 하나입니다(제5부의 생활 수행). 속일 수 없는 피드백이 다른 하나입니다. 내가 얼마나 깨어 있는지는 가족이 가장 정확히 알려 줍니다. 아침 이십 분의 침묵에 깨어 사는 하루를 더한 쪽이, 상상 속의 수도원보다 무게가 나갑니다. 늦었는가 하면, 테레사의 가장 깊은 일은 쉰을 넘긴 뒤에 시작되었습니다. 다석은 팔십 대까지 가르쳤습니다. 뒤처진 것이 아닙니다. 지금 서 있는 자리가 바로 시작점입니다. 누구든 언제나 거기서만 시작할 수 있었습니다.</p>
+  </div></details>
+
+  <details><summary>그래서 깨달음이 대체 뭡니까? 돌려 말하지 말고 답해 주세요.</summary><div class="inner">
+    <p>전통이 허락하는 한도 안에서 가장 곧게 답해 보겠습니다. 깨달음은 앞으로 하게 될 어떤 체험이 아닙니다. 체험은 오고 갑니다. 깨달음은 오지도 가지도 않는 그것입니다. 다른 곳에 있지 않고, 나중에 있지 않습니다. "하나님의 나라는 너희 안에 있느니라"와 평상심시도(平常心是道)가 나란히 가리키는 자리입니다. 이것. 주인 행세하는 자기라는 막을 거치지 않고 보인 이것. 무엇을 얻는 일이 아니라 착오 하나가 끝나는 일입니다. 해설자를 여기 있는 당사자로 여겨 온 착오. 그리고 밖으로 드러나는 믿을 만한 얼굴은 광채가 아닙니다. 셈을 그만둔 사랑입니다. 여기서 더 가면 모든 말이 손가락입니다. 지금 이 말들도 손가락입니다. 숭산<sup class="fnref" id="fr-harddays-14"><a href="#fn-harddays-14">14</a></sup>의 답이 여전히 가장 온전합니다. <em>오직 모를 뿐</em> — 그리고 가서 앉으라. 정말 묻고 있는 그 물음은 앉는 자리에서 풀립니다. 답이 여태 발견된 유일한 장소와 시간에서. 여기, 지금, 이것.</p>
+  </div></details>
+
+  <hr class="soft">
+
+  <h3>축복 <span class="ko">Benediction</span></h3>
+  <p>이 안내서를 펼치던 날의 모습은 아마 이랬을 것입니다. 많이 읽었고, 고르지 않게 수행해 온 사람. 그런데 이 길을 걸어간 거의 모든 사람이, 첫걸음 직전에는 꼭 그 자리에 서 있었습니다. 이제 필요한 것은 다 손안에 있습니다. 지도와 도구와 리듬과 경고, 이 나라의 리트릿 집들, 두 언어로 쌓인 책들. 그리고 나머지 전부를 담은 한 가지 부탁이 남습니다. <em>내일 아침, 휴대전화를 열기 전에 이십 분 앉으시기를 빕니다. 흩어질 때마다 돌아오면 됩니다. 그 하루를 깨어서 살고, 이 악기를 부드럽게 다루어 주시기를 빕니다.</em></p>
+  <p>자라난 그 전통에는, 사람이 마침내 돌아서서 집으로 걸어갈 때 일어나는 일을 부르는 말이 있습니다. '성취'가 아닙니다. 은총입니다. 문 앞에 이르러서야, 저쪽에서 나를 내내 기다리고 있었음을 알게 되는 일. "아직도 거리가 먼데 아버지가 그를 보고 측은히 여겨 달려가 목을 안고 입을 맞추니"(누가복음 15:20). 다석은 이것을 우리말로 말했습니다. 제나가 죽으면 얼나가 솟는다. 율리아나<sup class="fnref" id="fr-harddays-15"><a href="#fn-harddays-15">15</a></sup>는 어려운 날들을 위해 말해 두었습니다. 다 잘될 것이다, 다 잘될 것이다, 모든 것이 다 잘될 것이다. 그리고 이현주 목사<sup class="fnref" id="fr-harddays-16"><a href="#fn-harddays-16">16</a></sup>는 팔십 대에, 완벽하게 불완전한 채로, 처음 교회에서 듣던 그 말투 그대로 오늘도 말하고 있습니다. 두려워 마라, 별것 아니다. 두려워하지 않으셔도 됩니다. 별것 아닙니다. 다만 모든 것을, 고스란히 되돌려 받는 일일 뿐입니다.</p>
+  <p><em>길이 곧 집입니다. 잘 걸으시기를 빕니다.</em></p>
+
+  
+
+  <div class="footnotes">
+  <div class="fh">각주</div>
+  <ol>
+    <li id="fn-harddays-1">십자가의 성 요한(St. John of the Cross, 1542–1591). '어두운 밤'의 지도를 남긴 카르멜회 수도자·시인. <a class="fnb" href="#fr-harddays-1">↩</a></li>
+    <li id="fn-harddays-2">에크하르트 톨레(Eckhart Tolle, 1948– ). 『지금 이 순간을 살아라』의 저술가. <a class="fnb" href="#fr-harddays-2">↩</a></li>
+    <li id="fn-harddays-3">아빌라의 테레사(Teresa of Ávila, 1515–1582). 『내면의 성』을 쓴 스페인 카르멜회의 신비가. <a class="fnb" href="#fr-harddays-3">↩</a></li>
+    <li id="fn-harddays-4">다석 류영모(1890–1981). '제나(몸의 나)/얼나(얼의 나)'의 구분을 세운 한국 근대의 스승. <a class="fnb" href="#fr-harddays-4">↩</a></li>
+    <li id="fn-harddays-5">토머스 머튼(Thomas Merton, 1915–1968). 미국 트라피스트회 수도자·저술가. '거짓 자아/참 자아' 언어의 원류. <a class="fnb" href="#fr-harddays-5">↩</a></li>
+    <li id="fn-harddays-6">대천덕(R. A. 토레이 3세, 1918–2002). 태백에 기도와 노동의 공동체 예수원을 세운 성공회 사제. <a class="fnb" href="#fr-harddays-6">↩</a></li>
+    <li id="fn-harddays-7">κένωσις, 자기 비움. 그리스도께서 자기를 비워 종의 형체를 취하셨다는 빌립보서 2장의 말이다. <a class="fnb" href="#fr-harddays-7">↩</a></li>
+    <li id="fn-harddays-8">θέωσις, 신화(神化). 은혜로 하나님의 성품에 참여하게 된다는 동방 교회의 구원 이해다(베드로후서 1:4). <a class="fnb" href="#fr-harddays-8">↩</a></li>
+    <li id="fn-harddays-9">라마나 마하르시(Ramana Maharshi, 1879–1950). "나는 누구인가"를 평생 가르친 인도의 성자. <a class="fnb" href="#fr-harddays-9">↩</a></li>
+    <li id="fn-harddays-10">로렌스 형제(Brother Lawrence, 1614경–1691). 수도원 부엌에서 하나님의 임재를 연습한 수사. <a class="fnb" href="#fr-harddays-10">↩</a></li>
+    <li id="fn-harddays-11">방거사(龐居士, ?–808). 저잣거리에서 깨달음을 살아 낸 당나라의 재가 수행자. <a class="fnb" href="#fr-harddays-11">↩</a></li>
+    <li id="fn-harddays-12">무위당 장일순(1928–1994). 한살림을 일으킨 원주의 가톨릭 사상가. 이현주 목사의 스승. <a class="fnb" href="#fr-harddays-12">↩</a></li>
+    <li id="fn-harddays-13">마이클 싱어(Michael Singer, 1947– ). 『상처받지 않는 영혼』의 저자. <a class="fnb" href="#fr-harddays-13">↩</a></li>
+    <li id="fn-harddays-14">숭산 행원(1927–2004). '오직 모를 뿐'으로 한국 선(禪)을 세계에 전한 선사. <a class="fnb" href="#fr-harddays-14">↩</a></li>
+    <li id="fn-harddays-15">율리아나(Julian of Norwich, 1342–1416경). 영국의 여성 은수자. 흑사병의 시대에 "모든 것이 잘될 것이다"라는 위로의 계시를 기록했다. <a class="fnb" href="#fr-harddays-15">↩</a></li>
+    <li id="fn-harddays-16">이현주 목사(1944– ). 호는 관옥. 노자·불경을 그리스도인의 눈으로 읽어 온 감리교 목사·번역가. <a class="fnb" href="#fr-harddays-16">↩</a></li>
+  </ol>
+</div>
+</section>
+
+<section class="part" id="sources">
+  <div class="sec-label">부록</div>
+  <h2>출처와 검증 <span class="ko">Sources &amp; Verification</span></h2>
+  <p class="small">이 안내서의 조사와 사실 확인은 2026년 7월에 마쳤습니다. 인용문은 일차 자료나 표준 판본과 대조했습니다. 남의 이름이 잘못 붙은 채 널리 도는 문구는 여기에 그 사실을 밝혀 둡니다. 이를테면 "그리스도께는 이제 당신의 몸밖에 없다"는 아빌라의 테레사가 아니라 19세기 감리교·퀘이커 쪽에서 나온 말이고, "당신이 찾는 것이 바로 보고 있는 그것이다"는 성 프란치스코의 진짜 말이 아닙니다. 아래의 과학 항목에는 주요 출처를 달았고, 시간이 지나면 달라질 수 있는 항목에는 날짜를 붙였습니다.</p>
+
+  <details><summary>수행과 지도 (제2부, 제5부)</summary><div class="inner"><p class="small">향심기도 지침: 관상지원단(Contemplative Outreach, contemplativeoutreach.org), 키팅, <em>Open Mind, Open Heart</em>(「마음을 열고 가슴을 열고」). 자기 탐구: 라마나 마하르시, <em>Nan Yar (Who Am I?)</em>(「나는 누구인가」), 스리 라마나스라맘(Sri Ramanasramam); 고드먼(Godman), <em>Be As You Are</em>. 위빠사나: 마하시 사야도(Mahasi Sayadaw), <em>Practical Insight Meditation</em>; 고엔카 코스 자료. 간화선: 대혜종고; 고봉, 『선요』(세 요소); 서산대사, 『선가귀감』(살아 있는 말과 죽은 말); 숭산(Seung Sahn), <em>The Compass of Zen</em>(「선의 나침반」). 예수 기도: 『필로칼리아』(<em>Philokalia</em>); 은수자 테오판(Theophan the Recluse). 렉시오 디비나: 귀고 2세(Guigo II), <em>Ladder of Monks</em>(『수도승의 사다리』). 톨레: <em>The Power of Now</em>(1977년 자신의 체험 기록 포함, eckharttolle.com 발췌). 싱어: <em>The Untethered Soul</em>, <em>Living Untethered</em>. 자애(mettā): 『까라니야 멧따 숫따』(Karaṇīya Mettā Sutta, Sn 1.8); 샐즈버그(Salzberg). 십우도: 곽암(12세기), 카플로(Kapleau), <em>Three Pillars of Zen</em>에 영역 수록. 영혼의 성과 어두운 밤: 아빌라의 테레사; 십자가의 성 요한, <em>Dark Night</em>(『어둔 밤』) I.9–10, II.5(카바노–로드리게스 역, Kavanaugh–Rodriguez). 통찰의 진전: 『청정도론』(Visuddhimagga) XX–XXI; 마하시, <em>Progress of Insight</em>; 잉그램(Ingram). 돈오점수/돈오돈수: 지눌 『수심결』; 성철 『선문정로』; 불교평론 개관. 콘필드, <em>After the Ecstasy, the Laundry</em>(「깨달음 이후 빨랫감」); 아디야샨티, <em>The End of Your World</em>; 웰우드(Welwood)의 영적 우회 정의: 『트라이시클』(Tricycle), "Human Nature, Buddha Nature"; 트룽파(Trungpa), <em>Cutting Through Spiritual Materialism</em>(『영적 물질주의를 넘어』); 람 다스(Ram Dass)의 가족 관련 인용: 본인의 기록(@BabaRamDass, 2016).</p></div></details>
+
+  <details><summary>과학과 철학 (제8부)</summary><div class="inner"><p class="small">고얄 등(Goyal et al.), 『미국의학협회지 내과학』(<em>JAMA Internal Medicine</em>) 2014 — 메타분석, 효과크기. 반담 등(Van Dam et al.), "Mind the Hype"(과대선전을 경계하라), 『심리과학의 관점』(<em>Perspectives on Psychological Science</em>) 2018. 브루어 등(Brewer et al.), 『미국국립과학원회보』(<em>PNAS</em>) 2011 — 디폴트 모드 네트워크(DMN). 루츠·리카르·데이비드슨(Lutz/Ricard/Davidson), <em>PNAS</em> 2004 — 감마파. 브리튼 등(Britton et al.), 『임상심리과학』(<em>Clinical Psychological Science</em>) 2021 — 부작용 58%/37%/~6%; cheetahhouse.org. 코지테이트 컨소시엄(Cogitate Consortium), 『네이처』(<em>Nature</em>) 2025년 4월 30일 — 통합정보이론(IIT)과 전역작업공간이론(GNWT)의 적대적 협력 연구. 코흐–차머스(Koch–Chalmers)의 내기: 『네이처』(<em>Nature</em>) 뉴스 2023년 6월. IIT 서한 논쟁: 『네이처』(<em>Nature</em>) 뉴스 2023년 9월. 차머스(Chalmers) 1995(어려운 문제); 세스(Seth), <em>Being You</em>(2021); 메칭거(Metzinger), <em>The Ego Tunnel</em>(2009); 감마·메칭거(Gamma &amp; Metzinger), <em>PLoS ONE</em> 2021(최소 현상적 경험, MPE). 필페이퍼스(PhilPapers) 2020 설문(물리주의 약 52%). 스트로슨(Strawson), "Realistic Monism" 2006; 고프(Goff), <em>Galileo's Error</em> 2019; 러셀(Russell), <em>Analysis of Matter</em> 1927; 카스트룹(Kastrup, Essentia Foundation); 호프먼(Hoffman)의 적합성이 진리를 이긴다(FBT) 정리와 그 비판(『신테제』(<em>Synthese</em>) 2022). 위그너의 철회와 결어긋남: 표준적 역사(체 Zeh 1970). 2022년 노벨 물리학상(아스페/클라우저/차일링거의 벨 검증). 프라우힉거–레너(Frauchiger–Renner) 2018; 봉 등(Bong et al.), 『네이처 피직스』(<em>Nature Physics</em>) 2020(위그너의 친구). 파니아 등(Parnia et al.), AWARE-II, 『리서시테이션』(<em>Resuscitation</em>) 2023. 선정(jhāna) 영상 연구: 사셋 명상연구 프로그램(Sacchet Meditation Research Program), MGH/하버드(meditation.mgh.harvard.edu; 2023–2026 논문들); 소멸(cessation) 뇌파(EEG): 라우코넨 등(Laukkonen et al.) 2023; 자르카·사셋(Zarka &amp; Sacchet), bioRxiv 2026(사전공개 논문 — 예비적 결과). 홀데인(Haldane), <em>Possible Worlds</em> 1927("우리가 상상할 수 있는 것보다 더 기이하다"). 미생물군 세포 비율 약 1:1(센더/푹스/밀로 Sender/Fuchs/Milo 2016); 세포내공생; 내생 레트로바이러스(ERV) 유전체 약 8%; 별에서의 원소 합성 — 표준 문헌.</p></div></details>
+
+  <details><summary>그리스도교의 다리와 한국의 강줄기 (제1·3·4·10·11부)</summary><div class="inner"><p class="small">메타노이아 번역의 역사: BDAG 사전; 불가타의 <em>paenitentiam agite</em>; 1518년 루터가 슈타우피츠에게 보낸 편지; 월든(Walden) 1896. 누가복음 17:21의 <em>entos hymōn</em>: C. H. 로버츠(Roberts), 『하버드 신학 리뷰』(<em>HTR</em>) 1948; 테르툴리아누스, <em>Adv. Marc.</em> 4.35; 「토마복음」 3, 113. 아타나시우스, <em>De Incarnatione</em>(『성육신론』) 54.3. 베드로후서 1:4에 관한 칼뱅(CCEL): "…말하자면 우리를 신화하는 것", "본질이 아니라 성질에서"; 『기독교 강요』(<em>Institutes</em>) 3.1.1, 3.11.10, 3.20. 웨스트민스터 소요리문답 35문. 에크하르트: 독일어 설교 12(눈에 관한 인용), 설교 52; 1329년 교서 <em>In agro dominico</em>의 맥락. 『무지의 구름』(<em>Cloud of Unknowing</em>) 6장. 테레사, <em>Way of Perfection</em>(『완덕의 길』) 28; 십자가의 성 요한, <em>Sayings of Light and Love</em>(『빛과 사랑의 말들』) 60. 로렌스 형제, 네 번째 대화. 머튼, <em>Conjectures of a Guilty Bystander</em>(4번가와 월넛가 대목); <em>New Seeds of Contemplation</em>. 키팅: 관상지원단(Contemplative Outreach); <em>Invitation to Love</em>. 로어, <em>Falling Upward</em>, <em>The Universal Christ</em>("하나님은 사물이 됨으로써 사물을 사랑하신다"); 비판: Psephizo 서평. 드 멜로: 신앙교리성(CDF) 1998년 통고(EWTN 본문); 예수회의 응답(NCR; <em>Religions</em> 2022). 레어드, <em>Into the Silent Land</em>. 존 메인(John Main)/WCCM; 카시아누스, <em>Conference</em>(『담화집』) 10. 루이스(Lewis), <em>Mere Christianity</em>(『순전한 기독교』) IV.11. 율리아나(Julian), <em>Revelations</em>(『신적 사랑의 계시』) 장문본(LT) 27. 키르케고르, <em>Purity of Heart</em>(『마음의 순결』). 영원철학 논쟁: 헉슬리(Huxley) 1945; 카츠(Katz) 1978; 포먼(Forman) 1990/1999; 하트(Hart), <em>The Experience of God</em> 2013. <strong>한국의 강줄기:</strong> 이현주 — 교보문고 저자 페이지(2025–26년 신간이 활동을 확인해 준다); 한국 위키백과/나무위키; 가톨릭뉴스 지금여기 2012 인터뷰; 「무위당 장일순의 노자 이야기」(삼인). 다석: 『다석 강의』(현암사); 박영호 전기(두레/교양인); 함석헌: 『뜻으로 본 한국역사』(한길사); 장일순: 『좁쌀 한 알』(도솔). 대천덕/예수원: 휘튼 칼리지 아카이브(Wheaton College Archives); jabbey.org. 관상기도 논쟁: 예장합동 96회 총회(2011) 결의, 교회와신앙/크리스천투데이 보도. 김기태: 『지금 이대로 완전하다』(침묵의향기); be1.co.kr. 한국어판은 알라딘/교보문고 목록 페이지로 2026년 7월에 확인했다. 리트릿: templestay.com; korea.dhamma.org; vmcwv.org(호두마을); borisu.or.kr; musangsa.org; missa.cbck.or.kr/Retreat; mbsrkorea.com.</p></div></details>
+
+  <p class="small" style="margin-top:18px">여러 전통을 하나의 목소리로 엮어 쓴 글입니다. 남은 잘못이 있다면 스승들이 아니라 이 안내서의 몫입니다. 법률과 연구는 시간이 지나면 달라집니다. 법률이나 임상에 관한 결정을 내릴 때는, 그 시점의 사실을 다시 확인하고 움직이는 편이 안전합니다.</p>
+</section>
+
+<section class="part" id="glossary">
+  <div class="sec-label">부록</div>
+  <h2>인명·용어 풀이 <span class="ko">Glossary</span></h2>
+  <p class="small">본문에 나오는 사람과 용어를 가나다순으로 모았습니다. 각 부 끝의 각주와 겹치는 내용도 있지만, 어느 부를 먼저 읽어도 여기서 찾을 수 있도록 한자리에 두었습니다.</p>
+
+  <h3>사람 <span class="ko">People</span></h3>
+  <p class="small" style="margin-bottom:10px"><strong>고엔카</strong> — S. N. Goenka(1924–2013). 미얀마에서 위빠사나를 배운 인도의 재가 지도자. 몸의 감각을 훑는 10일 코스를 보시로만 돌아가는 세계적 과정으로 세웠다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>곽암</strong> — 廓庵. 12세기 중국의 선승. 잃어버린 소를 찾는 그림 열 점과 시, 곧 십우도(十牛圖)를 남겼다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>귀고 2세</strong> — Guigo II. 12세기 카르투시오회의 수도원장. 읽기·묵상·기도·관상으로 오르는 '수도승의 사다리'로 렉시오 디비나의 네 걸음을 정리했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>김기태</strong> — 대구를 중심으로 도덕경과 성경을 함께 읽으며 '지금 이대로 완전하다'를 가르쳐 온 한국의 재야 스승이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>노자</strong> — 老子. 기원전 6세기경 살았다고 전해지는 도가(道家)의 스승. 『도덕경』의 저자로 전해지며, 이 안내서에서는 이현주 목사가 복음과 나란히 읽는 목소리로 나온다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>니사르가닷따 마하라지</strong> — Nisargadatta Maharaj(1897–1981). 인도 뭄바이의 담배 가게 주인이자 스승. 문답집 『아이 앰 댓』으로 알려졌다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>다석 유영모</strong> — 류영모(1890–1981). 성경을 노자·불경과 함께 읽으며 '제나(몸의 나)'와 '얼나(얼의 나)'의 구분을 세운 한국 근대의 스승. 함석헌의 스승이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>달라스 윌라드</strong> — Dallas Willard(1935–2013). 미국의 철학자. 복음을 '예수의 도제 살이'로 읽어 보수 교회 안에 영성 훈련을 되살렸다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>대천덕</strong> — Reuben Archer Torrey III(1918–2002). 성공회 사제. 1965년 태백에 기도와 노동의 공동체 예수원을 세웠다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>데이비드 차머스</strong> — David Chalmers(1966– ). 오스트레일리아의 철학자. 1995년 의식의 '어려운 문제'를 정식화했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>라마나 마하르시</strong> — Ramana Maharshi(1879–1950). 인도의 성자. 열여섯에 죽음의 공포를 정면으로 통과한 뒤 평생 "나는 누구인가"라는 물음 하나를 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>람 다스</strong> — Ram Dass(1931–2019). 하버드 심리학 교수였다가 인도에서 스승을 만나 영성 교사가 된 미국인. 『지금 여기에 살라』(Be Here Now)의 저자다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>로렌스 형제</strong> — Brother Lawrence(1614경–1691). 파리 카르멜회 수도원의 주방 수사. 설거지 가운데 하나님의 임재를 연습한 『하나님의 임재 연습』의 주인공이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>로저 스페리</strong> — Roger Sperry(1913–1994). 미국의 신경심리학자. 분리뇌 연구로 1981년 노벨 생리의학상을 받았다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>리처드 로어</strong> — Richard Rohr(1943– ). 미국 프란치스코회 수사. '인생 후반의 영성'을 가르치는 관상 전통의 대중적 스승이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>리처드 백스터</strong> — Richard Baxter(1615–1691). 영국 청교도의 목회자·저술가. 날마다 하늘을 그리며 묵상하는 '천상의 묵상'을 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>리처드 포스터</strong> — Richard Foster(1942– ). 퀘이커 배경의 저술가. 『영적 훈련과 성장』으로 개신교에 고전 영성 훈련을 소개했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>마르틴 레어드</strong> — Martin Laird. 미국 아우구스티노회 수사·교부학자. 그리스도교 관상 수행의 손꼽히는 현대 안내자다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>마이스터 에크하르트</strong> — Meister Eckhart(1260경–1328). 독일 도미니코회의 신학자·설교자. 서방 그리스도교 신비 전통의 가장 깊은 목소리로 꼽힌다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>마이클 가자니가</strong> — Michael Gazzaniga(1939– ). 미국의 인지신경과학자. 분리뇌 연구에서, 일이 벌어진 뒤에 이유를 지어내는 좌반구의 '해석자'를 밝혔다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>마이클 싱어</strong> — Michael Singer(1947– ). 미국의 명상가·저술가. 『상처받지 않는 영혼』에서 '머릿속 목소리를 듣는 나는 누구인가'를 물었다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>마하시 사야도</strong> — Mahasi Sayadaw(1904–1982). 미얀마의 큰 스승. 배의 오르내림을 관찰하며 이름을 붙이는 위빠사나 방법을 정리해 세계에 퍼뜨렸다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>방거사</strong> — 龐居士(?–808). 당나라의 재가 수행자. 출가하지 않고 저잣거리에서 살며 깨달음을 산 본보기로 꼽힌다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>법륜</strong> — 법륜 스님(1953– ). 정토회를 세운 승려. 즉문즉설 문답으로 일상의 괴로움을 그 자리에서 풀어 보이는 가르침을 이어 오고 있다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>법정</strong> — 법정 스님(1932–2010). 『무소유』의 저자. 입적하며 자신의 책을 더 내지 말라는 유언을 남겼다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>사막 교부</strong> — Desert Fathers. 3–5세기 이집트 사막에서 침묵과 기도로 산 초기 그리스도교 수도자들. 그리스도교 수도 전통과 관상 기도의 뿌리다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>서산대사</strong> — 휴정(休靜, 1520–1604). 조선의 선사. 임진왜란 때 승병을 이끌었고, 『선가귀감』에서 살아 있는 말(활구)만 참구하라고 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>성철</strong> — 성철 스님(1912–1993). 조계종 종정을 지낸 현대 한국 불교의 큰 스님. '단박에 깨쳐 더 닦을 것 없다'는 돈오돈수를 내세웠고, 찾아오는 이에게 삼천배를 시킨 일로 유명하다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>숭산</strong> — 숭산 행원(1927–2004). 한국 선을 서양 여러 나라에 심은 조계종 선사. '오직 모를 뿐'이라는 가르침으로 유명하다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>슈분</strong> — 周文. 15세기 일본 무로마치 시대의 선승 화가. 교토 쇼코쿠지(相國寺)에 그가 남긴 십우도 모사본이 전한다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>스즈키 순류</strong> — 鈴木俊隆(1904–1971). 일본 조동종의 선사. 샌프란시스코에 선원을 세웠고 『선심초심』으로 '초심자의 마음'을 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>승찬</strong> — 僧璨(?–606). 중국 선종의 3대 조사. 짧은 시 「신심명」을 지었다고 전해진다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>십자가의 성 요한</strong> — St. John of the Cross(1542–1591). 스페인 카르멜회의 수도자·시인. 하나님이 영혼을 정화하시는 '어두운 밤'의 지도를 남겼다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아닐 세스</strong> — Anil Seth. 영국의 신경과학자. 지각을 '통제된 환각'으로 설명한 『내가 된다는 것』의 저자다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아디야샨티</strong> — Adyashanti(1962– ). 미국의 선(禪) 전통 출신 영성 교사. 깨어남 '이후'의 여정을 정직하게 기록해 왔다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아브라함 헤셸</strong> — Abraham Joshua Heschel(1907–1972). 유대교 랍비·사상가. 안식일을 '시간 속의 궁전'이라 불렀다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아빌라의 테레사</strong> — Teresa of Ávila(1515–1582). 스페인 카르멜회의 수녀·신비가. 『내면의 성(城)』에서 영혼의 여정을 일곱 겹의 방(궁방)을 지나 중심의 그리스도께 나아가는 성(城)에 비유했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아우구스티누스</strong> — Aurelius Augustinus(354–430). 북아프리카 히포의 주교, 초대 교회 최대의 신학자. 오랜 방황 끝의 회심을 『고백록』에 기록했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>안토니 드 멜로</strong> — Anthony de Mello(1931–1987). 인도의 예수회 사제. 우스개와 짧은 이야기로 '깨어남'을 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>에드워즈</strong> — Jonathan Edwards(1703–1758). 미국 청교도의 신학자·설교자. 『신앙 감정론』에서 참된 체험의 가장 확실한 표지는 사랑과 실천이라고 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>에크하르트 톨레</strong> — Eckhart Tolle(1948– ). 독일 태생의 영성 저술가. 『지금 이 순간을 살아라』로 '현존'의 가르침을 널리 알렸다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>요한 카시아누스</strong> — John Cassian(360경–435). 사막 교부들의 가르침을 서방 교회에 옮긴 수도자. 한 구절을 쉬지 않고 되뇌는 기도를 전해 향심기도의 먼 원천이 되었다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>윌리엄 제임스</strong> — William James(1842–1910). 미국의 철학자·심리학자. 『종교적 경험의 다양성』에서 신비 체험을 학문의 자료로 삼았다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>율리아나</strong> — Julian of Norwich(1342–1416경). 영국의 여성 은수자. 흑사병의 시대에 "모든 것이 잘될 것이다"라는 위로의 계시를 기록했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>이냐시오</strong> — 로욜라의 이냐시오(1491–1556). 예수회의 창립자. 하루를 하나님 앞에서 되짚어 보는 '의식 성찰'을 남겼다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>이현주</strong> — 이현주 목사(1944– ). 감리교 목사, 동화작가, 번역가. 호는 관옥(觀玉). 무위당 장일순의 제자로, 노자·장자·불경을 그리스도인의 눈으로 읽어 온 우리 시대의 영성가다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>장일순</strong> — 무위당 장일순(1928–1994). 원주의 가톨릭 평신도 사상가. 노자와 동학을 품고 한살림 운동을 일으켰다. 이현주 목사의 스승이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>잭 콘필드</strong> — Jack Kornfield(1945– ). 미국의 위빠사나 지도자·임상심리학자. 『깨달음 이후 빨랫감』에서 큰 체험 뒤에도 계속되는 평범한 삶을 다뤘다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>저드슨 브루어</strong> — Judson Brewer. 미국의 정신과 의사·신경과학자. 숙련 명상가의 뇌에서 '디폴트 모드 네트워크'가 조용해지는 것을 처음 보여 준 연구로 알려졌다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>조주</strong> — 조주 종심(趙州從諗, 778–897). 당나라의 선사. "평상의 마음이 도다"라는 답을 받은 물음을 비롯해, 훗날 화두가 된 문답을 많이 남겼다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>존 웰우드</strong> — John Welwood(1943–2019). 미국의 심리치료사. 수행으로 감정의 숙제를 피해 가는 '영적 우회'라는 말을 만들었다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>지눌</strong> — 보조국사 지눌(1158–1210). 고려의 선사. '문득 깨닫되 오래 닦는다'는 돈오점수(頓悟漸修)를 가르쳤다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>테오판 은수자</strong> — Theophan the Recluse(1815–1894). 러시아 정교회의 주교·은수자. "마음을 가슴에 두고" 하나님 앞에 서라는 말로 예수기도의 전통을 요약했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>토마스 메칭거</strong> — Thomas Metzinger(1958– ). 독일의 철학자. 자아를 뇌가 돌리는 '자기 모형'으로 설명했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>토머스 머튼</strong> — Thomas Merton(1915–1968). 미국의 트라피스트회 수도자·저술가. '거짓 자아/참 자아'라는 말로 현대 그리스도교 영성의 문법을 만들었고 불교와의 대화에 앞장섰다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>토머스 키팅</strong> — Thomas Keating(1923–2018). 미국 트라피스트회의 수도원장. 교회의 오랜 관상 기도를 현대인이 배울 수 있도록 '향심기도'로 정리한 주역이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>트룽파</strong> — 초걈 트룽파(Chögyam Trungpa, 1939–1987). 티베트 불교를 서양에 전한 스승. 수행이 에고의 장식이 되는 위험을 '영적 물질주의'라 이름 붙였다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>틱낫한</strong> — Thich Nhat Hanh(1926–2022). 베트남의 선승·평화운동가. '마음챙김'을 일상의 언어로 세계에 전했다. 이현주 목사가 그의 책 여럿을 우리말로 옮겼다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>프란시스코 바렐라</strong> — Francisco Varela(1946–2001). 칠레 출신의 신경과학자. 명상가의 1인칭 보고와 뇌 과학을 잇는 '신경현상학'을 제창했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>함석헌</strong> — 함석헌(1901–1989). 다석의 제자, 퀘이커. 『뜻으로 본 한국역사』를 쓴 '씨알'의 사상가다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>홀데인</strong> — J. B. S. Haldane(1892–1964). 영국의 생물학자. 진화유전학의 기초를 놓은 과학자 가운데 한 사람이다.</p>
+
+  <h3>용어 <span class="ko">Terms</span></h3>
+  <p class="small" style="margin-bottom:10px"><strong>간화선(看話禪)</strong> — 화두를 들어 참구하는 선(禪). 한국 조계종 참선의 핵심 수행법이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>견성(見性)</strong> — 제 성품을 봄. 생각이 지어낸 자기 너머의 본성을 직접 보는 일로, 선(禪)이 말하는 깨달음이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>견적(見跡)</strong> — 소의 발자국을 봄. 십우도의 둘째 그림으로, 책과 가르침으로 얻는 지적 확신의 단계를 가리킨다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>고통체</strong> — pain-body. 에크하르트 톨레의 말로, 때가 되면 생각을 통째로 납치해 가는 묵은 감정의 응어리. 먹이를 주지 않고 지켜보면 지나가는 시간이 짧아진다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>공(空)</strong> — śūnyatā. '아무것도 없음'이 아니라 '어떤 것도 홀로 서 있지 않음'. 무엇에도 독립된 자기 존재가 없다는 불교의 통찰로, 자비와 떼어 놓을 수 없다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>공병(空病)</strong> — 공(空)을 잘못 소화해 '아무것도 중요하지 않다'는 허무주의로 굳어 버린 병을 이르는 선(禪)의 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>관상(觀想)</strong> — 말과 생각을 내려놓고 하나님 또는 실재 앞에 고요히 머무는 기도·명상. 그리스도교의 관상 기도와 불교의 참선·명상이 모두 이 관상 전통에 든다. 얼굴을 보는 관상(觀相)과는 관계가 없다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>궁방(宮房)</strong> — 테레사가 『내면의 성』에서 쓴 비유로, 영혼이 차례로 지나는 '방'을 가리킨다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>대신심·대의심·대분심</strong> — 한국 선이 꼽는 수행의 세 동력. 깨어남이 가능하다는 큰 믿음, 살아 타오르는 큰 물음, 미루지 않겠다는 큰 결심이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>도(道)·도가(道家)</strong> — 도는 이름 붙일 수 없는 길, 만물을 낳아 움직이는 바탕. 노자와 장자에게서 비롯한 그 사상의 흐름이 도가다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>도반(道伴)</strong> — 길을 함께 걷는 벗. 수행 공동체의 길동무를 이르는 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>돈오(頓悟)</strong> — 단박에 깨침. 본성을 보는 일은 서서히 쌓이는 것이 아니라 문득 일어난다는 가르침이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>돈오돈수(頓悟頓修)</strong> — 단박에 깨치면 더 닦을 것이 없다는 가르침. 성철이 내세웠다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>돈오점수(頓悟漸修)</strong> — 문득 깨닫되 닦음은 서서히 따른다는 가르침. 지눌이 세웠다. "해는 한꺼번에 떠오르지만 서리는 천천히 녹는다."</p>
+  <p class="small" style="margin-bottom:10px"><strong>렉시오 디비나(lectio divina)</strong> — 거룩한 독서. 읽기·묵상·기도·관상의 네 걸음으로 성경을 만나는 수도원의 읽기 방식이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>리트릿(retreat)·피정(避靜)</strong> — 일상을 떠나 침묵과 수행에 집중하는 모임·기간. 가톨릭에서는 피정, 개신교에서는 수련회라 부른다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>마음챙김</strong> — mindfulness. 지금 하는 일과 지금의 경험을 놓치지 않고 알아차리는 일. 틱낫한이 일상의 언어로 세계에 전했다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>만트라(mantra)</strong> — 마음을 모으기 위해 되풀이해 외는 거룩한 소리나 구절이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>메타노이아</strong> — μετάνοια. '회개'로 번역된 그리스어 원어. 본뜻은 '마음을 바꿈, 생각 너머로 나아감'으로, 잘못을 뉘우치는 일보다 훨씬 근본적인 마음의 방향 전환을 가리킨다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>무아(無我)</strong> — anattā. 오온 어디에도 고정된 자아가 없다는 붓다의 가르침. 믿을 교리가 아니라 직접 확인해 보는 관찰이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>무위(無爲)</strong> — 억지로 하지 않음. 몰아붙이지 않고 결을 따라 이루어지게 두는 노자의 가르침이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>무지의 구름</strong> — The Cloud of Unknowing. 14세기 영국의 무명 수도자가 쓴 관상 기도 안내서. 생각으로는 하나님께 닿을 수 없으나 사랑으로는 닿는다고 가르친다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>바가바드기타</strong> — Bhagavad Gītā. '거룩한 이의 노래'라는 뜻의 힌두교 경전. 전쟁터 한복판의 왕자 아르주나가 신 크리슈나에게 받는 가르침의 형식으로, 행위 한가운데서의 수행을 노래한다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>바벨탑</strong> — Tower of Babel. 창세기 11장에서 하나였던 인류의 말이 여럿으로 갈라진 사건. 이 안내서에서는 같은 것을 두고 말이 갈라져 생기는 혼란을 가리킨다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>박띠</strong> — bhakti. 산스크리트어로 '신을 향한 사랑과 헌신'으로, 신애(信愛)라 옮긴다. 인도 전통에서 사랑으로 가는 길을 가리킨다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>발우공양(鉢盂供養)</strong> — 절에서 발우라는 그릇 한 벌로 남김없이 먹는 식사 의식. 먹는 일 전체를 알아차림과 감사의 수행으로 삼는다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>방하착(放下著)</strong> — '내려놓아라'. 붙들고 있는 것을 놓으라는 선(禪)의 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>백팔배(百八拜)·오체투지(五體投地)</strong> — 무릎과 두 손과 이마를 바닥에 대는 오체투지로 108번 절하는 몸의 수행. 머리를 가슴보다 낮은 곳에 두는 겸손의 연습이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>법(法)</strong> — dharma(다르마). 붓다의 가르침, 그리고 그 가르침이 가리키는 실재의 결을 함께 이르는 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>베단타(Vedanta)</strong> — 우파니샤드에 뿌리를 둔 인도 철학의 큰 흐름. 참자기(아트만)와 절대(브라만)의 관계를 묻는다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>본래면목(本來面目)</strong> — 본래의 얼굴. 태어나기 전부터 지녀 온 참모습을 묻는 선(禪)의 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>불성(佛性)</strong> — 부처의 성품. 모든 존재에 이미 갖추어져 있다는 깨어 있는 본성이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>사마타(samatha)</strong> — 고요. 주의를 한곳에 모아 마음을 가라앉히는 수행으로, 통찰이 자라는 바탕이 된다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>상즉(相卽)</strong> — interbeing. 아무것도 홀로 존재하지 않고 서로 기대어 함께 있다는 통찰. 틱낫한이 붙인 이름이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>색즉시공(色卽是空)</strong> — 『반야심경』의 구절. 나타난 모든 것(색)이 곧 공(空)이라는 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>선(禪)·참선(參禪)·좌선(坐禪)</strong> — 마음을 곧장 보는 불교의 흐름이 선이고, 그 앉는 수행이 참선·좌선이다. 한국의 참선은 대개 화두를 드는 간화선이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>성화(聖化)</strong> — sanctification. 거듭남이 삶 전체에 천천히 배어드는 일. 웨스트민스터 소요리문답 35문은 "점점 더 죄에 대하여 죽고 의에 대하여 살 수 있게 되는" 은혜의 역사라 정의한다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>수식관(數息觀)</strong> — 내쉬는 숨을 하나부터 열까지 세며 주의를 모으는 호흡 명상법이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>수피(Sufi)</strong> — 이슬람의 신비주의 수행자. '죽기 전에 죽으라'는 말로 자아의 죽음을 가르쳐 왔다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>신비가·신비 전통</strong> — 교리와 개념 너머에서 하나님·실재와의 직접 만남을 추구해 온 흐름이 신비 전통이고, 그 길을 산 사람이 신비가다. 테레사, 십자가의 요한, 에크하르트가 그리스도교 쪽의 봉우리다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>신심명(信心銘)</strong> — 선종의 3대 조사 승찬이 지었다고 전해지는 짧은 시. "지극한 도는 어렵지 않으니 다만 가려서 택하지 말라"로 시작한다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>십우도(十牛圖)</strong> — 12세기 중국의 선승 곽암이 그림 열 점과 시로 남긴 수행의 지도. 잃어버린 소(참나)를 찾아 길들이고, 마침내 소도 나도 잊고 저잣거리로 돌아오는 여정을 그린다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아드바이타(Advaita)</strong> — '둘이 아님'. 참자기와 절대가 하나라고 보는 베단타의 흐름으로, 라마나 마하르시의 직접적인 길이 여기 닿아 있다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>아상(我相)</strong> — '나'라는 상(相). 자기를 고정된 실체로 여기는 마음의 그림이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>안거(安居)</strong> — 한곳에 머물러 하는 집중 수행 기간. 한국의 선원은 여름과 겨울 석 달씩 안거에 든다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>어두운 밤</strong> — 십자가의 성 요한의 말. 하나님이 위로의 느낌을 거두어 영혼을 정화하시는 메마름의 구간으로, 실패가 아니라 진전의 표지다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>에고(ego)</strong> — 생각과 기억이 지어 올린 '나'. 이 안내서에서 구성된 자기, 곧 소음 쪽의 자기를 부르는 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>염불(念佛)</strong> — 부처의 이름을 되풀이해 부르는 수행. 기능으로 보면 예수기도의 불교 쪽 사촌이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>예수기도</strong> — "주 예수 그리스도, 하나님의 아들이시여, 저에게 자비를 베푸소서"를 끊이지 않고 되뇌는 동방 교회의 기도. 입술에서 가슴으로 내려가 저절로 기도하게 될 때까지 이어 간다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>오온(五蘊)</strong> — 몸·느낌·지각·형성작용·의식의 다섯 무더기. 불교는 '나'를 이 다섯 과정의 흐름으로 보며, 그 어디에도 고정된 자아는 없다고 가르친다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>웨스트민스터 소요리문답</strong> — 1647년 작성된 장로교회의 기초 교리 문답. 한국 장로교회가 신앙 교육의 표준으로 삼아 온 문서다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>위빠사나(vipassanā)</strong> — 통찰 명상. 모든 경험이 일어나고 사라지는 실제 모습(무상·고·무아)을 직접 관찰하는 불교의 수행이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>의식 성찰(examen)</strong> — 로욜라의 이냐시오가 남긴 하루 돌아보기. 감사하고, 빛을 구하고, 하루를 호기심으로 되짚고, 자비로 마주하고, 내일의 지향 하나를 정한다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>의정(疑情)</strong> — 화두가 몸으로 느껴지는 절박한 모름으로 뭉친 것. 이 의심 덩어리가 익어 터지는 순간이 견성이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>자애(mettā)</strong> — 멧따. 조건 없는 선의를 일부러 기르고 점점 넓은 원으로 내보내는 명상. '어머니가 하나뿐인 자식을 지키듯'이 그 기준이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>점수(漸修)</strong> — 점차 닦음. 깨달은 뒤에도 습관과 삶이 서서히 다시 지어져 가는 긴 걸음이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>제나와 얼나</strong> — 다석 유영모의 말. 제나는 몸에 매여 태어나고 죽는 나, 얼나는 제나가 죽을 때 솟아오르는 얼의 나다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>주부적 관상(注賦的 觀想)</strong> — infused contemplation. 내 노력으로 만드는 기도가 아니라 하나님 쪽에서 부어 주시는 기도를 가리키는 전통 용어다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>즈냐나</strong> — jñāna. 산스크리트어로 '앎, 지혜'. 참나를 직접 아는 깨달음의 길을 가리킨다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>카르마 요가(karma yoga)</strong> — 행위의 결과에 대한 집착을 내려놓고 일 자체를 수행으로 삼는 길. 바가바드기타의 중심 가르침이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>카르멜(Carmel)</strong> — 가르멜산에서 시작된 가톨릭의 관상 수도회 전통. 테레사와 십자가의 요한이 그 봉우리다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>케노시스</strong> — κένωσις, 자기 비움. 그리스도께서 자기를 비워 종의 형체를 취하셨다는 빌립보서 2장의 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>타력(他力)과 자력(自力)</strong> — 은총, 곧 타자의 힘으로 건너느냐, 제 손으로 닦아 이르느냐의 구분. 아미타불에게 전부를 맡기는 정토불교가 타력의 대표다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>테라와다(Theravada)</strong> — 남방불교. 스리랑카·미얀마·태국에 이어져 온 초기 불교의 흐름으로, 위빠사나 수행의 본고장이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>테오시스</strong> — θέωσις, 신화(神化). 은혜로 하나님의 성품에 참여하게 된다는 동방 교회의 구원 이해다(베드로후서 1:4).</p>
+  <p class="small" style="margin-bottom:10px"><strong>평상심시도(平常心是道)</strong> — "평상의 마음이 도다." 길이 평범한 하루보다 멀리 있지 않다는 선(禪)의 가르침이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>필로칼리아</strong> — Φιλοκαλία. 동방 교회 기도 전통의 문헌을 모은 선집(18세기 편찬). '아름다움을 사랑함'이라는 뜻이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>해탈(解脫)</strong> — 벗어남. 두려움과 갈망의 종살이에서 풀려나는 자유를 이르는 말이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>향심기도(向心祈禱)</strong> — 교회의 오랜 관상 기도를 토머스 키팅과 동료들이 오늘의 방법으로 다듬은 기도로, 센터링 기도라고도 한다. 거룩한 단어 하나에 기대어, 내 안에 계신 하나님의 현존과 활동에 동의하며 머문다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>헤시카즘</strong> — '고요'를 뜻하는 그리스어에서 온 동방 교회의 기도 전통. 예수기도가 그 중심이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>현존(現存)</strong> — presence. 생각의 흐름 밖에서 지금 이 순간에 깨어 있음. 에크하르트 톨레의 중심 가르침이다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>화두(話頭)</strong> — 옛 선사들의 문답(공안 公案)에서 나온, "이뭣고" 같은 살아 있는 물음 하나를 분석하지 않고 붙드는 간화선의 수행. 물음이 의정(疑情)으로 뭉쳐 터질 때까지 든다.</p>
+  <p class="small" style="margin-bottom:10px"><strong>활구(活句)·사구(死句)</strong> — 살아 있는 말과 죽은 말. 의심이 담겨 정말로 묻고 있는 화두가 활구, 의심 없이 그저 외는 화두가 사구다.</p>
+</section>
+</main>
+<footer>
+  <div>집으로 가는 길 · 영적 여정을 위한 안내서 · 2026년 7월 작성, 모든 자료는 출처를 확인함 · 한국어판 · 개인적으로 읽고 길벗들과 나누기 위하여</div>
+</footer>
+<script>
+(function(){
+  var theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  var root = document.documentElement;
+  function apply(){ root.setAttribute('data-theme', theme); document.getElementById('themeToggle').textContent = theme==='dark' ? '☀' : '☾'; }
+  apply();
+  document.getElementById('themeToggle').addEventListener('click', function(){ theme = theme==='dark' ? 'light' : 'dark'; apply(); });
+  var nav = document.getElementById('nav');
+  document.getElementById('navToggle').addEventListener('click', function(){ nav.classList.toggle('open'); });
+  nav.addEventListener('click', function(e){ if(e.target.closest('a')) nav.classList.remove('open'); });
+  var links = nav.querySelectorAll('a[href^="#"]');
+  var map = {};
+  links.forEach(function(l){ map[l.getAttribute('href').slice(1)] = l; });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var l = map[en.target.id]; if(l) l.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('section.part').forEach(function(s){ obs.observe(s); });
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progress').style.width = p + '%';
+  }, {passive:true});
+})();
+</script>
+<script>
+(function(){ /* 인쇄·PDF 저장 시 문답(접힌 항목)을 자동으로 펼칩니다 */
+  function openAll(){ document.querySelectorAll('details:not([open])').forEach(function(d){ d.setAttribute('data-auto-opened',''); d.open = true; }); }
+  function closeBack(){ document.querySelectorAll('details[data-auto-opened]').forEach(function(d){ d.open = false; d.removeAttribute('data-auto-opened'); }); }
+  window.addEventListener('beforeprint', openAll);
+  window.addEventListener('afterprint', closeBack);
+  if (window.matchMedia) { var mq = window.matchMedia('print'); (mq.addEventListener||mq.addListener).call(mq, function(e){ (e.matches?openAll:closeBack)(); }); }
+})();
+</script>
+</body>
+</html>
